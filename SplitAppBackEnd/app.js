@@ -1,21 +1,26 @@
 //Inspo : https://auth0.com/blog/node-js-and-express-tutorial-building-and-securing-restful-apis/
 //expresss library
 const express = require('express');
-//Add headers to api
-const cors = require('cors')
-//turns things in JS objects
-const bodyParser = require('body-parser')
-
-const {startDB, startDatabase} = require('./database/mongo')
-const {insertTrip, getTrip} = require('./database/trips')  
-
+const mongoose = require('mongoose');
+const router = require('./routes');
 const app = express();
-//const router = app.router()
+app.use(express.json());
+app.use(router)
+
 const PORT = 3000;
 
-app.use(bodyParser.json())
-app.use(cors())
 
+mongoose.connect('mongodb+srv://jjohns49:Green2002@cluster0.7d65ffv.mongodb.net/?retryWrites=true&w=majority',
+{
+    useNewURLParser:true,
+    useUnifiedTopology:true
+});
+
+const db = mongoose.connection;
+db.on("error", console.error.bind(console, "connection error: "));
+db.once("open", function(){
+    console.log("Connection to Database was successful")
+})
   
 app.listen(PORT, (error) =>{
     if(!error)
@@ -25,18 +30,3 @@ app.listen(PORT, (error) =>{
     }
 );
 
-startDatabase().then(async ()=>{
-    await insertTrip({"title":"This is a test trip!"})
-})
-
-app.get("/", async(req,res)=>{
-    res.status(200)
-    res.send(await getTrip())
-})
-
-app.post('/', async (req, res) => {
-    const newTrip = req.body;
-    console.log(newTrip)
-    await insertTrip(newTrip);
-    res.send({ message: 'New trip inserted.' });
-  });
