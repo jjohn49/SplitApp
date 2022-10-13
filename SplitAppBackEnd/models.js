@@ -49,7 +49,7 @@ const TransactionSchema = new mongoose.Schema({
     }
 });
 
-const Transactions = mongoose.model("Transaction", TransactionSchema);
+const Transaction = mongoose.model("Transaction", TransactionSchema);
 //new user schema 
 const UserSchema = new mongoose.Schema({
     fName:{
@@ -73,4 +73,8 @@ const UserSchema = new mongoose.Schema({
 
 const User = mongoose.model("User", UserSchema);
 
-module.exports = Trip;
+module.exports = {
+    Trip,
+    User,
+    Transaction
+}
