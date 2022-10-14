@@ -52,6 +52,11 @@ const TransactionSchema = new mongoose.Schema({
 const Transaction = mongoose.model("Transaction", TransactionSchema);
 //new user schema 
 const UserSchema = new mongoose.Schema({
+    _id: {type:String},
+    password:{
+        type:String,
+        required:true,
+    },
     fName:{
         type:String,
         required:true
@@ -59,11 +64,6 @@ const UserSchema = new mongoose.Schema({
     lName:{
         type:String,
         required:true
-    },
-    username:{
-        type:String,
-        required:true,
-        unique:true
     },
     email:{
         type:String,

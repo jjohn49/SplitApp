@@ -1,9 +1,28 @@
 const express = require('express');
+const { Query } = require('mongoose');
 const AppModels = require('./models')
 const app = express();
 
 app.get("/", async (req, res)=>{
     res.send("<h1>Welcome to the SplittApp Backend Page</h1>")
+})
+
+app.post("/signin", async (req, res)=>{
+    username = req.body["_id"];
+    password = req.body["password"];
+
+    try{
+        const user = await AppModels.User.findById(username);
+        
+        if ((await user).password == password){
+            res.status(200).send(user);
+        }
+    }catch(error){
+        console.log(username)
+        console.log(password)
+        res.status(400).send("Username and password do not match");
+    }
+    
 })
 
 //-------------------POST--------------------
