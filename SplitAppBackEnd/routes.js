@@ -2,9 +2,13 @@ const express = require('express');
 const AppModels = require('./models')
 const app = express();
 
+app.get("/", async (req, res)=>{
+    res.send("<h1>Welcome to the SplittApp Backend Page</h1>")
+})
+
 //-------------------POST--------------------
 //Adds a new user to the database 
-app.post("/new-user", async (req,res)=>{
+app.post("/register-user", async (req,res)=>{
     console.log("New user tried to be posted")
     const user = new AppModels.User(req.body);
 
@@ -29,6 +33,40 @@ app.post("/new-transaction", async (req, res) =>{
         res.status(500).send(error)
     }
 })
+
+//-----------------Delete------------------------
+//Deletes a transaction
+app.delete("/delete-transaction", async (req,res)=>{
+    const transactionId = req.query.transaction;
+    try{
+        const transaction = await AppModels.Transaction.findById(transactionId);
+        transaction.delete();
+        res.status(200).send("Transaction " + transactionId + " deleted")
+    }catch(error){
+        res.status(400).send("Error: " + error)
+    }
+})
+
+//-----------------PUT--------------------------
+//updates the chosen transaction
+app.put("/update-transaction", async (req,res)=>{
+    const transactionId = req.query.transaction;
+    try{
+        const transaction = await AppModels.Transaction.findById(transactionId);
+        transaction.userId= req.body["userId"]
+        transaction.trip= req.body["tripId"]
+        transaction.cost= req.body["cost"]
+        transaction.where= req.body["where"]
+        transaction.description= req.body["description"]
+        transaction.save();
+        console.log(transaction)
+        res.status(200).send("Transaction " + transactionId + " has updated")
+    }catch(error){
+        res.status(400).send("Error: " + error)
+        console.log(error)
+    }
+})
+
 
 //----------------POST---------------------------
 //adds a new trip
@@ -55,5 +93,6 @@ app.get("/get-trips", async (req,res)=>{
         res.status(500).send(error)
     }
 })
+
 
 module.exports = app;
