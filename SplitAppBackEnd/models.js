@@ -7,8 +7,7 @@ const TripSchema = new mongoose.Schema({
         required:true
     },
     users: {
-        type:[mongoose.Schema.Types.ObjectId],
-        ref:"User",
+        type:[String],
         required:true
     },
     startDate:{
@@ -26,11 +25,10 @@ const Trip = mongoose.model("Trip",TripSchema);
 const TransactionSchema = new mongoose.Schema({
     //somehow need to make a foreign key right here
     userId:{
-        type: mongoose.Schema.Types.ObjectId,
-        ref:"User",
+        type: String,
         req:true
     },
-    trip:{
+    tripId:{
         type:mongoose.Schema.Types.ObjectId,
         ref:"Trip",
         required:true
