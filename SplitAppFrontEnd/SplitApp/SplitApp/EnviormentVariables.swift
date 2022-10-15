@@ -1,0 +1,16 @@
+//
+//  EnviormentVariables.swift
+//  SplitApp
+//
+//  Created by John Johnston on 10/15/22.
+//
+
+import Foundation
+
+class EnviormentVariables: ObservableObject{
+    @Published var username: String = ""
+    @Published var fName: String = ""
+    @Published var lName: String = ""
+    @Published var email: String = ""
+    @Published var isSignedIn: Bool = false
+}
