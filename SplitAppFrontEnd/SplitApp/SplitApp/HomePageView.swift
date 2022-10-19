@@ -18,7 +18,7 @@ struct HomePageView: View {
     }
 }
 
-struct trip: Identifiable{
+struct Trip: Identifiable{
     var id : String
     var name: String
     var users: [String]
@@ -35,9 +35,9 @@ struct TripsScrollView: View{
                     Text("Nothing :(")
                 }else{
                     ForEach(envVars.trips){ trip in
-                        NavigationLink(destination: TripDetalView(), label: {
+                        NavigationLink(destination: TripDetalView(trip: trip), label: {
                             TripRow(name: trip.name, users: trip.users).foregroundColor(.black)
-                        })
+                        }).cornerRadius(10)
                         
                     }
                 }
@@ -47,8 +47,11 @@ struct TripsScrollView: View{
 }
 
 struct TripDetalView:View{
+    let trip: Trip
     var body: some View{
-        Text("This works")
+        ScrollView{
+            Text("Hello")
+        }.navigationTitle(trip.name)
     }
 }
 
@@ -59,7 +62,14 @@ struct TripRow: View{
         VStack{
             Text(name).bold().font(.title).frame(alignment: .leading)
             Text("with: " + users.joined(separator: ", "))
-        }
+        }.frame(width:350,height: 300).background(.quaternary)
+    }
+}
+
+struct TripRowGraphic: View{
+    let trip: Trip
+    var body: some View{
+        Text("Placeholder")
     }
 }
 
@@ -69,14 +79,4 @@ struct HomePageView_Previews: PreviewProvider {
     }
 }
 
-struct Previews_HomePageView_Previews: PreviewProvider {
-    static var previews: some View {
-        /*@START_MENU_TOKEN@*/Text("Hello, World!")/*@END_MENU_TOKEN@*/
-    }
-}
 
-struct Previews_HomePageView_Previews_2: PreviewProvider {
-    static var previews: some View {
-        /*@START_MENU_TOKEN@*/Text("Hello, World!")/*@END_MENU_TOKEN@*/
-    }
-}
