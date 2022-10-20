@@ -33,10 +33,40 @@ struct TripsScrollView: View{
     var body: some View{
         NavigationView{
             VStack {
-                HorizontalTrips().navigationTitle("Trips").padding()
+                HorizontalTrips(popOver: $isNewTripPopUp).navigationTitle("Trips").padding()
                 
                 
-                Spacer()
+                VStack{
+                    HStack{
+                        Spacer()
+                        Circle().frame(width: 70)
+                        Spacer()
+                        Circle().frame(width: 70)
+                        Spacer()
+                        Circle().frame(width: 70)
+                        Spacer()
+                    }.padding()
+                    
+                    HStack{
+                        Spacer()
+                        Button(action: {
+                            //do something
+                        }, label: {
+                            ZStack{
+                                Circle().stroke().frame(width: 70)
+                                VStack{
+                                    Image(systemName: "car").font(.title)
+                                    Text("Road \nTrip!").font(.caption)
+                                }
+                            }
+                        }).foregroundColor(.gray)
+                        Spacer()
+                        Circle().frame(width: 70)
+                        Spacer()
+                        Circle().frame(width: 70)
+                        Spacer()
+                    }.padding()
+                }
                 Button(action: {
                     isNewTripPopUp = true
                 }, label: {
@@ -73,21 +103,31 @@ struct ChartView:View{
 
 struct HorizontalTrips:View{
     @EnvironmentObject var envVars: EnviormentVariables
+    @Binding var popOver: Bool
     var body: some View{
         ScrollView(.horizontal){
             if(envVars.trips.isEmpty){
-                Text("Nothing :(")
-            }else{
+                Button(action: {
+                    popOver = true
+                }, label: {
+                    Label("Add a Trip", systemImage: "plus").frame(width:350,height: 300, alignment: .center).background(.tint).foregroundColor(.white).bold().font(.title)
+                }).cornerRadius(10).scrollDisabled(true)
+            }
+            else{
                 HStack {
                     ForEach(envVars.trips){ trip in
                         NavigationLink(destination: TripDetalView(trip: trip), label: {
                             TripRow(name: trip.name, users: trip.users).foregroundColor(.black)
                         }).cornerRadius(10)
-                        
                     }
+                    Button(action: {
+                        popOver = true
+                    }, label: {
+                        Label("Add a Trip", systemImage: "plus").frame(width:300,height: 300).background(.tint).foregroundColor(.white).bold().font(.title)
+                    }).cornerRadius(10)
                 }
             }
-        }
+        }.scrollDismissesKeyboard(.automatic)
     }
 }
 
