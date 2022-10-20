@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Charts
 
 struct HomePageView: View {
     @StateObject var envVars = EnviormentVariables()
@@ -28,12 +29,56 @@ struct Trip: Identifiable{
 
 struct TripsScrollView: View{
     @EnvironmentObject var envVars: EnviormentVariables
+    @State var isNewTripPopUp: Bool = false
     var body: some View{
         NavigationView{
-            ScrollView{
-                if(envVars.trips.isEmpty){
-                    Text("Nothing :(")
-                }else{
+            VStack {
+                HorizontalTrips().navigationTitle("Trips").padding()
+                
+                
+                Spacer()
+                Button(action: {
+                    isNewTripPopUp = true
+                }, label: {
+                    Text("Make a new Trip").padding().frame(width: 350).background(.tint).foregroundColor(.white).bold()
+                }).cornerRadius(10)
+                Spacer()
+            }
+        }.popover(isPresented: $isNewTripPopUp, content: {
+            AddTripView()
+        })
+    }
+}
+
+struct AddTripView:View{
+    @State var tripName: String = ""
+    @State var users = []
+    @State var startDate: Date = Date.now
+    @State var endDate: Date = Date.now
+    var body: some View{
+        VStack{
+            CustomTextField(width: 300, messageForTextfield: "Trip Name", bindingVar: $tripName)
+        }
+    }
+}
+
+struct ChartView:View{
+    var body: some View{
+        Chart{
+            BarMark(x: .value("", 0), y: .value("", 100), width: 40)
+            BarMark(x: .value("", 2), y: .value("", 1))
+        }
+    }
+}
+
+struct HorizontalTrips:View{
+    @EnvironmentObject var envVars: EnviormentVariables
+    var body: some View{
+        ScrollView(.horizontal){
+            if(envVars.trips.isEmpty){
+                Text("Nothing :(")
+            }else{
+                HStack {
                     ForEach(envVars.trips){ trip in
                         NavigationLink(destination: TripDetalView(trip: trip), label: {
                             TripRow(name: trip.name, users: trip.users).foregroundColor(.black)
@@ -41,7 +86,7 @@ struct TripsScrollView: View{
                         
                     }
                 }
-            }.navigationTitle("Trips")
+            }
         }
     }
 }
@@ -62,7 +107,7 @@ struct TripRow: View{
         VStack{
             Text(name).bold().font(.title).frame(alignment: .leading)
             Text("with: " + users.joined(separator: ", "))
-        }.frame(width:350,height: 300).background(.quaternary)
+        }.frame(width:300,height: 300).background(.quaternary)
     }
 }
 

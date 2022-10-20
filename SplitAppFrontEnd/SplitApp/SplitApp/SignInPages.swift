@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+
 struct FirstPageView:View{
     var body:some View{
         VStack {
@@ -25,7 +26,7 @@ struct SignInView: View{
     @State var createAccountPopUp: Bool = false
     var body: some View{
         VStack{
-            CustomTextField(messageForTextfield: "username", bindingVar: $username)
+            CustomTextField(width: 250,messageForTextfield: "username", bindingVar: $username)
             HStack {
                 SecureField("password", text: $password)
                 Button(action: {
@@ -62,12 +63,12 @@ struct CreateAccountView: View{
     var body: some View{
         VStack{
             Text("Create an Account").font(.title).padding()
-            CustomTextField(messageForTextfield: "username", bindingVar: $username).padding()
-            CustomTextField(messageForTextfield: "password", bindingVar: $password).padding()
-            CustomTextField(messageForTextfield: "confirm password", bindingVar: $confirmPassword).padding()
-            CustomTextField(messageForTextfield: "first name", bindingVar: $fName).padding()
-            CustomTextField(messageForTextfield: "last name", bindingVar: $lName).padding()
-            CustomTextField(messageForTextfield: "email", bindingVar: $email).padding()
+            CustomTextField(width: 250, messageForTextfield: "username", bindingVar: $username).padding()
+            CustomTextField(width: 250, messageForTextfield: "password", bindingVar: $password).padding()
+            CustomTextField(width: 250, messageForTextfield: "confirm password", bindingVar: $confirmPassword).padding()
+            CustomTextField(width: 250, messageForTextfield: "first name", bindingVar: $fName).padding()
+            CustomTextField(width: 250, messageForTextfield: "last name", bindingVar: $lName).padding()
+            CustomTextField(width: 250, messageForTextfield: "email", bindingVar: $email).padding()
             Button(action: {
                 //verify that the password matches and that the username is new and everything is not null
             }, label: {
@@ -78,6 +79,7 @@ struct CreateAccountView: View{
 }
 
 struct CustomTextField: View{
+    var width: Int
     var messageForTextfield: String
     @Binding var bindingVar: String
     var body: some View{
@@ -89,7 +91,7 @@ struct CustomTextField: View{
                             Image(systemName: "multiply.circle.fill")
                                 .foregroundColor(.secondary)
                         }
-        }.frame(width: 250, alignment: .center).padding(EdgeInsets(top: 10, leading: 15, bottom: 10, trailing: 15)).background(.quaternary).cornerRadius(10)
+        }.frame(width: CGFloat(width), alignment: .center).padding(EdgeInsets(top: 10, leading: 15, bottom: 10, trailing: 15)).background(.quaternary).cornerRadius(10)
     }
 }
 struct SignInPages_Previews: PreviewProvider {
