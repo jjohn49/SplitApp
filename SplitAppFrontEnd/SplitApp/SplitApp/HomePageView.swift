@@ -29,54 +29,88 @@ struct Trip: Identifiable{
 
 struct TripsScrollView: View{
     @EnvironmentObject var envVars: EnviormentVariables
+    //made vars for each because it was less complicated then dealing with popovers
     @State var isNewTripPopUp: Bool = false
+    
     var body: some View{
         NavigationView{
             VStack {
                 HorizontalTrips(popOver: $isNewTripPopUp).navigationTitle("Trips").padding()
                 
-                
-                VStack{
-                    HStack{
-                        Spacer()
-                        Circle().frame(width: 70)
-                        Spacer()
-                        Circle().frame(width: 70)
-                        Spacer()
-                        Circle().frame(width: 70)
-                        Spacer()
-                    }.padding()
-                    
-                    HStack{
-                        Spacer()
-                        Button(action: {
-                            //do something
-                        }, label: {
-                            ZStack{
-                                Circle().stroke().frame(width: 70)
-                                VStack{
-                                    Image(systemName: "car").font(.title)
-                                    Text("Road \nTrip!").font(.caption)
-                                }
-                            }
-                        }).foregroundColor(.gray)
-                        Spacer()
-                        Circle().frame(width: 70)
-                        Spacer()
-                        Circle().frame(width: 70)
-                        Spacer()
-                    }.padding()
-                }
+                AllQuickActionButtons()
                 Button(action: {
                     isNewTripPopUp = true
                 }, label: {
                     Text("Make a new Trip").padding().frame(width: 350).background(.tint).foregroundColor(.white).bold()
                 }).cornerRadius(10)
                 Spacer()
-            }
-        }.popover(isPresented: $isNewTripPopUp, content: {
-            AddTripView()
+            }.popover(isPresented: $isNewTripPopUp, content: {
+                AddTripView()
+            })
+        }
+    }
+}
+
+struct AllQuickActionButtons:View{
+    //This was easier than making one popover with conditions
+    //multiple popovers with different binding values
+    @State var isNightOut: Bool = false
+    @State var isBar: Bool = false
+    @State var isAdventure: Bool = false
+    @State var isRoadTrip: Bool = false
+    @State var isBusiness: Bool = false
+    @State var isVacation: Bool = false
+    var body: some View{
+        VStack{
+            HStack{
+                Spacer()
+                QuickActionButton(isNewTripPopUp: $isNightOut, emoji: "🍸", message: "Night\nOut")
+                Spacer()
+                QuickActionButton(isNewTripPopUp: $isBar, emoji: "🍻", message: "Bar")
+                Spacer()
+                QuickActionButton(isNewTripPopUp: $isAdventure, emoji: "🤠", message: "Adventure")
+                Spacer()
+            }.padding()
+            
+            HStack{
+                Spacer()
+                QuickActionButton(isNewTripPopUp: $isRoadTrip, emoji: "🚘", message: "Road\nTrip!")
+                Spacer()
+                QuickActionButton(isNewTripPopUp: $isBusiness, emoji: "💼", message: "Business\nTrip")
+                Spacer()
+                QuickActionButton(isNewTripPopUp: $isVacation, emoji: "🏖", message: "Vacation")
+                Spacer()
+            }.padding()
+        }
+    }
+}
+
+struct QuickActionButton:View{
+    @Binding var isNewTripPopUp: Bool
+    let emoji: String
+    let message: String
+    var body: some View{
+        Button(action: {
+            isNewTripPopUp = true
+        }, label: {
+            ButtonStyleInQuickActionButton(emoji: emoji, message: message)
+        }).foregroundColor(.gray).popover(isPresented: $isNewTripPopUp, content: {
+            AddTripView(tripName: message)
         })
+
+    }
+}
+struct ButtonStyleInQuickActionButton:View{
+    let emoji: String
+    let message: String
+    var body: some View{
+        ZStack{
+            Circle().stroke().frame(width: 70)
+            VStack{
+                Text(emoji).font(.title)
+                Text(message).font(.caption)
+            }
+        }
     }
 }
 
@@ -87,7 +121,8 @@ struct AddTripView:View{
     @State var endDate: Date = Date.now
     var body: some View{
         VStack{
-            CustomTextField(width: 300, messageForTextfield: "Trip Name", bindingVar: $tripName)
+            TextField(tripName, text: $tripName).font(.largeTitle).bold().padding()
+            Spacer()
         }
     }
 }

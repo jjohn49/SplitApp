@@ -8,7 +8,7 @@
 import SwiftUI
 
 
-struct FirstPageView:View{
+struct SignInPagesView:View{
     var body:some View{
         VStack {
             Spacer().frame(height: 50)
@@ -96,6 +96,6 @@ struct CustomTextField: View{
 }
 struct SignInPages_Previews: PreviewProvider {
     static var previews: some View {
-        FirstPageView()
+        SignInPagesView()
     }
 }
