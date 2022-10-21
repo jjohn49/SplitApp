@@ -14,6 +14,6 @@ class EnviormentVariables: ObservableObject{
     @Published var email: String = ""
     @Published var isSignedIn: Bool = false
     @Published var trips: [Trip] = [
-        
+        Trip(id: "1", name: "Trip", users: ["me"], startDate: Date.now, endDate: Date.now)
     ]
 }

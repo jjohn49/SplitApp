@@ -86,11 +86,10 @@ struct CustomTextField: View{
         HStack {
             TextField(messageForTextfield, text: $bindingVar).autocorrectionDisabled().autocapitalization(.none)
             Button(action: {
-                            bindingVar = ""
-                        }) {
-                            Image(systemName: "multiply.circle.fill")
-                                .foregroundColor(.secondary)
-                        }
+                bindingVar = ""
+            }) {
+                Image(systemName: "multiply.circle.fill").foregroundColor(.secondary)
+            }
         }.frame(width: CGFloat(width), alignment: .center).padding(EdgeInsets(top: 10, leading: 15, bottom: 10, trailing: 15)).background(.quaternary).cornerRadius(10)
     }
 }
