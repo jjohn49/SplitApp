@@ -18,6 +18,7 @@ const TripSchema = new mongoose.Schema({
         type:Date,
         required:false
     }
+    //maybe add something like is completed so we can seperate current trips from past trips
 });
 
 const Trip = mongoose.model("Trip",TripSchema);

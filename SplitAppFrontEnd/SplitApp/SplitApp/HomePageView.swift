@@ -12,7 +12,7 @@ struct HomePageView: View {
     @StateObject var envVars = EnviormentVariables()
     var body: some View {
         TabView{
-            TripsScrollView().tabItem{
+            TripsView().tabItem{
                 Label("", systemImage: "airplane")
             }
         }.environmentObject(envVars)
@@ -27,47 +27,96 @@ struct Trip: Identifiable{
     var endDate: Date 
 }
 
-struct TripsScrollView: View{
+struct TripsView: View{
     @EnvironmentObject var envVars: EnviormentVariables
-    //made vars for each because it was less complicated then dealing with popovers
+    var views: [String] = ["Current Trips", "All Trips"]
+    @State var view: String = "Current Trip"
     @State var isNewTripPopUp: Bool = false
-    
     var body: some View{
-        NavigationView{
+        NavigationView {
             VStack {
-                HorizontalTrips(popOver: $isNewTripPopUp).padding()
+                if(view==views[1]){
+                    AllTripsView(isNewTripPopUp: $isNewTripPopUp,trips: envVars.trips)
+                }else{
+                    TripsScrollView(isNewTripPopUp: $isNewTripPopUp)
+                }
                 
-                AllQuickActionButtons()
-                Button(action: {
-                    isNewTripPopUp = true
-                }, label: {
-                    Text("Make a new Trip").padding().frame(width: 350).background(.tint).foregroundColor(.white).bold()
-                }).cornerRadius(10)
-                Spacer()
-            }.popover(isPresented: $isNewTripPopUp, content: {
+            }.navigationTitle("Trips").toolbar(content: {
+                HStack {
+                    Picker("Menu", selection: $view, content: {
+                        ForEach(views, id: \.self, content: { view in
+                            Text(view)
+                        })
+                    })
+                    Menu(content: {
+                        Button(action: {
+                            
+                        }, label: {
+                            Text("Account")
+                        })
+                        Button(action: {
+                            
+                        }, label: {
+                            Text("Settings")
+                        })
+                    }, label: {
+                        ZStack {
+                            Image(systemName: "person.crop.circle").font(.largeTitle).bold()
+                        }
+                    })
+                }
+            }).popover(isPresented: $isNewTripPopUp, content: {
                 ZStack{
                     AddTripView()
                 }
-                
-            }).navigationTitle("Trips").toolbar(content: {
-                Menu(content: {
-                    Button(action: {
-                        
-                    }, label: {
-                        Text("Account")
-                    })
-                    Button(action: {
-                        
-                    }, label: {
-                        Text("Settings")
-                    })
-                }, label: {
-                    ZStack {
-                        Image(systemName: "person.crop.circle").font(.largeTitle).bold()
-                    }
-                })
             })
         }
+    }
+}
+
+struct AllTripsView:View{
+    @Binding var isNewTripPopUp:Bool
+    var trips: [Trip]
+    var twoColumnGrid = [GridItem(.flexible()), GridItem(.flexible())]
+    var body: some View{
+        ScrollView{
+            LazyVGrid(columns: twoColumnGrid){
+                ForEach(0..<trips.count) { x in
+                    NavigationLink(destination: {
+                        TripDetalView(trip: trips[x])
+                    }, label: {
+                        TripRow(trip: trips[x],width: 175, height: 175).cornerRadius(10)
+                    })
+                }
+                
+                Button(action: {
+                    isNewTripPopUp = true
+                }, label: {
+                    Label("Add a Trip", systemImage: "plus").frame(width:175,height: 175, alignment: .center).background(.tint).foregroundColor(.white).bold().font(.title3)
+                }).cornerRadius(10)
+                
+            }
+        }.padding()
+    }
+}
+
+struct TripsScrollView: View{
+    @EnvironmentObject var envVars: EnviormentVariables
+    //made vars for each because it was less complicated then dealing with popovers
+    @Binding var isNewTripPopUp: Bool
+    var body: some View{
+        VStack {
+            HorizontalTrips(popOver: $isNewTripPopUp).padding()
+            
+            AllQuickActionButtons()
+            Button(action: {
+                isNewTripPopUp = true
+            }, label: {
+                Text("Make a new Trip").padding().frame(width: 350).background(.tint).foregroundColor(.white).bold()
+            }).cornerRadius(10)
+            Spacer()
+        }
+        
     }
 }
 
@@ -128,7 +177,7 @@ struct ButtonStyleInQuickActionButton:View{
             Circle().frame(width: 100, height: 70).foregroundColor(.blue)
             Circle().stroke(lineWidth: 3).frame(width: 100, height: 70)
             VStack{
-                Text(emoji).font(.title)
+                Text(emoji).font(.title2)
                 Text(message).font(.subheadline)
             }.foregroundColor(.white)
         }
@@ -143,8 +192,8 @@ struct AddTripView:View{
     var body: some View{
         VStack{
             InputTripName(tripName: $tripName)
-            
             Spacer()
+            
         }
     }
 }
@@ -196,14 +245,14 @@ struct HorizontalTrips:View{
                 }).cornerRadius(10).scrollDisabled(true)
             }else if(envVars.trips.count == 1){
                 NavigationLink(destination: TripDetalView(trip: envVars.trips[0]), label: {
-                    TripRow(name: envVars.trips[0].name, users: envVars.trips[0].users, width: 350).foregroundColor(.black)
+                    TripRow(trip: envVars.trips[0], width: 350).foregroundColor(.black)
                 }).cornerRadius(10)
             }
             else{
                 HStack {
                     ForEach(envVars.trips){ trip in
                         NavigationLink(destination: TripDetalView(trip: trip), label: {
-                            TripRow(name: trip.name, users: trip.users).foregroundColor(.black)
+                            TripRow(trip: trip).foregroundColor(.black)
                         }).cornerRadius(10)
                     }
                 }
@@ -222,14 +271,13 @@ struct TripDetalView:View{
 }
 
 struct TripRow: View{
-    var name: String
-    var users:[String]
+    let trip: Trip
     var width: CGFloat = 300
     var height: CGFloat = 300
     var body: some View{
         VStack{
-            Text(name).bold().font(.title).frame(alignment: .leading)
-            Text("with: " + users.joined(separator: ", "))
+            Text(trip.name).bold().font(.title).frame(alignment: .leading)
+            Text("with: " + trip.users.joined(separator: ", "))
         }.frame(width:width,height: height).background(.quaternary)
     }
 }
