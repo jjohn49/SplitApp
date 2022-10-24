@@ -15,17 +15,11 @@ struct HomePageView: View {
             TripsView().tabItem{
                 Label("", systemImage: "airplane")
             }
-        }.environmentObject(envVars)
+        }.environmentObject(envVars).onAppear(perform: envVars.getAllTrips)
     }
 }
 
-struct Trip: Identifiable{
-    var id : String
-    var name: String
-    var users: [String]
-    var startDate: Date
-    var endDate: Date 
-}
+
 
 struct TripsView: View{
     @EnvironmentObject var envVars: EnviormentVariables

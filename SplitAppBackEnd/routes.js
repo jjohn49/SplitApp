@@ -74,6 +74,15 @@ app.get("/trips-for-user", async (req,res)=>{
     res.send(query)
 })
 
+//Better version of getting tris for user
+//more secure
+app.post("/trips-for-user", async (req,res)=>{
+    const reqUserId = req.body["userId"];
+    const query = await AppModels.Trip.find({users: reqUserId}).exec()
+    console.log(query)
+    res.send(query)
+})
+
 //----------------POST---------------------------
 //Adds new transaction to database
 app.post("/new-transaction", async (req, res) =>{
