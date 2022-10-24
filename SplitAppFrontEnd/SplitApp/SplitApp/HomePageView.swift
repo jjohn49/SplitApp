@@ -13,9 +13,9 @@ struct HomePageView: View {
     var body: some View {
         TabView{
             TripsView().tabItem{
-                Label("", systemImage: "airplane")
+                Label("", systemImage: "airplane").font(.title2)
             }
-        }.environmentObject(envVars).onAppear(perform: envVars.getAllTrips)
+        }.environmentObject(envVars).onAppear(perform: envVars.getAllTripsForUser)
     }
 }
 
@@ -219,10 +219,13 @@ struct InputTripName: View{
 
 struct ChartView:View{
     var body: some View{
-        Chart{
-            BarMark(x: .value("", 0), y: .value("", 100), width: 40)
-            BarMark(x: .value("", 2), y: .value("", 1))
-        }
+        ScrollView(.horizontal){
+            Chart{
+                LineMark(x: .value("", 1), y: .value("", 1))
+                LineMark(x: .value("", 2), y: .value("", 4))
+                LineMark(x: .value("", 5), y: .value("", 3))
+            }.frame(width: 700)
+        }.frame(width: 375)
     }
 }
 
@@ -259,8 +262,27 @@ struct TripDetalView:View{
     let trip: Trip
     var body: some View{
         ScrollView{
-            Text("Hello")
+            ChartView().frame(width: 400,height: 400)
+            Text("Transactions").font(.title).bold()
+            List{
+                TransactionRow(transaction: Transaction(_id: ["1":"1"], userId: "jjohns49", tripId: ["trip":"trip"], cost: 100))
+                TransactionRow(transaction: Transaction(_id: ["1":"1"], userId: "jjohns49", tripId: ["trip":"trip"], cost: 100))
+                TransactionRow(transaction: Transaction(_id: ["1":"1"], userId: "jjohns49", tripId: ["trip":"trip"], cost: 100))
+                TransactionRow(transaction: Transaction(_id: ["1":"1"], userId: "jjohns49", tripId: ["trip":"trip"], cost: 100))
+                TransactionRow(transaction: Transaction(_id: ["1":"1"], userId: "jjohns49", tripId: ["trip":"trip"], cost: 100))
+                TransactionRow(transaction: Transaction(_id: ["1":"1"], userId: "jjohns49", tripId: ["trip":"trip"], cost: 100))
+            }.frame(height: 400)
         }.navigationTitle(trip.name)
+    }
+}
+
+struct TransactionRow:View{
+    let transaction: Transaction
+    var body: some View{
+        VStack{
+            Text("$\(transaction.cost)").foregroundColor(.black)
+            Text("hi")
+        }
     }
 }
 
@@ -286,6 +308,14 @@ struct TripRowGraphic: View{
 struct HomePageView_Previews: PreviewProvider {
     static var previews: some View {
         HomePageView()
+    }
+}
+
+struct TripDetailView_Previews: PreviewProvider {
+    static var previews: some View {
+        NavigationView {
+            TripDetalView(trip: Trip(_id: "trip", name: "trip", users: ["jjohns49"], startDate: "01-02-22", endDate: "01-22-22"))
+        }
     }
 }
 
