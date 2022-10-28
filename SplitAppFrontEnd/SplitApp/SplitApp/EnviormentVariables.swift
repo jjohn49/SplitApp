@@ -38,7 +38,6 @@ struct Transaction: Codable{
 }
 
 struct Trip: Identifiable, Codable{
-
     var id = UUID()
     let _id : String
     var name: String
@@ -58,6 +57,8 @@ struct Trip: Identifiable, Codable{
 
 class EnviormentVariables: ObservableObject{
     @Published var username: String = "jjohns49"
+    //Use this for password verification
+    //@Published var jsToken = null
     @Published var fName: String = ""
     @Published var lName: String = ""
     @Published var email: String = ""
@@ -119,5 +120,10 @@ class EnviormentVariables: ObservableObject{
         task.resume()
     }
     
+    func getTransactionsFortrip(){
+        let trip: Trip
+        
+        //add the api call for the endpoint that corresponsds with getTransactionsForTrip
+    }
     
 }

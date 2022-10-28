@@ -101,8 +101,9 @@ struct TripsScrollView: View{
     var body: some View{
         VStack {
             HorizontalTrips(popOver: $isNewTripPopUp).padding()
-            
+            Spacer()
             AllQuickActionButtons()
+            Spacer()
             Button(action: {
                 isNewTripPopUp = true
             }, label: {
@@ -217,15 +218,21 @@ struct InputTripName: View{
     }
 }
 
+
+//https://www.appcoda.com/swiftui-line-charts/
 struct ChartView:View{
     var body: some View{
-        ScrollView(.horizontal){
-            Chart{
-                LineMark(x: .value("", 1), y: .value("", 1))
-                LineMark(x: .value("", 2), y: .value("", 4))
-                LineMark(x: .value("", 5), y: .value("", 3))
-            }.frame(width: 700)
-        }.frame(width: 375)
+        
+        Chart{
+            LineMark(x: .value("Date", "1/1"), y: .value("", 1)).symbol(.circle)
+            LineMark(x: .value("Date", "1/5"), y: .value("", 4))
+            LineMark(x: .value("Date", "1/8"), y: .value("", 3))
+            LineMark(x: .value("Date", "1/10"), y: .value("", 500))
+            LineMark(x: .value("Date", "1/11"), y: .value("", 800))
+            LineMark(x: .value("Date", "1/13"), y: .value("", 300))
+                
+        }.frame(width: 375, height: 200)
+        
     }
 }
 
@@ -238,11 +245,11 @@ struct HorizontalTrips:View{
                 Button(action: {
                     popOver = true
                 }, label: {
-                    Label("Add a Trip", systemImage: "plus").frame(width:350,height: 300, alignment: .center).background(.tint).foregroundColor(.white).bold().font(.title)
+                    Label("Add a Trip", systemImage: "plus").frame(width:350,height: 275, alignment: .center).background(.tint).foregroundColor(.white).bold().font(.title)
                 }).cornerRadius(10).scrollDisabled(true)
             }else if(envVars.trips.count == 1){
                 NavigationLink(destination: TripDetalView(trip: envVars.trips[0]), label: {
-                    TripRow(trip: envVars.trips[0], width: 350).foregroundColor(.black)
+                    TripRow(trip: envVars.trips[0], width: 350, height: 275).foregroundColor(.black)
                 }).cornerRadius(10)
             }
             else{
@@ -262,7 +269,7 @@ struct TripDetalView:View{
     let trip: Trip
     var body: some View{
         ScrollView{
-            ChartView().frame(width: 400,height: 400)
+            ChartView().frame(width: 400,height: 200)
             Text("Transactions").font(.title).bold()
             List{
                 TransactionRow(transaction: Transaction(_id: ["1":"1"], userId: "jjohns49", tripId: ["trip":"trip"], cost: 100))
