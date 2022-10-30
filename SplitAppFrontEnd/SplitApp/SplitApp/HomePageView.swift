@@ -266,20 +266,21 @@ struct HorizontalTrips:View{
 }
 
 struct TripDetalView:View{
+    @EnvironmentObject var envVar: EnviormentVariables
     let trip: Trip
+    @State var transactions: [Transaction] = []
     var body: some View{
         ScrollView{
             ChartView().frame(width: 400,height: 200)
             Text("Transactions").font(.title).bold()
             List{
-                TransactionRow(transaction: Transaction(_id: ["1":"1"], userId: "jjohns49", tripId: ["trip":"trip"], cost: 100))
-                TransactionRow(transaction: Transaction(_id: ["1":"1"], userId: "jjohns49", tripId: ["trip":"trip"], cost: 100))
-                TransactionRow(transaction: Transaction(_id: ["1":"1"], userId: "jjohns49", tripId: ["trip":"trip"], cost: 100))
-                TransactionRow(transaction: Transaction(_id: ["1":"1"], userId: "jjohns49", tripId: ["trip":"trip"], cost: 100))
-                TransactionRow(transaction: Transaction(_id: ["1":"1"], userId: "jjohns49", tripId: ["trip":"trip"], cost: 100))
-                TransactionRow(transaction: Transaction(_id: ["1":"1"], userId: "jjohns49", tripId: ["trip":"trip"], cost: 100))
+                ForEach(transactions) { transaction in
+                    TransactionRow(transaction: transaction)
+                }
             }.frame(height: 400)
-        }.navigationTitle(trip.name)
+        }.navigationTitle(trip.name).onAppear(perform:{
+            self.transactions = envVar.getTransactionsFortrip(trip: trip)
+        } )
     }
 }
 

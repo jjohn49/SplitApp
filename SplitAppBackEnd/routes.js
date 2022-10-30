@@ -147,7 +147,7 @@ app.post("/new-trip", async (req,res)=>{
 
 //--------------------GET----------------------------
 //gets trips for certain transaction
-app.get("/transactions-for-trip", async (req,res)=>{
+app.post("/transactions-for-trip", async (req,res)=>{
     const reqTripId = req.query.trip;
     const query = await AppModels.Transaction.find({tripId: reqTripId}).exec()
     console.log(query)

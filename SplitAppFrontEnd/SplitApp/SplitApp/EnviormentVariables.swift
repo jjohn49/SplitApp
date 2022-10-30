@@ -23,8 +23,9 @@ struct Users: Codable{
     }
 }
 
-struct Transaction: Codable{
-    let _id: [String:String]
+struct Transaction: Codable, Identifiable{
+    let id = UUID()
+    let _id: Any
     let userId: String
     let tripId: [String:String]
     let cost: Int
@@ -120,8 +121,54 @@ class EnviormentVariables: ObservableObject{
         task.resume()
     }
     
-    func getTransactionsFortrip(){
-        let trip: Trip
+    func getTransactionsFortrip(trip:Trip)->[Transaction]{
+        
+        var transactions:[Transaction] = []
+        
+        guard let url = URL(string: "http:localhost:3000/transactions-for-trip?trip=\(trip._id)") else{
+            return []
+        }
+        
+        
+        //converts body to json to send in req body
+    
+        var urlRequest = URLRequest(url: url)
+        urlRequest.httpMethod = "POST"
+        //urlRequest.addValue("application/json", forHTTPHeaderField: "Content-Type")
+
+        
+        let task = URLSession.shared.dataTask(with: urlRequest){
+            data, response, error in
+            
+            
+            if let error = error{
+                print("Request error: ", error)
+                return
+            }
+        
+            guard let response = response as? HTTPURLResponse else {
+                return
+            }
+            
+            guard let data = data else{
+                return
+            }
+            
+            DispatchQueue.main.async {
+                do{
+                    let decodedTrips = try JSONDecoder().decode([Transaction].self, from: data)
+                    transactions = decodedTrips
+                    print(transactions)
+                }catch let error{
+                    print(error)
+                }
+            }
+            
+        }
+
+        task.resume()
+        
+        return transactions
         
         //add the api call for the endpoint that corresponsds with getTransactionsForTrip
     }
