@@ -38,6 +38,10 @@ const TransactionSchema = new mongoose.Schema({
         type:Number,
         required:true
     },
+    date:{
+        type:Date,
+        required:true
+    },
     where:{
         type:String,
         required:false

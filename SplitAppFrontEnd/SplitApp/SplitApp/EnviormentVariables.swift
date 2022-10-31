@@ -25,16 +25,19 @@ struct Users: Codable{
 
 struct Transaction: Codable, Identifiable{
     let id = UUID()
-    let _id: Any
+    let _id: String
     let userId: String
-    let tripId: [String:String]
-    let cost: Int
+    let tripId: String
+    let cost: Double
+    let date: String
     
     enum CodingKeys: String, CodingKey{
         case _id
         case userId
         case tripId
         case cost
+        case date
+        
     }
 }
 
@@ -57,7 +60,7 @@ struct Trip: Identifiable, Codable{
 
 
 class EnviormentVariables: ObservableObject{
-    @Published var username: String = "jjohns49"
+    @Published var username: String = "mmoran"
     //Use this for password verification
     //@Published var jsToken = null
     @Published var fName: String = ""
@@ -121,14 +124,12 @@ class EnviormentVariables: ObservableObject{
         task.resume()
     }
     
-    func getTransactionsFortrip(trip:Trip)->[Transaction]{
-        
-        var transactions:[Transaction] = []
+    //works
+    func getTransactionsFortrip(trip:Trip) async throws -> [Transaction]{
         
         guard let url = URL(string: "http:localhost:3000/transactions-for-trip?trip=\(trip._id)") else{
             return []
         }
-        
         
         //converts body to json to send in req body
     
@@ -137,38 +138,10 @@ class EnviormentVariables: ObservableObject{
         //urlRequest.addValue("application/json", forHTTPHeaderField: "Content-Type")
 
         
-        let task = URLSession.shared.dataTask(with: urlRequest){
-            data, response, error in
-            
-            
-            if let error = error{
-                print("Request error: ", error)
-                return
-            }
+        let (data, _) = try await URLSession.shared.data(for: urlRequest)
+        let decodedTrips = try JSONDecoder().decode([Transaction].self, from: data)
         
-            guard let response = response as? HTTPURLResponse else {
-                return
-            }
-            
-            guard let data = data else{
-                return
-            }
-            
-            DispatchQueue.main.async {
-                do{
-                    let decodedTrips = try JSONDecoder().decode([Transaction].self, from: data)
-                    transactions = decodedTrips
-                    print(transactions)
-                }catch let error{
-                    print(error)
-                }
-            }
-            
-        }
-
-        task.resume()
-        
-        return transactions
+        return decodedTrips
         
         //add the api call for the endpoint that corresponsds with getTransactionsForTrip
     }

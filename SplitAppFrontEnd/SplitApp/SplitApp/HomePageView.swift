@@ -221,16 +221,13 @@ struct InputTripName: View{
 
 //https://www.appcoda.com/swiftui-line-charts/
 struct ChartView:View{
+    @State var cost: Double = 0
+    let transactions: [Transaction]
     var body: some View{
-        
         Chart{
-            LineMark(x: .value("Date", "1/1"), y: .value("", 1)).symbol(.circle)
-            LineMark(x: .value("Date", "1/5"), y: .value("", 4))
-            LineMark(x: .value("Date", "1/8"), y: .value("", 3))
-            LineMark(x: .value("Date", "1/10"), y: .value("", 500))
-            LineMark(x: .value("Date", "1/11"), y: .value("", 800))
-            LineMark(x: .value("Date", "1/13"), y: .value("", 300))
-                
+            ForEach(transactions) { transaction in
+                LineMark(x: .value("Date", transaction.date), y: .value("cost", Int(cost)))
+            }
         }.frame(width: 375, height: 200)
         
     }
@@ -267,20 +264,31 @@ struct HorizontalTrips:View{
 
 struct TripDetalView:View{
     @EnvironmentObject var envVar: EnviormentVariables
+    
     let trip: Trip
     @State var transactions: [Transaction] = []
     var body: some View{
         ScrollView{
-            ChartView().frame(width: 400,height: 200)
+            ChartView(transactions: transactions).frame(width: 400,height: 200)
             Text("Transactions").font(.title).bold()
             List{
                 ForEach(transactions) { transaction in
                     TransactionRow(transaction: transaction)
                 }
+                
             }.frame(height: 400)
-        }.navigationTitle(trip.name).onAppear(perform:{
-            self.transactions = envVar.getTransactionsFortrip(trip: trip)
-        } )
+        }.navigationTitle(trip.name).onAppear(perform: {
+            Task{
+                do{
+                    self.transactions = try await envVar.getTransactionsFortrip(trip: trip)
+                    print(self.transactions)
+                }catch let error{
+                    print(error)
+                }
+                
+                
+            }
+        })
     }
 }
 
