@@ -219,18 +219,32 @@ struct InputTripName: View{
 }
 
 
+
+
 //https://www.appcoda.com/swiftui-line-charts/
 struct ChartView:View{
-    @State var cost: Double = 0
     let transactions: [Transaction]
     var body: some View{
         Chart{
             ForEach(transactions) { transaction in
-                LineMark(x: .value("Date", transaction.date), y: .value("cost", Int(cost)))
+                LineMark(x: .value("Date", transaction.date), y: .value("Cost", getCost(transac: transaction)))
             }
         }.frame(width: 375, height: 200)
+    }
+    
+    func getCost(transac: Transaction) -> Int{
+        var counter: Int = 0
+        var cost: Double = 0
+        while transac._id == transactions[counter]._id {
+            cost += transactions[counter].cost
+            counter += 1
+        }
+        cost += transactions[counter].cost
+        return Int(cost)
         
     }
+    
+    
 }
 
 struct HorizontalTrips:View{
@@ -314,12 +328,6 @@ struct TripRow: View{
     }
 }
 
-struct TripRowGraphic: View{
-    let trip: Trip
-    var body: some View{
-        Text("Placeholder")
-    }
-}
 
 struct HomePageView_Previews: PreviewProvider {
     static var previews: some View {
@@ -327,12 +335,5 @@ struct HomePageView_Previews: PreviewProvider {
     }
 }
 
-struct TripDetailView_Previews: PreviewProvider {
-    static var previews: some View {
-        NavigationView {
-            TripDetalView(trip: Trip(_id: "trip", name: "trip", users: ["jjohns49"], startDate: "01-02-22", endDate: "01-22-22"))
-        }
-    }
-}
 
 
