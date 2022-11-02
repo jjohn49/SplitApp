@@ -227,21 +227,25 @@ struct ChartView:View{
     var body: some View{
         Chart{
             ForEach(transactions) { transaction in
-                LineMark(x: .value("Date", transaction.date), y: .value("Cost", getCost(transac: transaction)))
+                LineMark(x: .value("Date", strToDateToStr(transaction: transaction)), y: .value("Cost", 0))
             }
         }.frame(width: 375, height: 200)
     }
     
-    func getCost(transac: Transaction) -> Int{
-        var counter: Int = 0
-        var cost: Double = 0
-        while transac._id == transactions[counter]._id {
-            cost += transactions[counter].cost
-            counter += 1
-        }
-        cost += transactions[counter].cost
-        return Int(cost)
-        
+    
+    
+    
+    func strToDate(transaction: Transaction) -> Date{
+        let format = DateFormatter()
+        format.dateFormat = "yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'000Z"
+        return format.date(from: transaction.date)!
+    }
+    
+    func strToDateToStr(transaction: Transaction) -> String {
+        let date = strToDate(transaction: transaction)
+        let format = DateFormatter()
+        format.dateFormat = "MM/dd"
+        return format.string(from: date)
     }
     
     
@@ -299,8 +303,6 @@ struct TripDetalView:View{
                 }catch let error{
                     print(error)
                 }
-                
-                
             }
         })
     }
@@ -308,11 +310,30 @@ struct TripDetalView:View{
 
 struct TransactionRow:View{
     let transaction: Transaction
+    
     var body: some View{
-        VStack{
-            Text("$\(transaction.cost)").foregroundColor(.black)
-            Text("hi")
+        HStack {
+            VStack{
+                Text("$\(transaction.cost, specifier: "%.2f")").foregroundColor(.black).font(.title2).bold()
+                Text("\(transaction.userId)")
+                
+            }
+            Spacer()
+            Text(strToDateToStr())
         }
+    }
+    
+    func strToDate() -> Date{
+        let format = DateFormatter()
+        format.dateFormat = "yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'000Z"
+        return format.date(from: self.transaction.date)!
+    }
+    
+    func strToDateToStr() -> String {
+        let date = strToDate()
+        let format = DateFormatter()
+        format.dateFormat = "MM/dd"
+        return format.string(from: date)
     }
 }
 
