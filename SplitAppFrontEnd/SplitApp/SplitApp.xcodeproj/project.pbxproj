@@ -10,6 +10,8 @@
 		1E1B030028FB164E00C61588 /* EnviormentVariables.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E1B02FF28FB164E00C61588 /* EnviormentVariables.swift */; };
 		1E1B030228FB245A00C61588 /* SignInPages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E1B030128FB245A00C61588 /* SignInPages.swift */; };
 		1E2CEE2F28FB83B1006218D7 /* HomePageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E2CEE2E28FB83B1006218D7 /* HomePageView.swift */; };
+		1EBD423E2917054700F512D7 /* TripDetailViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EBD423D2917054700F512D7 /* TripDetailViews.swift */; };
+		1EBD4240291705FC00F512D7 /* ButtonViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EBD423F291705FC00F512D7 /* ButtonViews.swift */; };
 		1EE7C47F28F6571E00688388 /* SplitAppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EE7C47E28F6571E00688388 /* SplitAppApp.swift */; };
 		1EE7C48128F6571E00688388 /* AppView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EE7C48028F6571E00688388 /* AppView.swift */; };
 		1EE7C48328F6571F00688388 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1EE7C48228F6571F00688388 /* Assets.xcassets */; };
@@ -40,6 +42,8 @@
 		1E1B02FF28FB164E00C61588 /* EnviormentVariables.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnviormentVariables.swift; sourceTree = "<group>"; };
 		1E1B030128FB245A00C61588 /* SignInPages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInPages.swift; sourceTree = "<group>"; };
 		1E2CEE2E28FB83B1006218D7 /* HomePageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePageView.swift; sourceTree = "<group>"; };
+		1EBD423D2917054700F512D7 /* TripDetailViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripDetailViews.swift; sourceTree = "<group>"; };
+		1EBD423F291705FC00F512D7 /* ButtonViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonViews.swift; sourceTree = "<group>"; };
 		1EE7C47B28F6571E00688388 /* SplitApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SplitApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1EE7C47E28F6571E00688388 /* SplitAppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplitAppApp.swift; sourceTree = "<group>"; };
 		1EE7C48028F6571E00688388 /* AppView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppView.swift; sourceTree = "<group>"; };
@@ -77,6 +81,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1EBD423C2917050000F512D7 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				1EE7C48028F6571E00688388 /* AppView.swift */,
+				1E1B030128FB245A00C61588 /* SignInPages.swift */,
+				1E2CEE2E28FB83B1006218D7 /* HomePageView.swift */,
+				1EBD423D2917054700F512D7 /* TripDetailViews.swift */,
+				1EBD423F291705FC00F512D7 /* ButtonViews.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		1EE7C47228F6571E00688388 = {
 			isa = PBXGroup;
 			children = (
@@ -101,12 +117,10 @@
 			isa = PBXGroup;
 			children = (
 				1EE7C47E28F6571E00688388 /* SplitAppApp.swift */,
-				1EE7C48028F6571E00688388 /* AppView.swift */,
+				1EBD423C2917050000F512D7 /* Views */,
 				1EE7C48228F6571F00688388 /* Assets.xcassets */,
 				1EE7C48428F6571F00688388 /* Preview Content */,
 				1E1B02FF28FB164E00C61588 /* EnviormentVariables.swift */,
-				1E1B030128FB245A00C61588 /* SignInPages.swift */,
-				1E2CEE2E28FB83B1006218D7 /* HomePageView.swift */,
 			);
 			path = SplitApp;
 			sourceTree = "<group>";
@@ -266,10 +280,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1EBD4240291705FC00F512D7 /* ButtonViews.swift in Sources */,
 				1E1B030228FB245A00C61588 /* SignInPages.swift in Sources */,
 				1EE7C48128F6571E00688388 /* AppView.swift in Sources */,
 				1E1B030028FB164E00C61588 /* EnviormentVariables.swift in Sources */,
 				1EE7C47F28F6571E00688388 /* SplitAppApp.swift in Sources */,
+				1EBD423E2917054700F512D7 /* TripDetailViews.swift in Sources */,
 				1E2CEE2F28FB83B1006218D7 /* HomePageView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

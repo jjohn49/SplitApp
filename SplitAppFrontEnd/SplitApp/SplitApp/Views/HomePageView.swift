@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-import Charts
+
 
 struct HomePageView: View {
     @StateObject var envVars = EnviormentVariables()
@@ -115,78 +115,18 @@ struct TripsScrollView: View{
     }
 }
 
-struct AllQuickActionButtons:View{
-    //This was easier than making one popover with conditions
-    //multiple popovers with different binding values
-    @State var isNightOut: Bool = false
-    @State var isBar: Bool = false
-    @State var isAdventure: Bool = false
-    @State var isRoadTrip: Bool = false
-    @State var isBusiness: Bool = false
-    @State var isVacation: Bool = false
-    var body: some View{
-        VStack{
-            HStack{
-                Spacer()
-                QuickActionButton(isNewTripPopUp: $isNightOut, emoji: "🍸", message: "Cocktails")
-                Spacer()
-                QuickActionButton(isNewTripPopUp: $isBar, emoji: "🍻", message: "Bar")
-                Spacer()
-                QuickActionButton(isNewTripPopUp: $isAdventure, emoji: "🤠", message: "Quest")
-                Spacer()
-            }.padding()
-            
-            HStack{
-                Spacer()
-                QuickActionButton(isNewTripPopUp: $isRoadTrip, emoji: "🚘", message: "Road")
-                Spacer()
-                QuickActionButton(isNewTripPopUp: $isBusiness, emoji: "💼", message: "Business")
-                Spacer()
-                QuickActionButton(isNewTripPopUp: $isVacation, emoji: "🏖", message: "Vacation")
-                Spacer()
-            }.padding()
-        }
-    }
-}
-
-struct QuickActionButton:View{
-    @Binding var isNewTripPopUp: Bool
-    let emoji: String
-    let message: String
-    var body: some View{
-        Button(action: {
-            isNewTripPopUp = true
-        }, label: {
-            ButtonStyleInQuickActionButton(emoji: emoji, message: message)
-        }).foregroundColor(.gray).popover(isPresented: $isNewTripPopUp, content: {
-            AddTripView(tripName: message)
-        })
-
-    }
-}
-struct ButtonStyleInQuickActionButton:View{
-    let emoji: String
-    let message: String
-    var body: some View{
-        ZStack{
-            Circle().frame(width: 100, height: 70).foregroundColor(.blue)
-            Circle().stroke(lineWidth: 3).frame(width: 100, height: 70)
-            VStack{
-                Text(emoji).font(.title2)
-                Text(message).font(.subheadline)
-            }.foregroundColor(.white)
-        }
-    }
-}
 
 struct AddTripView:View{
     @State var tripName: String = ""
-    @State var users = []
+    @State var user: String = ""
+    @State var users:[String] = []
     @State var startDate: Date = Date.now
     @State var endDate: Date = Date.now
     var body: some View{
         VStack{
             InputTripName(tripName: $tripName)
+            Spacer()
+            InputUsers(user: $user, users: $users)
             Spacer()
             
         }
@@ -195,61 +135,52 @@ struct AddTripView:View{
 
 struct InputTripName: View{
     @Binding var tripName:String
+    
     var body: some View{
-        if(tripName==""){
-            HStack {
-                TextField("Trip Name", text: $tripName).font(.largeTitle).bold().padding()
-                Button(action: {
-                    tripName = ""
-                }, label: {
-                    Image(systemName: "multiply.circle.fill").foregroundColor(.secondary).padding()
-                })
-            }.frame(width: 350).background(.quaternary).cornerRadius(10).padding()
-        }else{
-            HStack {
-                TextField(tripName, text: $tripName).font(.largeTitle).bold().padding()
-                Button(action: {
-                    tripName = ""
-                }, label: {
-                    Image(systemName: "multiply.circle.fill").foregroundColor(.secondary).padding()
-                })
-            }.frame(width: 350).background(.quaternary).cornerRadius(10).padding()
-        }
+        HStack {
+            TextField("Trip Name", text: $tripName).font(.largeTitle).bold().padding()
+            Button(action: {
+                tripName = ""
+            }, label: {
+                Image(systemName: "multiply.circle.fill").foregroundColor(.secondary).padding()
+            })
+        }.frame(width: 350).background(.quaternary).cornerRadius(10).padding()
     }
 }
 
-
-
-
-//https://www.appcoda.com/swiftui-line-charts/
-struct ChartView:View{
-    let transactions: [Transaction]
+struct InputUsers: View{
+    @Binding var user: String
+    @Binding var users: [String]
     var body: some View{
-        Chart{
-            ForEach(transactions) { transaction in
-                LineMark(x: .value("Date", strToDateToStr(transaction: transaction)), y: .value("Cost", 0))
+        VStack {
+            HStack{
+                Text("Users:").font(.title2).bold().padding()
+                ForEach(users, id: \.self){ u in
+                    HStack{
+                        Text(u)
+                        Button(action: {
+                            users.remove(at: users.firstIndex(of: u)!)
+                        }, label: {
+                            Image(systemName: "multiply.circle.fill").foregroundColor(.secondary).padding()
+                        })
+                    }
+                }
             }
-        }.frame(width: 375, height: 200)
+            HStack{
+                TextField("add user", text: $user).padding()
+                Button(action: {
+                    if !(users.contains(user) && user.elementsEqual("")){
+                        users.append(user)
+                    }
+                    
+                }, label: {
+                    Text("Add user").padding()
+                }).foregroundColor(.white).background(.blue).cornerRadius(10)
+            }.padding().background(.quaternary).cornerRadius(10)
+        }.frame(width: 350)
     }
-    
-    
-    
-    
-    func strToDate(transaction: Transaction) -> Date{
-        let format = DateFormatter()
-        format.dateFormat = "yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'000Z"
-        return format.date(from: transaction.date)!
-    }
-    
-    func strToDateToStr(transaction: Transaction) -> String {
-        let date = strToDate(transaction: transaction)
-        let format = DateFormatter()
-        format.dateFormat = "MM/dd"
-        return format.string(from: date)
-    }
-    
-    
 }
+
 
 struct HorizontalTrips:View{
     @EnvironmentObject var envVars: EnviormentVariables
@@ -280,62 +211,6 @@ struct HorizontalTrips:View{
     }
 }
 
-struct TripDetalView:View{
-    @EnvironmentObject var envVar: EnviormentVariables
-    
-    let trip: Trip
-    @State var transactions: [Transaction] = []
-    var body: some View{
-        ScrollView{
-            ChartView(transactions: transactions).frame(width: 400,height: 200)
-            Text("Transactions").font(.title).bold()
-            List{
-                ForEach(transactions) { transaction in
-                    TransactionRow(transaction: transaction)
-                }
-                
-            }.frame(height: 400)
-        }.navigationTitle(trip.name).onAppear(perform: {
-            Task{
-                do{
-                    self.transactions = try await envVar.getTransactionsFortrip(trip: trip)
-                    print(self.transactions)
-                }catch let error{
-                    print(error)
-                }
-            }
-        })
-    }
-}
-
-struct TransactionRow:View{
-    let transaction: Transaction
-    
-    var body: some View{
-        HStack {
-            VStack{
-                Text("$\(transaction.cost, specifier: "%.2f")").foregroundColor(.black).font(.title2).bold()
-                Text("\(transaction.userId)")
-                
-            }
-            Spacer()
-            Text(strToDateToStr())
-        }
-    }
-    
-    func strToDate() -> Date{
-        let format = DateFormatter()
-        format.dateFormat = "yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'000Z"
-        return format.date(from: self.transaction.date)!
-    }
-    
-    func strToDateToStr() -> String {
-        let date = strToDate()
-        let format = DateFormatter()
-        format.dateFormat = "MM/dd"
-        return format.string(from: date)
-    }
-}
 
 struct TripRow: View{
     let trip: Trip
