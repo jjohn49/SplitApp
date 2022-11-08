@@ -25,14 +25,14 @@ struct Users: Codable{
 
 struct Transaction: Codable, Identifiable{
     let id = UUID()
-    let _id: String
+    //let _id: String
     let userId: String
     let tripId: String
     let cost: Double
     let date: String
     
     enum CodingKeys: String, CodingKey{
-        case _id
+        //case _id
         case userId
         case tripId
         case cost
@@ -144,6 +144,31 @@ class EnviormentVariables: ObservableObject{
         return decodedTrips
         
         //add the api call for the endpoint that corresponsds with getTransactionsForTrip
+    }
+    
+    func makeTransactionForAtrip(transaction:Transaction) async throws -> Bool{
+        guard let url = URL(string: "http:localhost:3000/new-transaction") else{
+            return false
+        }
+        
+        var urlRequest = URLRequest(url: url)
+        urlRequest.httpMethod = "POST"
+        
+        let body = try JSONEncoder().encode(transaction)
+        
+        urlRequest.httpBody = body
+        
+        if let text = String(data: body, encoding: .utf8){
+            print(text)
+        }
+        
+        let (data, _) = try await URLSession.shared.data(for: urlRequest)
+        
+        if let resp = String(data: data, encoding: .utf8){
+            print(resp)
+        }
+        
+        return true
     }
     
 }

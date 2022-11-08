@@ -10,7 +10,7 @@ import Charts
 
 struct TripDetalView:View{
     @EnvironmentObject var envVar: EnviormentVariables
-    
+    @State var popupBool: Bool = false
     let trip: Trip
     @State var transactions: [Transaction] = []
     var body: some View{
@@ -27,14 +27,11 @@ struct TripDetalView:View{
             }
             
             Button(action: {
-                //isNewTripPopUp = true
+                popupBool = true
             }, label: {
                 Text("Add a Transaction").padding().frame(width: 350).background(.tint).foregroundColor(.white).bold()
             }).cornerRadius(10)
             Spacer()
-            
-            
-            
             
         }.navigationTitle(trip.name).onAppear(perform: {
             Task{
@@ -45,7 +42,29 @@ struct TripDetalView:View{
                     print(error)
                 }
             }
-    })
+        }).popover(isPresented: $popupBool, content: {
+            AddTransactionView(trip: trip)
+        })
+    }
+}
+
+struct AddTransactionView:View{
+    let trip:Trip
+    @EnvironmentObject var envVar: EnviormentVariables
+    @State var cost: String = "0.00"
+    @State var date: Date = Date.now
+    var body: some View{
+        VStack{
+            TextField("Cost", text: $cost).keyboardType(.numberPad)
+            DatePicker("Date", selection: $date)
+            Button(action: {
+                Task{
+                    try await envVar.makeTransactionForAtrip(transaction:Transaction(userId: envVar.username, tripId: trip._id, cost: Double(cost) ?? 0.00, date: "11-08-2022"))
+                }
+            }, label: {
+                Text("Submit")
+            })
+        }
     }
 }
 

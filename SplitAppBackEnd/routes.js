@@ -87,6 +87,7 @@ app.post("/trips-for-user", async (req,res)=>{
 //Adds new transaction to database
 app.post("/new-transaction", async (req, res) =>{
     console.log("New transaction tried to be posted")
+    //add code to check what all the body was posted
     const transaction = new AppModels.Transaction(req.body);
 
     try{
