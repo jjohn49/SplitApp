@@ -31,14 +31,14 @@ struct Transaction: Codable, Identifiable{
     let cost: Double
     let date: String
     
-    enum CodingKeys: String, CodingKey{
-        //case _id
-        case userId
-        case tripId
-        case cost
-        case date
-        
+    enum CodingKeys: String, CodingKey {
+        case userId = "userId"
+        case tripId = "tripId"
+        case cost = "cost"
+        case date = "date"
     }
+    
+    
 }
 
 struct Trip: Identifiable, Codable{
@@ -146,27 +146,31 @@ class EnviormentVariables: ObservableObject{
         //add the api call for the endpoint that corresponsds with getTransactionsForTrip
     }
     
+    //works
     func makeTransactionForAtrip(transaction:Transaction) async throws -> Bool{
         guard let url = URL(string: "http:localhost:3000/new-transaction") else{
             return false
         }
         
         var urlRequest = URLRequest(url: url)
+        urlRequest.setValue("application/json", forHTTPHeaderField: "Content-Type")
         urlRequest.httpMethod = "POST"
         
-        let body = try JSONEncoder().encode(transaction)
+        let jsonTransaction = try JSONEncoder().encode(transaction)
         
-        urlRequest.httpBody = body
-        
-        if let text = String(data: body, encoding: .utf8){
-            print(text)
+        do{
+            let (data, _) = try await URLSession.shared.upload(for: urlRequest, from: jsonTransaction)
+            
+            if let resp = String(data: data, encoding: .utf8){
+                print(resp)
+            }
+        }catch{
+            print("Error sending")
+            return false
         }
         
-        let (data, _) = try await URLSession.shared.data(for: urlRequest)
         
-        if let resp = String(data: data, encoding: .utf8){
-            print(resp)
-        }
+        
         
         return true
     }

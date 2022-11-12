@@ -46,10 +46,7 @@ const TransactionSchema = new mongoose.Schema({
         type:String,
         required:false
     },
-    description:{
-        type:String,
-        required:false
-    }
+    description:String
 });
 
 const Transaction = mongoose.model("Transaction", TransactionSchema);

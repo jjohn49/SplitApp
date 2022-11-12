@@ -1,6 +1,7 @@
 const express = require('express');
 const AppModels = require('./models')
 const app = express();
+app.use(express.json());
 
 app.get("/", async (req, res)=>{
     res.send("<h1>Welcome to the SplittApp Backend Page</h1>")
@@ -89,6 +90,7 @@ app.post("/new-transaction", async (req, res) =>{
     console.log("New transaction tried to be posted")
     //add code to check what all the body was posted
     const transaction = new AppModels.Transaction(req.body);
+    console.log(req.body)
 
     try{
         await transaction.save();

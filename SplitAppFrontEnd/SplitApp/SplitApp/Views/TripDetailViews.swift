@@ -33,7 +33,8 @@ struct TripDetalView:View{
             }).cornerRadius(10)
             Spacer()
             
-        }.navigationTitle(trip.name).onAppear(perform: {
+        }.navigationTitle(trip.name)
+        .onAppear(perform: {
             Task{
                 do{
                     self.transactions = try await envVar.getTransactionsFortrip(trip: trip)
@@ -43,13 +44,15 @@ struct TripDetalView:View{
                 }
             }
         }).popover(isPresented: $popupBool, content: {
-            AddTransactionView(trip: trip)
+            AddTransactionView(trip: trip, popupBool: $popupBool, transaction: $transactions)
         })
     }
 }
 
 struct AddTransactionView:View{
     let trip:Trip
+    @Binding var popupBool: Bool
+    @Binding var transaction: [Transaction]
     @EnvironmentObject var envVar: EnviormentVariables
     @State var cost: String = "0.00"
     @State var date: Date = Date.now
@@ -60,7 +63,10 @@ struct AddTransactionView:View{
             Button(action: {
                 Task{
                     try await envVar.makeTransactionForAtrip(transaction:Transaction(userId: envVar.username, tripId: trip._id, cost: Double(cost) ?? 0.00, date: "11-08-2022"))
+                    self.transaction = try await envVar.getTransactionsFortrip(trip: self.trip)
                 }
+                popupBool = false
+                
             }, label: {
                 Text("Submit")
             })
