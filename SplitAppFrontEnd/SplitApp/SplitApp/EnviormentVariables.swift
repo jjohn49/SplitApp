@@ -69,6 +69,54 @@ class EnviormentVariables: ObservableObject{
     @Published var isSignedIn: Bool = false
     @Published var trips: [Trip] = []
     
+    func getCostdatafroChartForYou(transactions:[Transaction]) async throws ->[(String,Double)]{
+        var yourTransactions: [Transaction] = []
+        transactions.forEach({x in
+            if x.userId == self.username{
+                yourTransactions.append(x)
+            }
+        })
+        
+        return try await getCostDataForChart(transactions: yourTransactions)
+    }
+    
+    func getCostDataForChart(transactions:[Transaction]) async throws -> [(String,Double)]{
+        var chartData: [(String,Double)] = []
+        
+        if(!transactions.isEmpty){
+            chartData.append((transactions[0].date,transactions[0].cost))
+            
+            for x in 1..<transactions.count{
+                let (lastDate, lastCost) = chartData[chartData.count - 1]
+                
+                let newDate = transactions[x].date
+                
+                if(lastDate.elementsEqual(newDate)){
+                    chartData[chartData.count - 1] = (lastDate,lastCost + transactions[x].cost)
+                }else{
+                    chartData.append((newDate,(lastCost + transactions[x].cost)))
+                }
+            }
+            
+            return chartData
+        }
+        
+        return []
+    }
+    
+    func strToDate(strDate: String) -> Date{
+        let format = DateFormatter()
+        format.dateFormat = "yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'000Z"
+        return format.date(from: strDate)!
+    }
+    
+    func strToDateToStr(strDate: String) -> String {
+        let date = strToDate(strDate: strDate)
+        let format = DateFormatter()
+        format.dateFormat = "MM/dd"
+        return format.string(from: date)
+    }
+    
     //this works just need to wait for user
     func getAllTripsForUser(){
         let userId = self.username

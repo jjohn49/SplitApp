@@ -12,12 +12,18 @@ struct TripDetalView:View{
     @EnvironmentObject var envVar: EnviormentVariables
     @State var popupBool: Bool = false
     let trip: Trip
+    @State var totalCost: Double = 0.00
     @State var transactions: [Transaction] = []
+    @State var chartData: [(String,Double)] = []
+    //@State var chartDataForYou: [(String, Double)] = []
     var body: some View{
         VStack {
             ScrollView{
-                ChartView(transactions: transactions).frame(width: 400,height: 200)
+                ChartView(transactions: transactions, chartData: chartData).frame(width: 400,height: 200)
                 //Text("Transactions").font(.title).bold()
+                HStack{
+                    Text("$"+String(totalCost))
+                }
                 List{
                     ForEach(transactions.reversed()) { transaction in
                         TransactionRow(transaction: transaction)
@@ -38,7 +44,10 @@ struct TripDetalView:View{
             Task{
                 do{
                     self.transactions = try await envVar.getTransactionsFortrip(trip: trip)
-                    print(self.transactions)
+                    self.chartData = try await envVar.getCostDataForChart(transactions: self.transactions)
+                    let (_, cost) = chartData[chartData.count-1]
+                    self.totalCost = cost
+                    //self.chartDataForYou = try await envVar.getCostdatafroChartForYou(transactions: self.transactions)
                 }catch let error{
                     print(error)
                 }
@@ -75,6 +84,7 @@ struct AddTransactionView:View{
 }
 
 struct TransactionRow:View{
+    @EnvironmentObject var envVar: EnviormentVariables
     let transaction: Transaction
     
     var body: some View{
@@ -85,55 +95,32 @@ struct TransactionRow:View{
                 
             }
             Spacer()
-            Text(strToDateToStr())
+            Text(envVar.strToDateToStr(strDate: transaction.date))
         }
     }
     
-    func strToDate() -> Date{
-        let format = DateFormatter()
-        format.dateFormat = "yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'000Z"
-        return format.date(from: self.transaction.date)!
-    }
     
-    func strToDateToStr() -> String {
-        let date = strToDate()
-        let format = DateFormatter()
-        format.dateFormat = "MM/dd"
-        return format.string(from: date)
-    }
 }
 
 
 //https://www.appcoda.com/swiftui-line-charts/
 struct ChartView:View{
+    @EnvironmentObject var envVar: EnviormentVariables
     let transactions: [Transaction]
+    let chartData: [(String,Double)]
+    //let yourChartData: [(String,Double)]
     @State var cost: [Int] = [0]
     var body: some View{
         ZStack {
             Chart{
-                ForEach(transactions) { transaction in
-                    LineMark(x: .value("Date", strToDateToStr(transaction: transaction)), y: .value("Cost", transaction.cost))
+                ForEach(0..<chartData.count, id: \.self){ x in
+                    let (date, tempC) = chartData[x]
+                    LineMark(x: .value("Date", envVar.strToDateToStr(strDate: date)), y: .value("Cost", Int(tempC)))
                 }
+                
             }.frame(width: 375, height: 200)
         }
     }
-    
-    
-    
-    
-    func strToDate(transaction: Transaction) -> Date{
-        let format = DateFormatter()
-        format.dateFormat = "yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'000Z"
-        return format.date(from: transaction.date)!
-    }
-    
-    func strToDateToStr(transaction: Transaction) -> String {
-        let date = strToDate(transaction: transaction)
-        let format = DateFormatter()
-        format.dateFormat = "MM/dd"
-        return format.string(from: date)
-    }
-    
     
 }
 
