@@ -15,23 +15,31 @@ struct TripDetalView:View{
     @State var totalCost: Double = 0.00
     @State var transactions: [Transaction] = []
     @State var chartData: [(String,Double)] = []
-    //@State var chartDataForYou: [(String, Double)] = []
+    @State var howMuchYouHaveSpent: Double = 0.00
     var body: some View{
         VStack {
             ScrollView{
                 ChartView(transactions: transactions, chartData: chartData).frame(width: 400,height: 200)
                 //Text("Transactions").font(.title).bold()
-                HStack{
-                    Text("$"+String(totalCost))
+                
+                VStack{
+                    Text("$\(String(totalCost))").font(.largeTitle).bold()
+                    HStack{
+                        let avgCost = totalCost / Double(trip.users.count)
+                        if(avgCost <= howMuchYouHaveSpent){
+                            Text("$\(String(format: "%.2f", howMuchYouHaveSpent-avgCost))").foregroundColor(.green).font(.title).bold()
+                        }else{
+                            Text("$\(String(format: "%.2f", avgCost - howMuchYouHaveSpent))").foregroundColor(.red).font(.title).bold()
+                        }
+                        Text("$\(String(howMuchYouHaveSpent))").font(.title3).bold()
+                    }
                 }
                 List{
                     ForEach(transactions.reversed()) { transaction in
                         TransactionRow(transaction: transaction)
                     }
-                    
                 }.frame(height: 400)
             }
-            
             Button(action: {
                 popupBool = true
             }, label: {
@@ -47,7 +55,7 @@ struct TripDetalView:View{
                     self.chartData = try await envVar.getCostDataForChart(transactions: self.transactions)
                     let (_, cost) = chartData[chartData.count-1]
                     self.totalCost = cost
-                    //self.chartDataForYou = try await envVar.getCostdatafroChartForYou(transactions: self.transactions)
+                    self.howMuchYouHaveSpent = envVar.getHowMuchYouveSpent(transactions: self.transactions)
                 }catch let error{
                     print(error)
                 }
@@ -108,7 +116,6 @@ struct ChartView:View{
     @EnvironmentObject var envVar: EnviormentVariables
     let transactions: [Transaction]
     let chartData: [(String,Double)]
-    //let yourChartData: [(String,Double)]
     @State var cost: [Int] = [0]
     var body: some View{
         ZStack {
@@ -116,7 +123,7 @@ struct ChartView:View{
                 ForEach(0..<chartData.count, id: \.self){ x in
                     let (date, tempC) = chartData[x]
                     LineMark(x: .value("Date", envVar.strToDateToStr(strDate: date)), y: .value("Cost", Int(tempC)))
-                }
+                }.symbol(.circle)
                 
             }.frame(width: 375, height: 200)
         }

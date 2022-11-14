@@ -69,15 +69,14 @@ class EnviormentVariables: ObservableObject{
     @Published var isSignedIn: Bool = false
     @Published var trips: [Trip] = []
     
-    func getCostdatafroChartForYou(transactions:[Transaction]) async throws ->[(String,Double)]{
-        var yourTransactions: [Transaction] = []
+    func getHowMuchYouveSpent(transactions:[Transaction]) ->Double{
+        var cost: Double = 0.00
         transactions.forEach({x in
             if x.userId == self.username{
-                yourTransactions.append(x)
+                cost += x.cost
             }
         })
-        
-        return try await getCostDataForChart(transactions: yourTransactions)
+        return cost
     }
     
     func getCostDataForChart(transactions:[Transaction]) async throws -> [(String,Double)]{
