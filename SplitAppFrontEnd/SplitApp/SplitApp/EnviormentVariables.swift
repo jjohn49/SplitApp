@@ -25,13 +25,14 @@ struct Users: Codable{
 
 struct Transaction: Codable, Identifiable{
     let id = UUID()
-    //let _id: String
+    //let transactionId: String
     let userId: String
     let tripId: String
     let cost: Double
     let date: String
     
     enum CodingKeys: String, CodingKey {
+        //case transactionId = "_id"
         case userId = "userId"
         case tripId = "tripId"
         case cost = "cost"
@@ -60,7 +61,7 @@ struct Trip: Identifiable, Codable{
 
 
 class EnviormentVariables: ObservableObject{
-    @Published var username: String = "mmoran"
+    @Published var username: String = "jjohns49"
     //Use this for password verification
     //@Published var jsToken = null
     @Published var fName: String = ""
@@ -193,8 +194,9 @@ class EnviormentVariables: ObservableObject{
         //add the api call for the endpoint that corresponsds with getTransactionsForTrip
     }
     
+    
     //works
-    func makeTransactionForAtrip(transaction:Transaction) async throws -> Bool{
+    func createTransaction(transaction:Transaction) async throws -> Bool{
         guard let url = URL(string: "http:localhost:3000/new-transaction") else{
             return false
         }
@@ -216,10 +218,24 @@ class EnviormentVariables: ObservableObject{
             return false
         }
         
+        return true
+    }
+    
+    func deleteTransaction(transaction: Transaction) async throws -> Bool{
         
+        guard let url = URL(string: "http:localhost:3000/delete-transaction?transaction=\(transaction)") else{
+            return false
+        }
+        var urlRequest = URLRequest(url: url)
+        urlRequest.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        urlRequest.httpMethod = "DELETE"
+        urlRequest
         
+        let (data, _) = try await URLSession.shared.data(for: urlRequest)
         
         return true
     }
+    
+    
     
 }
