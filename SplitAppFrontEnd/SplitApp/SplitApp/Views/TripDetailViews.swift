@@ -25,12 +25,13 @@ struct TripDetalView:View{
                 }
                 //Text("Transactions").font(.title).bold()
                 
-                
                 List{
                     ForEach(transactions.reversed()) { transaction in
                         TransactionRow(transaction: transaction)
-                    }
+                    }.onDelete(perform: deleteTransactionRow)
                 }.frame(height: 400)
+                
+                
             }
             Button(action: {
                 popupBool = true
@@ -49,8 +50,24 @@ struct TripDetalView:View{
                 }
             }
         }).popover(isPresented: $popupBool, content: {
-            AddTransactionView(trip: trip, popupBool: $popupBool, transaction: $transactions)
+            AddTransactionView(trip: trip, popupBool: $popupBool, transaction: $transactions).onDisappear(perform:{
+                Task{
+                    try await getVariablesForTripdetailView()
+                }
+            })
         })
+    }
+    
+    func deleteTransactionRow(at offsets: IndexSet){
+        let theTransaction = transactions.reversed()[offsets.first!]
+        Task{
+            let res = try await envVar.deleteTransaction(transaction:theTransaction)
+            if(res){
+                try await getVariablesForTripdetailView()
+            }
+                
+        }
+        
     }
     
     func getVariablesForTripdetailView() async throws{
@@ -63,6 +80,8 @@ struct TripDetalView:View{
         }
     }
 }
+
+
 
 struct MoneySpentView:View{
     let totalCost: Double
@@ -97,7 +116,7 @@ struct AddTransactionView:View{
             DatePicker("Date", selection: $date)
             Button(action: {
                 Task{
-                    try await envVar.createTransaction(transaction:Transaction(userId: envVar.username, tripId: trip._id, cost: Double(cost) ?? 0.00, date: "11-08-2022"))
+                    try await envVar.createTransaction(transaction:Transaction(id: "",userId: envVar.username, tripId: trip._id, cost: Double(cost) ?? 0.00, date: "11-08-2022"))
                     self.transaction = try await envVar.getTransactionsFortrip(trip: self.trip)
                 }
                 popupBool = false

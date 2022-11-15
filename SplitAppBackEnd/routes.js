@@ -37,7 +37,7 @@ app.post("/signin", async (req, res)=>{
 app.post("/register-user", async (req,res)=>{
     console.log("New user tried to be posted")
     const user = new AppModels.User(req.body);
-    console.log(user)
+    //console.log(user)
     try{
         await user.save();
         res.send(user);
@@ -58,7 +58,7 @@ app.put("/update-userinfo", async (req,res)=>{
         user.lName = newUserInfo["lName"];
         user.email = newUserInfo["email"];
         user.save();
-        console.log(user)
+        //console.log(user)
         res.status(200).send("Transaction " + user + " has updated")
     }catch(error){
         res.status(400).send("Error: " + error)
@@ -71,7 +71,7 @@ app.put("/update-userinfo", async (req,res)=>{
 app.get("/trips-for-user", async (req,res)=>{
     const reqUserId = req.query.user;
     const query = await AppModels.Trip.find({users: reqUserId}).exec()
-    console.log(query)
+    //console.log(query)
     res.send(query)
 })
 
@@ -80,7 +80,7 @@ app.get("/trips-for-user", async (req,res)=>{
 app.post("/trips-for-user", async (req,res)=>{
     const reqUserId = req.body["userId"];
     const query = await AppModels.Trip.find({users: reqUserId}).exec()
-    console.log(query)
+    //console.log(query)
     res.send(query)
 })
 
@@ -89,8 +89,11 @@ app.post("/trips-for-user", async (req,res)=>{
 app.post("/new-transaction", async (req, res) =>{
     console.log("New transaction tried to be posted")
     //add code to check what all the body was posted
+
+    //deletes the id because mongo will create one
+    delete req.body["_id"]
     const transaction = new AppModels.Transaction(req.body);
-    console.log(req.body)
+    //console.log(req.body)
 
     try{
         await transaction.save();
@@ -148,7 +151,7 @@ app.post("/new-trip", async (req,res)=>{
     }
 });
 
-//--------------------GET----------------------------
+//--------------------POST----------------------------
 //gets trips for certain transaction
 app.post("/transactions-for-trip", async (req,res)=>{
     const reqTripId = req.query.trip;

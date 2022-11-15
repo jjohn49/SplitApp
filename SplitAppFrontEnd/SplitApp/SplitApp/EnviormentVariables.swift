@@ -24,21 +24,19 @@ struct Users: Codable{
 }
 
 struct Transaction: Codable, Identifiable{
-    let id = UUID()
-    //let transactionId: String
+    let id: String
     let userId: String
     let tripId: String
     let cost: Double
     let date: String
     
     enum CodingKeys: String, CodingKey {
-        //case transactionId = "_id"
+        case id = "_id"
         case userId = "userId"
         case tripId = "tripId"
         case cost = "cost"
         case date = "date"
     }
-    
     
 }
 
@@ -223,15 +221,15 @@ class EnviormentVariables: ObservableObject{
     
     func deleteTransaction(transaction: Transaction) async throws -> Bool{
         
-        guard let url = URL(string: "http:localhost:3000/delete-transaction?transaction=\(transaction)") else{
+        guard let url = URL(string: "http:localhost:3000/delete-transaction?transaction=\(transaction.id)") else{
             return false
         }
         var urlRequest = URLRequest(url: url)
         urlRequest.setValue("application/json", forHTTPHeaderField: "Content-Type")
         urlRequest.httpMethod = "DELETE"
-        urlRequest
         
         let (data, _) = try await URLSession.shared.data(for: urlRequest)
+        print(data)
         
         return true
     }
