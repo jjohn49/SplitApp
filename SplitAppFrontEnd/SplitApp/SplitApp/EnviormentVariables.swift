@@ -108,11 +108,15 @@ class EnviormentVariables: ObservableObject{
         return format.date(from: strDate)!
     }
     
-    func strToDateToStr(strDate: String) -> String {
-        let date = strToDate(strDate: strDate)
+    func dateToStr(date: Date) -> String{
         let format = DateFormatter()
         format.dateFormat = "MM/dd"
         return format.string(from: date)
+    }
+    
+    func strToDateToStr(strDate: String) -> String {
+        let date = strToDate(strDate: strDate)
+        return dateToStr(date: date)
     }
     
     //this works just need to wait for user

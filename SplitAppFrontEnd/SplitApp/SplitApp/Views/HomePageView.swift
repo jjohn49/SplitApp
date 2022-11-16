@@ -128,7 +128,7 @@ struct AddTripView:View{
             Spacer()
             InputUsers(user: $user, users: $users)
             Spacer()
-            InputStartAndEdDates()
+            InputStartAndEdDates(startdate: $startDate, endDate: $endDate)
             Button(action: {
                 //create trip
             }, label: {
@@ -191,20 +191,20 @@ struct InputUsers: View{
 }
 
 struct InputStartAndEdDates:View{
+    @EnvironmentObject var envVar: EnviormentVariables
     @State var dates: Set<DateComponents> = []
+    @Binding var startdate: Date
+    @Binding var endDate: Date
     
     var body: some View{
         VStack{
-            MultiDatePicker("Start and end Dates", selection: $dates).datePickerStyle(.automatic).onChange(of: dates, perform: { date in
-                if dates.count > 2{
-                    //print(Calendar.current.date(from: date))
-                }
-            })
+            Text("\(envVar.dateToStr(date: startdate)) -> \(envVar.dateToStr(date: endDate))")
+            MultiDatePicker("Start and end Dates", selection: $dates).datePickerStyle(.automatic)
         }.padding()
     }
-    
-    
 }
+    
+    
 
 
 struct HorizontalTrips:View{
