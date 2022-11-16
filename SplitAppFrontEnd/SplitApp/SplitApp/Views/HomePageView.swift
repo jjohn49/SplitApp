@@ -128,7 +128,12 @@ struct AddTripView:View{
             Spacer()
             InputUsers(user: $user, users: $users)
             Spacer()
-            
+            InputStartAndEdDates()
+            Button(action: {
+                //create trip
+            }, label: {
+                Text("Creat Trip").padding().frame(width: 350).foregroundColor(.white).background(.tint)
+            }).cornerRadius(10)
         }
     }
 }
@@ -155,16 +160,20 @@ struct InputUsers: View{
         VStack {
             HStack{
                 Text("Users:").font(.title2).bold().padding()
-                ForEach(users, id: \.self){ u in
-                    HStack{
-                        Text(u)
-                        Button(action: {
-                            users.remove(at: users.firstIndex(of: u)!)
-                        }, label: {
-                            Image(systemName: "multiply.circle.fill").foregroundColor(.secondary).padding()
-                        })
+                ScrollView(.horizontal){
+                    LazyHStack{
+                        ForEach(users, id: \.self){ u in
+                            HStack{
+                                Text(u)
+                                Button(action: {
+                                    users.remove(at: users.firstIndex(of: u)!)
+                                }, label: {
+                                    Image(systemName: "multiply.circle.fill").foregroundColor(.secondary).padding()
+                                })
+                            }
+                        }
                     }
-                }
+                }.frame(height: 50)
             }
             HStack{
                 TextField("add user", text: $user).padding()
@@ -179,6 +188,22 @@ struct InputUsers: View{
             }.padding().background(.quaternary).cornerRadius(10)
         }.frame(width: 350)
     }
+}
+
+struct InputStartAndEdDates:View{
+    @State var dates: Set<DateComponents> = []
+    
+    var body: some View{
+        VStack{
+            MultiDatePicker("Start and end Dates", selection: $dates).datePickerStyle(.automatic).onChange(of: dates, perform: { date in
+                if dates.count > 2{
+                    //print(Calendar.current.date(from: date))
+                }
+            })
+        }.padding()
+    }
+    
+    
 }
 
 

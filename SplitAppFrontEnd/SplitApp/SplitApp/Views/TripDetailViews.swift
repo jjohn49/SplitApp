@@ -19,12 +19,8 @@ struct TripDetalView:View{
     var body: some View{
         VStack {
             ScrollView{
-                ZStack(alignment: .topLeading){
-                    MoneySpentView(totalCost: totalCost, howMuchYouHaveSpent: howMuchYouHaveSpent, trip: trip).padding()
-                    ChartView(transactions: transactions, chartData: chartData).frame(width: 400,height: 200)
-                }
+                OverallCostView(totalCost: totalCost, howMuchYouHaveSpent: howMuchYouHaveSpent, transactions: transactions, chartData: chartData, trip: trip)
                 //Text("Transactions").font(.title).bold()
-                
                 List{
                     ForEach(transactions.reversed()) { transaction in
                         TransactionRow(transaction: transaction)
@@ -43,11 +39,7 @@ struct TripDetalView:View{
         }.navigationTitle(trip.name)
         .onAppear(perform: {
             Task{
-                do{
-                    try await getVariablesForTripdetailView()
-                }catch let error{
-                    print(error)
-                }
+                try await getVariablesOnAppear()
             }
         }).popover(isPresented: $popupBool, content: {
             AddTransactionView(trip: trip, popupBool: $popupBool, transaction: $transactions).onDisappear(perform:{
@@ -58,6 +50,14 @@ struct TripDetalView:View{
         })
     }
     
+    func getVariablesOnAppear() async throws{
+        do{
+            try await getVariablesForTripdetailView()
+        }catch let error{
+            print(error)
+        }
+    }
+    
     func deleteTransactionRow(at offsets: IndexSet){
         let theTransaction = transactions.reversed()[offsets.first!]
         Task{
@@ -65,9 +65,7 @@ struct TripDetalView:View{
             if(res){
                 try await getVariablesForTripdetailView()
             }
-                
         }
-        
     }
     
     func getVariablesForTripdetailView() async throws{
@@ -89,7 +87,7 @@ struct MoneySpentView:View{
     let trip: Trip
     var body: some View{
         VStack{
-            Text("$\(String(totalCost))").font(.title).bold()
+            Text("$\(String(format: "%.2f", totalCost))").font(.title).bold()
             HStack{
                 let avgCost = totalCost / Double(trip.users.count)
                 if(avgCost <= howMuchYouHaveSpent){
@@ -97,7 +95,7 @@ struct MoneySpentView:View{
                 }else{
                     Text("$\(String(format: "%.2f", avgCost - howMuchYouHaveSpent))").foregroundColor(.red).font(.title3).bold()
                 }
-                Text("$\(String(howMuchYouHaveSpent))").font(.caption).bold()
+                Text("$\(String(format: "%.2f", howMuchYouHaveSpent))").font(.caption).bold()
             }
         }
     }
@@ -168,3 +166,17 @@ struct ChartView:View{
     
 }
 
+
+struct OverallCostView: View {
+    let totalCost: Double
+    let howMuchYouHaveSpent: Double
+    let transactions: [Transaction]
+    let chartData: [(String,Double)]
+    let trip:Trip
+    var body: some View {
+        ZStack(alignment: .topLeading){
+            MoneySpentView(totalCost: totalCost, howMuchYouHaveSpent: howMuchYouHaveSpent, trip: trip).padding()
+            ChartView(transactions: transactions, chartData: chartData).frame(width: 400,height: 200)
+        }
+    }
+}
