@@ -176,7 +176,7 @@ struct InputUsers: View{
                 }.frame(height: 50)
             }
             HStack{
-                TextField("add user", text: $user).padding()
+                TextField("add user", text: $user).padding().textInputAutocapitalization(.never)
                 Button(action: {
                     if !(users.contains(user) && user.elementsEqual("")){
                         users.append(user)
@@ -199,8 +199,40 @@ struct InputStartAndEdDates:View{
     var body: some View{
         VStack{
             Text("\(envVar.dateToStr(date: startdate)) -> \(envVar.dateToStr(date: endDate))")
-            MultiDatePicker("Start and end Dates", selection: $dates).datePickerStyle(.automatic)
+            MultiDatePicker("Start and end Dates", selection: $dates).datePickerStyle(.automatic).onChange(of: dates, perform: { _ in
+                setStartandEndDates()
+            })
         }.padding()
+    }
+    
+    func setStartandEndDates(){
+        if !dates.isEmpty{
+            startdate = dateComponentToDate(dc: dates.first!)
+            endDate = dateComponentToDate(dc: dates.first!)
+            
+            for x in dates{
+                let date = dateComponentToDate(dc: x)
+                if date < startdate{
+                    startdate = date
+                }
+                
+                if date > endDate{
+                    endDate = date
+                }
+                if dates.count > 2{
+                    if date < endDate && date > startdate{
+                        dates.remove(x)
+                    }
+                }
+                
+            }
+        }
+    }
+    
+    
+    
+    func dateComponentToDate(dc: DateComponents)-> Date{
+        return Calendar.current.date(from: dc)!
     }
 }
     
@@ -239,8 +271,8 @@ struct HorizontalTrips:View{
 
 struct TripRow: View{
     let trip: Trip
-    var width: CGFloat = 300
-    var height: CGFloat = 300
+    var width: CGFloat = 250
+    var height: CGFloat = 250
     var body: some View{
         VStack{
             Text(trip.name).bold().font(.title).frame(alignment: .leading)
