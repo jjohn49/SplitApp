@@ -114,6 +114,13 @@ class EnviormentVariables: ObservableObject{
         return format.string(from: date)
     }
     
+    func dateToStrToDate(date: Date)-> Date{
+        let d = dateToStr(date: date)
+        let format = DateFormatter()
+        format.dateFormat = "MM/dd"
+        return format.date(from: d)!
+    }
+    
     func strToDateToStr(strDate: String) -> String {
         let date = strToDate(strDate: strDate)
         return dateToStr(date: date)

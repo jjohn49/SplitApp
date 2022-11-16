@@ -207,32 +207,38 @@ struct InputStartAndEdDates:View{
     
     func setStartandEndDates(){
         if !dates.isEmpty{
-            startdate = dateComponentToDate(dc: dates.first!)
-            endDate = dateComponentToDate(dc: dates.first!)
-            
+            print("start is \(startdate)")
+            print("end is \(endDate)")
+            var s: DateComponents?
+            var e: DateComponents?
             for x in dates{
                 let date = dateComponentToDate(dc: x)
-                if date < startdate{
+                print(date)
+                if date <= startdate{
                     startdate = date
+                    s = x
+                    print(s)
                 }
                 
-                if date > endDate{
+                if date >= endDate{
                     endDate = date
-                }
-                if dates.count > 2{
-                    if date < endDate && date > startdate{
-                        dates.remove(x)
-                    }
+                    e = x
+                    print(e)
                 }
                 
+                if dates.count > 2{
+                    print("s is \(s)")
+                    print("e is \(e)")
+                    dates = [s!,e!]
+                }
             }
         }
     }
-    
-    
-    
+
     func dateComponentToDate(dc: DateComponents)-> Date{
         return Calendar.current.date(from: dc)!
+        
+        
     }
 }
     
