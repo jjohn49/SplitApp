@@ -199,46 +199,49 @@ struct InputStartAndEdDates:View{
     var body: some View{
         VStack{
             Text("\(envVar.dateToStr(date: startdate)) -> \(envVar.dateToStr(date: endDate))")
-            MultiDatePicker("Start and end Dates", selection: $dates).datePickerStyle(.automatic).onChange(of: dates, perform: { _ in
-                setStartandEndDates()
+            MultiDatePicker("Start and end Dates", selection: $dates).datePickerStyle(.automatic).onChange(of: dates, perform: { date in
+                if !dates.isEmpty{
+                    var min: Date = dateComponentToDate(dc: dates.first!)
+                    var minDC: DateComponents = dates.first!
+                    var max: Date = dateComponentToDate(dc: dates.first!)
+                    var maxDC: DateComponents = dates.first!
+                    for x in dates{
+                        print(x)
+                        if x == minDC || x == maxDC{
+                            continue
+                        }
+                        
+                        print(dateComponentToDate(dc: x) < min)
+                        if dateComponentToDate(dc: x) < min{
+                            min = dateComponentToDate(dc: x)
+                            dates.remove(minDC)
+                            minDC = x
+                            continue
+                        }
+                        
+                        print(dateComponentToDate(dc: x) > max)
+                        if dateComponentToDate(dc: x) > max{
+                            max = dateComponentToDate(dc: x)
+                            dates.remove(maxDC)
+                            maxDC = x
+                            continue
+                        }
+                        
+                        dates.remove(x)
+                        
+                    }
+                    
+                    startdate = min
+                    endDate = max
+                }
+                
             })
         }.padding()
     }
     
-    func setStartandEndDates(){
-        if !dates.isEmpty{
-            print("start is \(startdate)")
-            print("end is \(endDate)")
-            var s: DateComponents?
-            var e: DateComponents?
-            for x in dates{
-                let date = dateComponentToDate(dc: x)
-                print(date)
-                if date <= startdate{
-                    startdate = date
-                    s = x
-                    print(s)
-                }
-                
-                if date >= endDate{
-                    endDate = date
-                    e = x
-                    print(e)
-                }
-                
-                if dates.count > 2{
-                    print("s is \(s)")
-                    print("e is \(e)")
-                    dates = [s!,e!]
-                }
-            }
-        }
-    }
 
     func dateComponentToDate(dc: DateComponents)-> Date{
         return Calendar.current.date(from: dc)!
-        
-        
     }
 }
     
