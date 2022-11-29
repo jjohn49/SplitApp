@@ -30,6 +30,7 @@ struct Transaction: Codable, Identifiable{
     let cost: Double
     let date: String
     
+    // case *name in struct* = *name in the json*
     enum CodingKeys: String, CodingKey {
         case id = "_id"
         case userId = "userId"
@@ -49,15 +50,16 @@ struct Trip: Identifiable, Codable{
     var endDate: String
     
     enum CodingKeys: String, CodingKey{
-        case _id
-        case name
-        case users
-        case startDate
-        case endDate
+        case _id = "_id"
+        case name = "name"
+        case users = "users"
+        case startDate = "startDate"
+        case endDate = "endDate"
     }
 }
 
-
+//Enviorment Object that contains all the methods I want to carry over and use in multiple views
+//Possibly rename this and or split it up into different classes for readability
 class EnviormentVariables: ObservableObject{
     @Published var username: String = "jjohns49"
     //Use this for password verification
@@ -65,9 +67,16 @@ class EnviormentVariables: ObservableObject{
     @Published var fName: String = ""
     @Published var lName: String = ""
     @Published var email: String = ""
+    //this is for when I am working on account authorization
+    //Think about maybe using JSON Web Token instead
     @Published var isSignedIn: Bool = false
     @Published var trips: [Trip] = []
     
+    //Maybe add an array of the transactions
+    
+    
+    //Method that gets how much you have spent in a list of transactions
+    //Usually used in the TripDetailViews
     func getHowMuchYouveSpent(transactions:[Transaction]) ->Double{
         var cost: Double = 0.00
         transactions.forEach({x in
@@ -101,6 +110,7 @@ class EnviormentVariables: ObservableObject{
         
         return []
     }
+    
     
     func strToDate(strDate: String) -> Date{
         let format = DateFormatter()
@@ -245,6 +255,29 @@ class EnviormentVariables: ObservableObject{
         return true
     }
     
-    
+    func createTrip(trip:Trip) async throws -> Bool{
+        guard let url = URL(string: "http:localhost:3000/new-trip") else{
+            return false
+        }
+        
+        var urlRequest = URLRequest(url: url)
+        urlRequest.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        urlRequest.httpMethod = "POST"
+        
+        let jsonTransaction = try JSONEncoder().encode(trip)
+        
+        do{
+            let (data, _) = try await URLSession.shared.upload(for: urlRequest, from: jsonTransaction)
+            
+            if let resp = String(data: data, encoding: .utf8){
+                print(resp)
+            }
+        }catch{
+            print("Error sending")
+            return false
+        }
+        
+        return true
+    }
     
 }

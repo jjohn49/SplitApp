@@ -140,13 +140,15 @@ app.put("/update-transaction", async (req,res)=>{
 //----------------POST---------------------------
 //adds a new trip
 app.post("/new-trip", async (req,res)=>{
-    //console.log("Someone tried to post ")
+    console.log("Someone tried to post a new trip called" + req.body["name"])
+    delete req.body["_id"]
     const trip = new AppModels.Trip(req.body);
 
     try{
         await trip.save();
         res.send(trip);
     }catch (error){
+        console.log(error)
         res.status(500).send(error)
     }
 });

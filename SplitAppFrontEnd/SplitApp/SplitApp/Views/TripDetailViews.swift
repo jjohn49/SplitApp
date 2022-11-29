@@ -114,7 +114,7 @@ struct AddTransactionView:View{
             DatePicker("Date", selection: $date)
             Button(action: {
                 Task{
-                    try await envVar.createTransaction(transaction:Transaction(id: "",userId: envVar.username, tripId: trip._id, cost: Double(cost) ?? 0.00, date: "11-08-2022"))
+                    try await envVar.createTransaction(transaction:Transaction(id: "",userId: envVar.username, tripId: trip._id, cost: Double(cost) ?? 0.00, date: envVar.dateToStr(date: date)))
                     self.transaction = try await envVar.getTransactionsFortrip(trip: self.trip)
                 }
                 popupBool = false

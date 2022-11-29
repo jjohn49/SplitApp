@@ -117,22 +117,32 @@ struct TripsScrollView: View{
 
 
 struct AddTripView:View{
-    @State var tripName: String = ""
-    @State var user: String = ""
-    @State var users:[String] = []
-    @State var startDate: Date = Date.now
-    @State var endDate: Date = Date.now
+    @EnvironmentObject var envVar: EnviormentVariables
+    @State var trip: Trip = Trip(_id: "", name: "", users: [], startDate: "", endDate: "")
+    var tripName: String?
     var body: some View{
         VStack{
-            InputTripName(tripName: $tripName)
+            InputTripName(tripName: $trip.name).onAppear(perform: {
+                if tripName != nil{
+                    trip.name = tripName!
+                }
+            })
             Spacer()
-            InputUsers(user: $user, users: $users)
+            InputUsers(users: $trip.users).onAppear(perform: {
+                trip.users.append(envVar.username)
+            })
             Spacer()
-            InputStartAndEdDates(startdate: $startDate, endDate: $endDate)
+            InputStartAndEdDates(startDate: $trip.startDate, endDate: $trip.endDate).onAppear(perform: {
+                trip.startDate = envVar.dateToStr(date: Date.now)
+                trip.endDate = envVar.dateToStr(date: Date.now)
+            })
             Button(action: {
-                //create trip
+                Task{
+                    let _ = try await envVar.createTrip(trip: trip)
+                    let _ = envVar.getAllTripsForUser()
+                }
             }, label: {
-                Text("Creat Trip").padding().frame(width: 350).foregroundColor(.white).background(.tint)
+                Text("Create Trip").padding().frame(width: 350).foregroundColor(.white).background(.tint)
             }).cornerRadius(10)
         }
     }
@@ -154,7 +164,7 @@ struct InputTripName: View{
 }
 
 struct InputUsers: View{
-    @Binding var user: String
+    @State var user: String = ""
     @Binding var users: [String]
     var body: some View{
         VStack {
@@ -192,57 +202,24 @@ struct InputUsers: View{
 
 struct InputStartAndEdDates:View{
     @EnvironmentObject var envVar: EnviormentVariables
-    @State var dates: Set<DateComponents> = []
-    @Binding var startdate: Date
-    @Binding var endDate: Date
+    @Binding var startDate: String
+    @Binding var endDate: String
+    @State var sDate: Date = Date.now
+    @State var eDate: Date = Date.now
     
     var body: some View{
         VStack{
-            Text("\(envVar.dateToStr(date: startdate)) -> \(envVar.dateToStr(date: endDate))")
-            MultiDatePicker("Start and end Dates", selection: $dates).datePickerStyle(.automatic).onChange(of: dates, perform: { date in
-                if !dates.isEmpty{
-                    var min: Date = dateComponentToDate(dc: dates.first!)
-                    var minDC: DateComponents = dates.first!
-                    var max: Date = dateComponentToDate(dc: dates.first!)
-                    var maxDC: DateComponents = dates.first!
-                    for x in dates{
-                        print(x)
-                        if x == minDC || x == maxDC{
-                            continue
-                        }
-                        
-                        print(dateComponentToDate(dc: x) < min)
-                        if dateComponentToDate(dc: x) < min{
-                            min = dateComponentToDate(dc: x)
-                            dates.remove(minDC)
-                            minDC = x
-                            continue
-                        }
-                        
-                        print(dateComponentToDate(dc: x) > max)
-                        if dateComponentToDate(dc: x) > max{
-                            max = dateComponentToDate(dc: x)
-                            dates.remove(maxDC)
-                            maxDC = x
-                            continue
-                        }
-                        
-                        dates.remove(x)
-                        
-                    }
-                    
-                    startdate = min
-                    endDate = max
-                }
-                
-            })
+            Text("\(startDate) -----> \(endDate)")
         }.padding()
+        DatePicker("Start Date", selection: $sDate, displayedComponents: .date).datePickerStyle(.compact).padding().onChange(of: sDate, perform: { _ in
+                startDate = envVar.dateToStr(date: sDate)
+        })
+        DatePicker("End Date", selection: $eDate, displayedComponents: .date).datePickerStyle(.compact).padding().onChange(of: eDate, perform: { _ in
+            endDate = envVar.dateToStr(date: eDate)
+        })
+        Spacer()
     }
     
-
-    func dateComponentToDate(dc: DateComponents)-> Date{
-        return Calendar.current.date(from: dc)!
-    }
 }
     
     
