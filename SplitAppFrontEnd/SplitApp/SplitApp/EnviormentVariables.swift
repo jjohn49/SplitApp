@@ -27,7 +27,7 @@ struct Transaction: Codable, Identifiable{
     let id: String
     let userId: String
     let tripId: String
-    let cost: Double
+    var cost: Double
     let date: String
     
     // case *name in struct* = *name in the json*
@@ -87,21 +87,22 @@ class EnviormentVariables: ObservableObject{
         return cost
     }
     
-    func getCostDataForChart(transactions:[Transaction]) async throws -> [(String,Double)]{
-        var chartData: [(String,Double)] = []
+    func getCostDataForChart(transactions:[Transaction]) async throws -> [Transaction]{
+        var chartData: [Transaction] = []
         
         if(!transactions.isEmpty){
-            chartData.append((transactions[0].date,transactions[0].cost))
+            chartData.append(transactions[0])
             
             for x in 1..<transactions.count{
-                let (lastDate, lastCost) = chartData[chartData.count - 1]
+                let lastDate = chartData[chartData.count - 1].date
+                let lastCost = chartData[chartData.count - 1].cost
                 
                 let newDate = transactions[x].date
                 
                 if(lastDate.elementsEqual(newDate)){
-                    chartData[chartData.count - 1] = (lastDate,lastCost + transactions[x].cost)
+                    chartData[chartData.count - 1].cost += lastCost
                 }else{
-                    chartData.append((newDate,(lastCost + transactions[x].cost)))
+                    chartData.append(transactions[x])
                 }
             }
             
