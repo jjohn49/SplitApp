@@ -61,7 +61,7 @@ struct Trip: Identifiable, Codable{
 //Enviorment Object that contains all the methods I want to carry over and use in multiple views
 //Possibly rename this and or split it up into different classes for readability
 class EnviormentVariables: ObservableObject{
-    @Published var username: String = "jjohns49"
+    @Published var username: String = "mmoran"
     //Use this for password verification
     //@Published var jsToken = null
     @Published var fName: String = ""
@@ -90,23 +90,30 @@ class EnviormentVariables: ObservableObject{
     func getCostDataForChart(transactions:[Transaction]) async throws -> [Transaction]{
         var chartData: [Transaction] = []
         
+        var costDictionary: [String: Double] = ["Group": 0]
+        
         if(!transactions.isEmpty){
-            chartData.append(transactions[0])
             
-            for x in 1..<transactions.count{
-                let lastDate = chartData[chartData.count - 1].date
-                let lastCost = chartData[chartData.count - 1].cost
+            for x in 0..<transactions.count{
                 
-                let newDate = transactions[x].date
+                var currentTransaction = transactions[x]
                 
-                if(lastDate.elementsEqual(newDate)){
-                    chartData[chartData.count - 1].cost += lastCost
-                }else{
-                    chartData.append(transactions[x])
+                if !costDictionary.keys.contains(currentTransaction.userId){
+                    costDictionary[currentTransaction.userId] = 0
                 }
+                
+                costDictionary[currentTransaction.userId]! += currentTransaction.cost
+                costDictionary["Group"]! += currentTransaction.cost
+                
+                currentTransaction.cost = costDictionary[currentTransaction.userId]!
+                
+                chartData.append(currentTransaction)
+                
+                chartData.append(Transaction(id: UUID().description, userId: "Group" , tripId: currentTransaction.tripId, cost: costDictionary["Group"]!, date: currentTransaction.date))
+                
             }
             
-            return chartData
+            return sortTransactions(transactions: chartData)
         }
         
         return []
@@ -121,20 +128,24 @@ class EnviormentVariables: ObservableObject{
     
     func dateToStr(date: Date) -> String{
         let format = DateFormatter()
-        format.dateFormat = "MM/dd"
+        format.dateFormat = "MM/dd/yyyy"
         return format.string(from: date)
     }
     
     func dateToStrToDate(date: Date)-> Date{
         let d = dateToStr(date: date)
         let format = DateFormatter()
-        format.dateFormat = "MM/dd"
+        format.dateFormat = "MM/dd/yyyy"
         return format.date(from: d)!
     }
     
     func strToDateToStr(strDate: String) -> String {
         let date = strToDate(strDate: strDate)
         return dateToStr(date: date)
+    }
+    
+    func sortTransactions(transactions: [Transaction]) -> [Transaction]{
+        return transactions.sorted(by: {strToDate(strDate: $0.date).compare(strToDate(strDate: $1.date)) == .orderedAscending})
     }
     
     //this works just need to wait for user
@@ -181,7 +192,7 @@ class EnviormentVariables: ObservableObject{
                 do{
                     let decodedTrips = try JSONDecoder().decode([Trip].self, from: data)
                     self.trips = decodedTrips
-                    print(self.trips)
+                    //print(self.trips)
                 }catch let error{
                     print(error)
                 }
@@ -207,9 +218,9 @@ class EnviormentVariables: ObservableObject{
 
         
         let (data, _) = try await URLSession.shared.data(for: urlRequest)
-        let decodedTrips = try JSONDecoder().decode([Transaction].self, from: data)
+        let decodedTransactions = try JSONDecoder().decode([Transaction].self, from: data)
         
-        return decodedTrips
+        return sortTransactions(transactions: decodedTransactions)
         
         //add the api call for the endpoint that corresponsds with getTransactionsForTrip
     }
@@ -230,9 +241,9 @@ class EnviormentVariables: ObservableObject{
         do{
             let (data, _) = try await URLSession.shared.upload(for: urlRequest, from: jsonTransaction)
             
-            if let resp = String(data: data, encoding: .utf8){
+            /*if let resp = String(data: data, encoding: .utf8){
                 print(resp)
-            }
+            }*/
         }catch{
             print("Error sending")
             return false
@@ -251,7 +262,7 @@ class EnviormentVariables: ObservableObject{
         urlRequest.httpMethod = "DELETE"
         
         let (data, _) = try await URLSession.shared.data(for: urlRequest)
-        print(data)
+        //print(data)
         
         return true
     }
@@ -270,9 +281,9 @@ class EnviormentVariables: ObservableObject{
         do{
             let (data, _) = try await URLSession.shared.upload(for: urlRequest, from: jsonTransaction)
             
-            if let resp = String(data: data, encoding: .utf8){
+            /*if let resp = String(data: data, encoding: .utf8){
                 print(resp)
-            }
+            }*/
         }catch{
             print("Error sending")
             return false

@@ -14,7 +14,7 @@ struct TripDetalView:View{
     let trip: Trip
     @State var totalCost: Double = 0.00
     @State var transactions: [Transaction] = []
-    @State var chartData: [(String,Double)] = []
+    @State var chartData: [Transaction] = []
     @State var howMuchYouHaveSpent: Double = 0.00
     var body: some View{
         VStack {
@@ -72,8 +72,7 @@ struct TripDetalView:View{
         self.transactions = try await envVar.getTransactionsFortrip(trip: trip)
         self.chartData = try await envVar.getCostDataForChart(transactions: self.transactions)
         if(!chartData.isEmpty){
-            let (_, cost) = chartData[chartData.count-1]
-            self.totalCost = cost
+            self.totalCost = chartData[chartData.count-1].cost
             self.howMuchYouHaveSpent = envVar.getHowMuchYouveSpent(transactions: self.transactions)
         }
     }
@@ -150,15 +149,14 @@ struct TransactionRow:View{
 struct ChartView:View{
     @EnvironmentObject var envVar: EnviormentVariables
     let transactions: [Transaction]
-    let chartData: [(String,Double)]
+    let chartData: [Transaction]
     @State var cost: [Int] = [0]
     var body: some View{
         ZStack {
             Chart{
-                ForEach(0..<chartData.count, id: \.self){ x in
-                    let (date, tempC) = chartData[x]
-                    LineMark(x: .value("Date", envVar.strToDateToStr(strDate: date)), y: .value("Cost", Int(tempC)))
-                }.symbol(.circle)
+                ForEach(chartData){
+                    LineMark(x: .value("Date", envVar.strToDateToStr(strDate: $0.date)), y: .value("Cost", $0.cost)).foregroundStyle(by: .value("User", $0.userId)).symbol(by: .value("User", $0.userId))
+                }
                 
             }.frame(width: 375, height: 200)
         }
@@ -171,7 +169,7 @@ struct OverallCostView: View {
     let totalCost: Double
     let howMuchYouHaveSpent: Double
     let transactions: [Transaction]
-    let chartData: [(String,Double)]
+    let chartData: [Transaction]
     let trip:Trip
     var body: some View {
         ZStack(alignment: .topLeading){
