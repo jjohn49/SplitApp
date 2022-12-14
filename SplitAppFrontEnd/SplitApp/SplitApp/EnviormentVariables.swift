@@ -71,6 +71,7 @@ class EnviormentVariables: ObservableObject{
     //Think about maybe using JSON Web Token instead
     @Published var isSignedIn: Bool = false
     @Published var trips: [Trip] = []
+    @Published var oldTrips: [Trip] = []
     
     //Maybe add an array of the transactions
     
@@ -191,6 +192,7 @@ class EnviormentVariables: ObservableObject{
             DispatchQueue.main.async {
                 do{
                     let decodedTrips = try JSONDecoder().decode([Trip].self, from: data)
+                    //add method the differentiates old trips from new trip
                     self.trips = decodedTrips
                     //print(self.trips)
                 }catch let error{

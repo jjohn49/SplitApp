@@ -14,8 +14,8 @@ app.get("/", async (req, res)=>{
 //If the password in req body matches the password in  the DB then it returns their info
 //If 
 app.post("/signin", async (req, res)=>{
-    username = req.body["_id"];
-    reqPassword = req.body["password"];
+    let username = req.body["_id"];
+    let reqPassword = req.body["password"];
 
     try{
         const user = await AppModels.User.findById(username);
