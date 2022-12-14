@@ -105,23 +105,40 @@ struct AddTransactionView:View{
     @Binding var popupBool: Bool
     @Binding var transaction: [Transaction]
     @EnvironmentObject var envVar: EnviormentVariables
-    @State var cost: String = "0.00"
+    @State var cost: Double = 0.00
     @State var date: Date = Date.now
+    
+    let formatter = NumberFormatter()
+    
+
     var body: some View{
         VStack{
-            TextField("Cost", text: $cost).keyboardType(.numberPad)
-            DatePicker("Date", selection: $date)
+            HStack {
+                Text("$").font(.largeTitle).bold().padding()
+                TextField("Cost", value: $cost, formatter: formatter).font(.largeTitle).bold().padding()
+                Button(action: {
+                    cost = 0
+                }, label: {
+                    Image(systemName: "multiply.circle.fill").foregroundColor(.secondary).padding()
+                })
+            }.frame(width: 350).background(.quaternary).cornerRadius(10).padding()
+            
+            DatePicker("Date", selection: $date, displayedComponents: .date).datePickerStyle(.graphical)
             Button(action: {
                 Task{
-                    try await envVar.createTransaction(transaction:Transaction(id: "",userId: envVar.username, tripId: trip._id, cost: Double(cost) ?? 0.00, date: envVar.dateToStr(date: date)))
+                    try await envVar.createTransaction(transaction:Transaction(id: "",userId: envVar.username, tripId: trip._id, cost: cost, date: envVar.dateToStr(date: date)))
                     self.transaction = try await envVar.getTransactionsFortrip(trip: self.trip)
                 }
                 popupBool = false
                 
             }, label: {
-                Text("Submit")
-            })
-        }
+                Text("Add Transaction").padding().frame(width: 350).background(.tint).foregroundColor(.white).bold()
+            }).cornerRadius(10)
+            
+        }.onAppear(perform: {
+            formatter.locale = Locale.current 
+            formatter.numberStyle = .currency
+        })
     }
 }
 
@@ -178,3 +195,4 @@ struct OverallCostView: View {
         }
     }
 }
+
