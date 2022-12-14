@@ -61,7 +61,7 @@ struct Trip: Identifiable, Codable{
 //Enviorment Object that contains all the methods I want to carry over and use in multiple views
 //Possibly rename this and or split it up into different classes for readability
 class EnviormentVariables: ObservableObject{
-    @Published var username: String = "mmoran"
+    @Published var username: String = "jjohns49"
     //Use this for password verification
     //@Published var jsToken = null
     @Published var fName: String = ""

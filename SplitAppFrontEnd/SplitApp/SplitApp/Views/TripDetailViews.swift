@@ -155,7 +155,7 @@ struct ChartView:View{
         ZStack {
             Chart{
                 ForEach(chartData){
-                    LineMark(x: .value("Date", envVar.strToDateToStr(strDate: $0.date)), y: .value("Cost", $0.cost)).foregroundStyle(by: .value("User", $0.userId)).symbol(by: .value("User", $0.userId))
+                    LineMark(x: .value("Date", envVar.strToDate(strDate: $0.date)), y: .value("Cost", $0.cost)).foregroundStyle(by: .value("User", $0.userId)).symbol(by: .value("User", $0.userId))
                 }
                 
             }.frame(width: 375, height: 200)
