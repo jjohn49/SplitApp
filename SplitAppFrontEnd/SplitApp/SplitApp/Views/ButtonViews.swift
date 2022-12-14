@@ -63,7 +63,7 @@ struct ButtonStyleInQuickActionButton:View{
     var body: some View{
         ZStack{
             RoundedRectangle(cornerRadius: 10).frame(width: 100, height: 90).foregroundColor(.blue)
-            RoundedRectangle(cornerRadius: 10).stroke(lineWidth: 3).frame(width: 100, height: 90)
+            //RoundedRectangle(cornerRadius: 10).stroke(lineWidth: 3).frame(width: 100, height: 90)
             VStack{
                 Text(emoji).font(.title2)
                 Text(message).font(.subheadline)

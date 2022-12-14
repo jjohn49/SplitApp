@@ -108,6 +108,8 @@ struct AddTransactionView:View{
     @State var cost: Double = 0.00
     @State var date: Date = Date.now
     
+    @State var description: String = ""
+    
     let formatter = NumberFormatter()
     
 
@@ -123,7 +125,9 @@ struct AddTransactionView:View{
                 })
             }.frame(width: 350).background(.quaternary).cornerRadius(10).padding()
             
-            DatePicker("Date", selection: $date, displayedComponents: .date).datePickerStyle(.graphical)
+            DatePicker("", selection: $date, displayedComponents: .date).datePickerStyle(.compact)
+            Text("Description")
+            TextEditor(text: $description).frame(width: 325, height: 200).padding().scrollContentBackground(.hidden).background(.quaternary).cornerRadius(10)
             Button(action: {
                 Task{
                     try await envVar.createTransaction(transaction:Transaction(id: "",userId: envVar.username, tripId: trip._id, cost: cost, date: envVar.dateToStr(date: date)))
@@ -136,7 +140,7 @@ struct AddTransactionView:View{
             }).cornerRadius(10)
             
         }.onAppear(perform: {
-            formatter.locale = Locale.current 
+            formatter.locale = Locale.current
             formatter.numberStyle = .currency
         })
     }
