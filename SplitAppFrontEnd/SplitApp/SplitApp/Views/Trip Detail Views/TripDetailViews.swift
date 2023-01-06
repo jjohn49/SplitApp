@@ -22,11 +22,7 @@ struct TripDetalView:View{
                 //Text("Transactions").font(.title).bold()
                 
                 Text("Transactions").font(.title2).bold().underline().frame(alignment: .leading)
-                NavigationLink(destination: {
-                    ListOfTransactions(getVariablesForTripdetailView: getVariablesForTripdetailView, transactions: $transactions).navigationTitle("Transactions")
-                }, label: {
-                    MostRecentTransactions(transactions: $transactions).padding()
-                }).frame(width: 350, height: 200).background(.white).cornerRadius(10)
+                MostRecentTransactions(transactions: $transactions).padding().frame(width: 350, height: 200).background(.white).cornerRadius(10)
                 
             }
             Button(action: {

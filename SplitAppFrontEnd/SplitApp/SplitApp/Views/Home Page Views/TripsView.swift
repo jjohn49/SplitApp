@@ -18,7 +18,9 @@ struct TripsView: View {
                 if(view==views[1]){
                     AllTripsView(isNewTripPopUp: $isNewTripPopUp,trips: envVars.trips)
                 }else{
-                    TripsScrollView(isNewTripPopUp: $isNewTripPopUp)
+                    TripsScrollView(isNewTripPopUp: $isNewTripPopUp).onAppear(perform: {
+                        
+                    })
                 }
                 
             }.navigationTitle("Trips").toolbar(content: {
@@ -54,8 +56,3 @@ struct TripsView: View {
     }
 }
 
-struct TripsView_Previews: PreviewProvider {
-    static var previews: some View {
-        TripsView()
-    }
-}

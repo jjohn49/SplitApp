@@ -149,6 +149,10 @@ class EnviormentVariables: ObservableObject{
         return transactions.sorted(by: {strToDate(strDate: $0.date).compare(strToDate(strDate: $1.date)) == .orderedAscending})
     }
     
+    func sortTrips(trips: [Trip]) -> [Trip]{
+        return trips.sorted(by: {strToDate(strDate: $0.endDate).compare(strToDate(strDate: $1.endDate)) == .orderedDescending})
+    }
+    
     //this works just need to wait for user
     func getAllTripsForUser(){
         let userId = self.username
@@ -193,7 +197,8 @@ class EnviormentVariables: ObservableObject{
                 do{
                     let decodedTrips = try JSONDecoder().decode([Trip].self, from: data)
                     //add method the differentiates old trips from new trip
-                    self.trips = decodedTrips
+                    self.trips = self.sortTrips(trips: decodedTrips)
+                    
                     //print(self.trips)
                 }catch let error{
                     print(error)

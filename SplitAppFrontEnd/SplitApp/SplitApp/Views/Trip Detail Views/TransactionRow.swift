@@ -13,15 +13,18 @@ struct TransactionRow:View{
     let transaction: Transaction
     
     var body: some View{
-        HStack {
-            VStack{
-                Text("$\(transaction.cost, specifier: "%.2f")").foregroundColor(.black).font(.title2).bold()
-                Text("\(transaction.userId)")
-                
+        NavigationLink(destination: {
+            
+        }, label: {
+            HStack {
+                VStack{
+                    Text("$\(transaction.cost, specifier: "%.2f")").foregroundColor(.black).font(.title2).bold()
+                    Text("\(transaction.userId)")
+                }
+                Spacer()
+                Text(envVar.strToDateToStr(strDate: transaction.date))
             }
-            Spacer()
-            Text(envVar.strToDateToStr(strDate: transaction.date))
-        }
+        })
     }
     
     

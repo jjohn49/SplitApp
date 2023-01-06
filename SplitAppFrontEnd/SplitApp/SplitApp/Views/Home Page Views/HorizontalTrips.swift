@@ -10,6 +10,7 @@ import SwiftUI
 struct HorizontalTrips:View{
     @EnvironmentObject var envVars: EnviormentVariables
     @Binding var popOver: Bool
+
     var body: some View{
         ScrollView(.horizontal){
             if(envVars.trips.isEmpty){
