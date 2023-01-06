@@ -18,14 +18,15 @@ struct TripDetalView:View{
     var body: some View{
         VStack {
             ScrollView{
-                OverallCostView(totalCost: totalCost, howMuchYouHaveSpent: howMuchYouHaveSpent, transactions: transactions, chartData: chartData, trip: trip)
+                OverallCostView(totalCost: totalCost, howMuchYouHaveSpent: howMuchYouHaveSpent, transactions: transactions, chartData: chartData, trip: trip).frame(width: 350, height: 300).background(.white).cornerRadius(10).padding()
                 //Text("Transactions").font(.title).bold()
-                List{
-                    ForEach(transactions.reversed()) { transaction in
-                        TransactionRow(transaction: transaction)
-                    }.onDelete(perform: deleteTransactionRow)
-                }.frame(height: 400)
                 
+                Text("Transactions").font(.title2).bold().underline().frame(alignment: .leading)
+                NavigationLink(destination: {
+                    ListOfTransactions(getVariablesForTripdetailView: getVariablesForTripdetailView, transactions: $transactions).navigationTitle("Transactions")
+                }, label: {
+                    MostRecentTransactions(transactions: $transactions).padding()
+                }).frame(width: 350, height: 200).background(.white).cornerRadius(10)
                 
             }
             Button(action: {
@@ -46,7 +47,7 @@ struct TripDetalView:View{
                     try await getVariablesForTripdetailView()
                 }
             })
-        })
+        }).background(.quaternary)
     }
     
     func getVariablesOnAppear() async throws{
@@ -54,16 +55,6 @@ struct TripDetalView:View{
             try await getVariablesForTripdetailView()
         }catch let error{
             print(error)
-        }
-    }
-    
-    func deleteTransactionRow(at offsets: IndexSet){
-        let theTransaction = transactions.reversed()[offsets.first!]
-        Task{
-            let res = try await envVar.deleteTransaction(transaction:theTransaction)
-            if(res){
-                try await getVariablesForTripdetailView()
-            }
         }
     }
     

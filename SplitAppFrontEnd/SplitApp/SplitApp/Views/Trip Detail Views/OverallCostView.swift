@@ -16,7 +16,7 @@ struct OverallCostView: View {
     var body: some View {
         ZStack(alignment: .topLeading){
             MoneySpentView(totalCost: totalCost, howMuchYouHaveSpent: howMuchYouHaveSpent, trip: trip).padding()
-            ChartView(transactions: transactions, chartData: chartData).frame(width: 400,height: 200)
+            ChartView(transactions: transactions, chartData: chartData).padding()
         }
     }
 }

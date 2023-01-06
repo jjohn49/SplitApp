@@ -30,6 +30,8 @@
 		1EBA8F4B2967A3F700F7C579 /* AllQuickActionButtons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EBA8F4A2967A3F700F7C579 /* AllQuickActionButtons.swift */; };
 		1EBA8F4D2967A41600F7C579 /* QuickActionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EBA8F4C2967A41600F7C579 /* QuickActionButton.swift */; };
 		1EBA8F4F2967A44200F7C579 /* ButtonStyleInQuickActionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EBA8F4E2967A44200F7C579 /* ButtonStyleInQuickActionButton.swift */; };
+		1EBA8F512967A66100F7C579 /* ListOfTransactions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EBA8F502967A66100F7C579 /* ListOfTransactions.swift */; };
+		1EBA8F532967AF5A00F7C579 /* MostRecentTransactions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EBA8F522967AF5A00F7C579 /* MostRecentTransactions.swift */; };
 		1EBD423E2917054700F512D7 /* TripDetailViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EBD423D2917054700F512D7 /* TripDetailViews.swift */; };
 		1EE7C47F28F6571E00688388 /* SplitAppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EE7C47E28F6571E00688388 /* SplitAppApp.swift */; };
 		1EE7C48128F6571E00688388 /* AppView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EE7C48028F6571E00688388 /* AppView.swift */; };
@@ -81,6 +83,8 @@
 		1EBA8F4A2967A3F700F7C579 /* AllQuickActionButtons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllQuickActionButtons.swift; sourceTree = "<group>"; };
 		1EBA8F4C2967A41600F7C579 /* QuickActionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickActionButton.swift; sourceTree = "<group>"; };
 		1EBA8F4E2967A44200F7C579 /* ButtonStyleInQuickActionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonStyleInQuickActionButton.swift; sourceTree = "<group>"; };
+		1EBA8F502967A66100F7C579 /* ListOfTransactions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListOfTransactions.swift; sourceTree = "<group>"; };
+		1EBA8F522967AF5A00F7C579 /* MostRecentTransactions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MostRecentTransactions.swift; sourceTree = "<group>"; };
 		1EBD423D2917054700F512D7 /* TripDetailViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripDetailViews.swift; sourceTree = "<group>"; };
 		1EE7C47B28F6571E00688388 /* SplitApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SplitApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1EE7C47E28F6571E00688388 /* SplitAppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplitAppApp.swift; sourceTree = "<group>"; };
@@ -164,6 +168,8 @@
 				1EBA8F432967A35600F7C579 /* TransactionRow.swift */,
 				1EBA8F452967A37500F7C579 /* ChartView.swift */,
 				1EBA8F472967A3AC00F7C579 /* OverallCostView.swift */,
+				1EBA8F502967A66100F7C579 /* ListOfTransactions.swift */,
+				1EBA8F522967AF5A00F7C579 /* MostRecentTransactions.swift */,
 			);
 			path = "Trip Detail Views";
 			sourceTree = "<group>";
@@ -171,9 +177,9 @@
 		1EBA8F492967A3CC00F7C579 /* Button Views */ = {
 			isa = PBXGroup;
 			children = (
-				1EBA8F4A2967A3F700F7C579 /* AllQuickActionButtons.swift */,
 				1EBA8F4C2967A41600F7C579 /* QuickActionButton.swift */,
 				1EBA8F4E2967A44200F7C579 /* ButtonStyleInQuickActionButton.swift */,
+				1EBA8F4A2967A3F700F7C579 /* AllQuickActionButtons.swift */,
 			);
 			path = "Button Views";
 			sourceTree = "<group>";
@@ -389,12 +395,14 @@
 				1EBA8F482967A3AC00F7C579 /* OverallCostView.swift in Sources */,
 				1EBA8F3D2967A2BD00F7C579 /* CustomTextField.swift in Sources */,
 				1E1B030028FB164E00C61588 /* EnviormentVariables.swift in Sources */,
+				1EBA8F532967AF5A00F7C579 /* MostRecentTransactions.swift in Sources */,
 				1EBA8F392967A26E00F7C579 /* SignInView.swift in Sources */,
 				1EE7C47F28F6571E00688388 /* SplitAppApp.swift in Sources */,
 				1EBA8F252967A08C00F7C579 /* AllTripsView.swift in Sources */,
 				1EBA8F2C2967A14000F7C579 /* InputTripName.swift in Sources */,
 				1EBA8F272967A0AC00F7C579 /* TripsScrollView.swift in Sources */,
 				1EBA8F292967A0D700F7C579 /* AddTripView.swift in Sources */,
+				1EBA8F512967A66100F7C579 /* ListOfTransactions.swift in Sources */,
 				1EBA8F4D2967A41600F7C579 /* QuickActionButton.swift in Sources */,
 				1EBA8F3B2967A29900F7C579 /* CreateAccountView.swift in Sources */,
 				1EBD423E2917054700F512D7 /* TripDetailViews.swift in Sources */,
