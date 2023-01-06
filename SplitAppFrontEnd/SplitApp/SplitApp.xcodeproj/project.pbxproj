@@ -10,8 +10,27 @@
 		1E1B030028FB164E00C61588 /* EnviormentVariables.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E1B02FF28FB164E00C61588 /* EnviormentVariables.swift */; };
 		1E1B030228FB245A00C61588 /* SignInPages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E1B030128FB245A00C61588 /* SignInPages.swift */; };
 		1E2CEE2F28FB83B1006218D7 /* HomePageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E2CEE2E28FB83B1006218D7 /* HomePageView.swift */; };
+		1EBA8F232967A05000F7C579 /* TripsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EBA8F222967A05000F7C579 /* TripsView.swift */; };
+		1EBA8F252967A08C00F7C579 /* AllTripsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EBA8F242967A08C00F7C579 /* AllTripsView.swift */; };
+		1EBA8F272967A0AC00F7C579 /* TripsScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EBA8F262967A0AC00F7C579 /* TripsScrollView.swift */; };
+		1EBA8F292967A0D700F7C579 /* AddTripView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EBA8F282967A0D700F7C579 /* AddTripView.swift */; };
+		1EBA8F2C2967A14000F7C579 /* InputTripName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EBA8F2B2967A14000F7C579 /* InputTripName.swift */; };
+		1EBA8F2E2967A17A00F7C579 /* InputUsers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EBA8F2D2967A17A00F7C579 /* InputUsers.swift */; };
+		1EBA8F302967A19C00F7C579 /* InputStartAndEndDates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EBA8F2F2967A19C00F7C579 /* InputStartAndEndDates.swift */; };
+		1EBA8F342967A1D500F7C579 /* HorizontalTrips.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EBA8F332967A1D500F7C579 /* HorizontalTrips.swift */; };
+		1EBA8F362967A21F00F7C579 /* TripRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EBA8F352967A21F00F7C579 /* TripRow.swift */; };
+		1EBA8F392967A26E00F7C579 /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EBA8F382967A26E00F7C579 /* SignInView.swift */; };
+		1EBA8F3B2967A29900F7C579 /* CreateAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EBA8F3A2967A29900F7C579 /* CreateAccountView.swift */; };
+		1EBA8F3D2967A2BD00F7C579 /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EBA8F3C2967A2BD00F7C579 /* CustomTextField.swift */; };
+		1EBA8F402967A30A00F7C579 /* MoneySpentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EBA8F3F2967A30A00F7C579 /* MoneySpentView.swift */; };
+		1EBA8F422967A32C00F7C579 /* AddTransactionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EBA8F412967A32C00F7C579 /* AddTransactionView.swift */; };
+		1EBA8F442967A35600F7C579 /* TransactionRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EBA8F432967A35600F7C579 /* TransactionRow.swift */; };
+		1EBA8F462967A37500F7C579 /* ChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EBA8F452967A37500F7C579 /* ChartView.swift */; };
+		1EBA8F482967A3AC00F7C579 /* OverallCostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EBA8F472967A3AC00F7C579 /* OverallCostView.swift */; };
+		1EBA8F4B2967A3F700F7C579 /* AllQuickActionButtons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EBA8F4A2967A3F700F7C579 /* AllQuickActionButtons.swift */; };
+		1EBA8F4D2967A41600F7C579 /* QuickActionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EBA8F4C2967A41600F7C579 /* QuickActionButton.swift */; };
+		1EBA8F4F2967A44200F7C579 /* ButtonStyleInQuickActionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EBA8F4E2967A44200F7C579 /* ButtonStyleInQuickActionButton.swift */; };
 		1EBD423E2917054700F512D7 /* TripDetailViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EBD423D2917054700F512D7 /* TripDetailViews.swift */; };
-		1EBD4240291705FC00F512D7 /* ButtonViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EBD423F291705FC00F512D7 /* ButtonViews.swift */; };
 		1EE7C47F28F6571E00688388 /* SplitAppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EE7C47E28F6571E00688388 /* SplitAppApp.swift */; };
 		1EE7C48128F6571E00688388 /* AppView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EE7C48028F6571E00688388 /* AppView.swift */; };
 		1EE7C48328F6571F00688388 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1EE7C48228F6571F00688388 /* Assets.xcassets */; };
@@ -42,8 +61,27 @@
 		1E1B02FF28FB164E00C61588 /* EnviormentVariables.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnviormentVariables.swift; sourceTree = "<group>"; };
 		1E1B030128FB245A00C61588 /* SignInPages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInPages.swift; sourceTree = "<group>"; };
 		1E2CEE2E28FB83B1006218D7 /* HomePageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePageView.swift; sourceTree = "<group>"; };
+		1EBA8F222967A05000F7C579 /* TripsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripsView.swift; sourceTree = "<group>"; };
+		1EBA8F242967A08C00F7C579 /* AllTripsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllTripsView.swift; sourceTree = "<group>"; };
+		1EBA8F262967A0AC00F7C579 /* TripsScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripsScrollView.swift; sourceTree = "<group>"; };
+		1EBA8F282967A0D700F7C579 /* AddTripView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTripView.swift; sourceTree = "<group>"; };
+		1EBA8F2B2967A14000F7C579 /* InputTripName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputTripName.swift; sourceTree = "<group>"; };
+		1EBA8F2D2967A17A00F7C579 /* InputUsers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputUsers.swift; sourceTree = "<group>"; };
+		1EBA8F2F2967A19C00F7C579 /* InputStartAndEndDates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputStartAndEndDates.swift; sourceTree = "<group>"; };
+		1EBA8F332967A1D500F7C579 /* HorizontalTrips.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizontalTrips.swift; sourceTree = "<group>"; };
+		1EBA8F352967A21F00F7C579 /* TripRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripRow.swift; sourceTree = "<group>"; };
+		1EBA8F382967A26E00F7C579 /* SignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
+		1EBA8F3A2967A29900F7C579 /* CreateAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAccountView.swift; sourceTree = "<group>"; };
+		1EBA8F3C2967A2BD00F7C579 /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
+		1EBA8F3F2967A30A00F7C579 /* MoneySpentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoneySpentView.swift; sourceTree = "<group>"; };
+		1EBA8F412967A32C00F7C579 /* AddTransactionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTransactionView.swift; sourceTree = "<group>"; };
+		1EBA8F432967A35600F7C579 /* TransactionRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionRow.swift; sourceTree = "<group>"; };
+		1EBA8F452967A37500F7C579 /* ChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartView.swift; sourceTree = "<group>"; };
+		1EBA8F472967A3AC00F7C579 /* OverallCostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverallCostView.swift; sourceTree = "<group>"; };
+		1EBA8F4A2967A3F700F7C579 /* AllQuickActionButtons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllQuickActionButtons.swift; sourceTree = "<group>"; };
+		1EBA8F4C2967A41600F7C579 /* QuickActionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickActionButton.swift; sourceTree = "<group>"; };
+		1EBA8F4E2967A44200F7C579 /* ButtonStyleInQuickActionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonStyleInQuickActionButton.swift; sourceTree = "<group>"; };
 		1EBD423D2917054700F512D7 /* TripDetailViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripDetailViews.swift; sourceTree = "<group>"; };
-		1EBD423F291705FC00F512D7 /* ButtonViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonViews.swift; sourceTree = "<group>"; };
 		1EE7C47B28F6571E00688388 /* SplitApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SplitApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1EE7C47E28F6571E00688388 /* SplitAppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplitAppApp.swift; sourceTree = "<group>"; };
 		1EE7C48028F6571E00688388 /* AppView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppView.swift; sourceTree = "<group>"; };
@@ -81,14 +119,73 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1EBA8F212967A02100F7C579 /* Home Page Views */ = {
+			isa = PBXGroup;
+			children = (
+				1EBA8F2A2967A11D00F7C579 /* Input Data Views */,
+				1E2CEE2E28FB83B1006218D7 /* HomePageView.swift */,
+				1EBA8F222967A05000F7C579 /* TripsView.swift */,
+				1EBA8F242967A08C00F7C579 /* AllTripsView.swift */,
+				1EBA8F262967A0AC00F7C579 /* TripsScrollView.swift */,
+				1EBA8F282967A0D700F7C579 /* AddTripView.swift */,
+				1EBA8F332967A1D500F7C579 /* HorizontalTrips.swift */,
+				1EBA8F352967A21F00F7C579 /* TripRow.swift */,
+			);
+			path = "Home Page Views";
+			sourceTree = "<group>";
+		};
+		1EBA8F2A2967A11D00F7C579 /* Input Data Views */ = {
+			isa = PBXGroup;
+			children = (
+				1EBA8F2B2967A14000F7C579 /* InputTripName.swift */,
+				1EBA8F2D2967A17A00F7C579 /* InputUsers.swift */,
+				1EBA8F2F2967A19C00F7C579 /* InputStartAndEndDates.swift */,
+			);
+			path = "Input Data Views";
+			sourceTree = "<group>";
+		};
+		1EBA8F372967A24500F7C579 /* Sign In Views */ = {
+			isa = PBXGroup;
+			children = (
+				1E1B030128FB245A00C61588 /* SignInPages.swift */,
+				1EBA8F382967A26E00F7C579 /* SignInView.swift */,
+				1EBA8F3A2967A29900F7C579 /* CreateAccountView.swift */,
+				1EBA8F3C2967A2BD00F7C579 /* CustomTextField.swift */,
+			);
+			path = "Sign In Views";
+			sourceTree = "<group>";
+		};
+		1EBA8F3E2967A2DE00F7C579 /* Trip Detail Views */ = {
+			isa = PBXGroup;
+			children = (
+				1EBD423D2917054700F512D7 /* TripDetailViews.swift */,
+				1EBA8F3F2967A30A00F7C579 /* MoneySpentView.swift */,
+				1EBA8F412967A32C00F7C579 /* AddTransactionView.swift */,
+				1EBA8F432967A35600F7C579 /* TransactionRow.swift */,
+				1EBA8F452967A37500F7C579 /* ChartView.swift */,
+				1EBA8F472967A3AC00F7C579 /* OverallCostView.swift */,
+			);
+			path = "Trip Detail Views";
+			sourceTree = "<group>";
+		};
+		1EBA8F492967A3CC00F7C579 /* Button Views */ = {
+			isa = PBXGroup;
+			children = (
+				1EBA8F4A2967A3F700F7C579 /* AllQuickActionButtons.swift */,
+				1EBA8F4C2967A41600F7C579 /* QuickActionButton.swift */,
+				1EBA8F4E2967A44200F7C579 /* ButtonStyleInQuickActionButton.swift */,
+			);
+			path = "Button Views";
+			sourceTree = "<group>";
+		};
 		1EBD423C2917050000F512D7 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				1EBA8F492967A3CC00F7C579 /* Button Views */,
+				1EBA8F3E2967A2DE00F7C579 /* Trip Detail Views */,
+				1EBA8F372967A24500F7C579 /* Sign In Views */,
+				1EBA8F212967A02100F7C579 /* Home Page Views */,
 				1EE7C48028F6571E00688388 /* AppView.swift */,
-				1E1B030128FB245A00C61588 /* SignInPages.swift */,
-				1E2CEE2E28FB83B1006218D7 /* HomePageView.swift */,
-				1EBD423D2917054700F512D7 /* TripDetailViews.swift */,
-				1EBD423F291705FC00F512D7 /* ButtonViews.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -280,13 +377,32 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1EBD4240291705FC00F512D7 /* ButtonViews.swift in Sources */,
+				1EBA8F422967A32C00F7C579 /* AddTransactionView.swift in Sources */,
+				1EBA8F4B2967A3F700F7C579 /* AllQuickActionButtons.swift in Sources */,
+				1EBA8F302967A19C00F7C579 /* InputStartAndEndDates.swift in Sources */,
 				1E1B030228FB245A00C61588 /* SignInPages.swift in Sources */,
 				1EE7C48128F6571E00688388 /* AppView.swift in Sources */,
+				1EBA8F402967A30A00F7C579 /* MoneySpentView.swift in Sources */,
+				1EBA8F462967A37500F7C579 /* ChartView.swift in Sources */,
+				1EBA8F2E2967A17A00F7C579 /* InputUsers.swift in Sources */,
+				1EBA8F442967A35600F7C579 /* TransactionRow.swift in Sources */,
+				1EBA8F482967A3AC00F7C579 /* OverallCostView.swift in Sources */,
+				1EBA8F3D2967A2BD00F7C579 /* CustomTextField.swift in Sources */,
 				1E1B030028FB164E00C61588 /* EnviormentVariables.swift in Sources */,
+				1EBA8F392967A26E00F7C579 /* SignInView.swift in Sources */,
 				1EE7C47F28F6571E00688388 /* SplitAppApp.swift in Sources */,
+				1EBA8F252967A08C00F7C579 /* AllTripsView.swift in Sources */,
+				1EBA8F2C2967A14000F7C579 /* InputTripName.swift in Sources */,
+				1EBA8F272967A0AC00F7C579 /* TripsScrollView.swift in Sources */,
+				1EBA8F292967A0D700F7C579 /* AddTripView.swift in Sources */,
+				1EBA8F4D2967A41600F7C579 /* QuickActionButton.swift in Sources */,
+				1EBA8F3B2967A29900F7C579 /* CreateAccountView.swift in Sources */,
 				1EBD423E2917054700F512D7 /* TripDetailViews.swift in Sources */,
 				1E2CEE2F28FB83B1006218D7 /* HomePageView.swift in Sources */,
+				1EBA8F232967A05000F7C579 /* TripsView.swift in Sources */,
+				1EBA8F4F2967A44200F7C579 /* ButtonStyleInQuickActionButton.swift in Sources */,
+				1EBA8F342967A1D500F7C579 /* HorizontalTrips.swift in Sources */,
+				1EBA8F362967A21F00F7C579 /* TripRow.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

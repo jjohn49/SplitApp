@@ -1,12 +1,11 @@
 //
-//  ButtonViews.swift
+//  AllQuickActionButtons.swift
 //  SplitApp
 //
-//  Created by John Johnston on 11/5/22.
+//  Created by John Johnston on 1/5/23.
 //
 
 import SwiftUI
-
 
 struct AllQuickActionButtons:View{
     //This was easier than making one popover with conditions
@@ -41,36 +40,3 @@ struct AllQuickActionButtons:View{
         }
     }
 }
-
-struct QuickActionButton:View{
-    @Binding var isNewTripPopUp: Bool
-    let emoji: String
-    let message: String
-    var body: some View{
-        Button(action: {
-            isNewTripPopUp = true
-        }, label: {
-            ButtonStyleInQuickActionButton(emoji: emoji, message: message)
-        }).foregroundColor(.gray).popover(isPresented: $isNewTripPopUp, content: {
-            AddTripView(tripName: message)
-        })
-
-    }
-}
-struct ButtonStyleInQuickActionButton:View{
-    let emoji: String
-    let message: String
-    var body: some View{
-        ZStack{
-            RoundedRectangle(cornerRadius: 10).frame(width: 100, height: 90).foregroundColor(.blue)
-            //RoundedRectangle(cornerRadius: 10).stroke(lineWidth: 3).frame(width: 100, height: 90)
-            VStack{
-                Text(emoji).font(.title2)
-                Text(message).font(.subheadline)
-            }.foregroundColor(.white)
-        }
-    }
-}
-
-
-
