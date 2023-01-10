@@ -23,6 +23,12 @@ struct TransactionRow:View{
                 }
                 Spacer()
                 Text(envVar.strToDateToStr(strDate: transaction.date))
+                if !transaction.votesToDelete.isEmpty{
+                    HStack{
+                        Text(String(transaction.votesToDelete.count))
+                        Image(systemName: "x.circle")
+                    }
+                }
             }
         })
     }

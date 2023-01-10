@@ -29,9 +29,11 @@ struct MostRecentTransactions: View {
                         Image(systemName: "arrow.up.backward.and.arrow.down.forward.circle.fill").resizable().frame(width:40,height: 40)
                     })
                 }
+                
                 TransactionRow(transaction: transactions.last!)
                 TransactionRow(transaction: transactions[transactions.count - 2])
                 TransactionRow(transaction: transactions[transactions.count - 3])
+                
             }
         }.padding()
     }
