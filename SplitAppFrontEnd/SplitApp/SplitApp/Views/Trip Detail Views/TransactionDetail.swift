@@ -15,6 +15,10 @@ struct TransactionDetail: View {
             Text("Made by: \(transaction.userId)").font(.title3).bold()
             Text("Date of Transaction: \(transaction.date)").font(.title3).bold()
             Text("Cost: $\(transaction.cost)").font(.title3).bold()
+            if transaction.description != nil{
+                Text("Description: ")
+                Text(transaction.description!)
+            }
             
         }.navigationTitle("Transaction: \(transaction.id)")
     }

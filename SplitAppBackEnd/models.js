@@ -46,7 +46,11 @@ const TransactionSchema = new mongoose.Schema({
         type:String,
         required:false
     },
-    description:String
+    votesToDelete: [String],
+    description:{
+        type:String,
+        required:false
+    }
 });
 
 const Transaction = mongoose.model("Transaction", TransactionSchema);

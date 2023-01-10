@@ -29,6 +29,8 @@ struct Transaction: Codable, Identifiable{
     let tripId: String
     var cost: Double
     let date: String
+    var votesToDelete: [String]
+    var description: String?
     
     // case *name in struct* = *name in the json*
     enum CodingKeys: String, CodingKey {
@@ -37,6 +39,8 @@ struct Transaction: Codable, Identifiable{
         case tripId = "tripId"
         case cost = "cost"
         case date = "date"
+        case votesToDelete = "votesToDelete"
+        case description = "description"
     }
     
 }

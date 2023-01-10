@@ -37,7 +37,11 @@ struct AddTransactionView:View{
             TextEditor(text: $description).frame(width: 325, height: 200).padding().scrollContentBackground(.hidden).background(.quaternary).cornerRadius(10)
             Button(action: {
                 Task{
-                    try await envVar.createTransaction(transaction:Transaction(id: "",userId: envVar.username, tripId: trip._id, cost: cost, date: envVar.dateToStr(date: date)))
+                    if description.isEmpty{
+                        _ = try await envVar.createTransaction(transaction:Transaction(id: "",userId: envVar.username, tripId: trip._id, cost: cost, date: envVar.dateToStr(date: date)))
+                    }else{
+                        _ = try await envVar.createTransaction(transaction:Transaction(id: "",userId: envVar.username, tripId: trip._id, cost: cost, date: envVar.dateToStr(date: date), description: description))
+                    }
                     self.transaction = try await envVar.getTransactionsFortrip(trip: self.trip)
                 }
                 popupBool = false

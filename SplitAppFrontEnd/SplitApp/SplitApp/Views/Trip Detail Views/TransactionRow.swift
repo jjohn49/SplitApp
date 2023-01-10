@@ -23,6 +23,7 @@ struct TransactionRow:View{
                 }
                 Spacer()
                 Text(envVar.strToDateToStr(strDate: transaction.date))
+                Text()
             }
         })
     }
