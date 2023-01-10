@@ -9,9 +9,8 @@ import SwiftUI
 
 struct ListOfTransactions: View {
     @EnvironmentObject var envVar: EnviormentVariables
-    let getVariablesForTripdetailView: () async throws -> Void
-    
     @Binding var transactions: [Transaction]
+    
     var body: some View {
         List{
             ForEach(transactions.reversed()) { transaction in
@@ -24,11 +23,13 @@ struct ListOfTransactions: View {
         let theTransaction = transactions.reversed()[offsets.first!]
         Task{
             let res = try await envVar.deleteTransaction(transaction:theTransaction)
-            if(res){
+            /*if(res){
                 try await getVariablesForTripdetailView()
-            }
+            }*/
         }
     }
+    
+    
 }
 
 

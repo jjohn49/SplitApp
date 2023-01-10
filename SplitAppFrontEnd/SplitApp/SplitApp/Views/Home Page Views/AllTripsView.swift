@@ -19,7 +19,7 @@ struct AllTripsView:View{
                         TripDetalView(trip: trips[x])
                     }, label: {
                         TripRow(trip: trips[x],width: 175, height: 175).cornerRadius(10)
-                    })
+                    }).foregroundColor(.black)
                 }
                 
                 Button(action: {

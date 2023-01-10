@@ -14,7 +14,7 @@ struct TransactionRow:View{
     
     var body: some View{
         NavigationLink(destination: {
-            
+            TransactionDetail(transaction: transaction)
         }, label: {
             HStack {
                 VStack{
