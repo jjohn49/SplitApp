@@ -38,9 +38,9 @@ struct AddTransactionView:View{
             Button(action: {
                 Task{
                     if description.isEmpty{
-                        _ = try await envVar.createTransaction(transaction:Transaction(id: "",userId: envVar.username, tripId: trip._id, cost: cost, date: envVar.dateToStr(date: date)))
+                        _ = try await envVar.createTransaction(transaction:Transaction(id: "",userId: envVar.username, tripId: trip._id, cost: cost, date: envVar.dateToStr(date: date), votesToDelete: []))
                     }else{
-                        _ = try await envVar.createTransaction(transaction:Transaction(id: "",userId: envVar.username, tripId: trip._id, cost: cost, date: envVar.dateToStr(date: date), description: description))
+                        _ = try await envVar.createTransaction(transaction:Transaction(id: "",userId: envVar.username, tripId: trip._id, cost: cost, date: envVar.dateToStr(date: date), votesToDelete: [], description: description))
                     }
                     self.transaction = try await envVar.getTransactionsFortrip(trip: self.trip)
                 }

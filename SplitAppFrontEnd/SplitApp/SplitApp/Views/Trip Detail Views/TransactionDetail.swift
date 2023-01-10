@@ -26,6 +26,6 @@ struct TransactionDetail: View {
 
 struct TransactionDetail_Previews: PreviewProvider {
     static var previews: some View {
-        TransactionDetail(transaction: Transaction(id: "1" , userId: "jjohns49", tripId: "123", cost: 100.58, date: "12-2-27"))
+        TransactionDetail(transaction: Transaction(id: "1" , userId: "jjohns49", tripId: "123", cost: 100.58, date: "12-2-27", votesToDelete: []))
     }
 }

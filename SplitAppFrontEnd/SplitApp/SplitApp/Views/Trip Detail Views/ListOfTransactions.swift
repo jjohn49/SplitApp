@@ -14,8 +14,14 @@ struct ListOfTransactions: View {
     var body: some View {
         List{
             ForEach(transactions.reversed()) { transaction in
-                TransactionRow(transaction: transaction)
-            }.onDelete(perform: deleteTransactionRow)
+                TransactionRow(transaction: transaction).swipeActions(content: {
+                    Button(transaction.votesToDelete.contains(envVar.username) ? "Vote to keep": "Vote To Delete", action: {
+                        Task{
+                            try await updateVotesToDelete(transaction: transaction)
+                        }
+                    }).tint(transaction.votesToDelete.contains(envVar.username) ? .green: .orange)
+                })
+            }//.onDelete(perform: deleteTransactionRow)
         }
     }
     
@@ -27,6 +33,19 @@ struct ListOfTransactions: View {
                 try await getVariablesForTripdetailView()
             }*/
         }
+    }
+    
+    func updateVotesToDelete(transaction: Transaction) async throws{
+        //add notification support here
+        
+        var newTransaction: Transaction = transaction
+        if transaction.votesToDelete.contains(envVar.username){
+            newTransaction.votesToDelete.remove(at: newTransaction.votesToDelete.firstIndex(of: envVar.username)!)
+        }else{
+            newTransaction.votesToDelete.append(envVar.username)
+        }
+       
+        try await envVar.updateVotesToDelete(transaction: newTransaction)
     }
     
     

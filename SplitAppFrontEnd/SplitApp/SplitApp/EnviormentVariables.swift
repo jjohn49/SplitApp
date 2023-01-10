@@ -114,7 +114,7 @@ class EnviormentVariables: ObservableObject{
                 
                 chartData.append(currentTransaction)
                 
-                chartData.append(Transaction(id: UUID().description, userId: "Group" , tripId: currentTransaction.tripId, cost: costDictionary["Group"]!, date: currentTransaction.date))
+                chartData.append(Transaction(id: UUID().description, userId: "Group" , tripId: currentTransaction.tripId, cost: costDictionary["Group"]!, date: currentTransaction.date, votesToDelete: []))
                 
             }
             
@@ -276,6 +276,39 @@ class EnviormentVariables: ObservableObject{
         //print(data)
         
         return true
+    }
+    
+    func updateTransaction(transaction: Transaction) async throws {
+        print("Tried to update")
+        guard let url = URL(string: "http:localhost:3000/update-transaction?transaction=\(transaction.id)") else{
+            return
+        }
+        
+        var urlRequest = URLRequest(url: url)
+        urlRequest.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        urlRequest.httpMethod = "PUT"
+        
+        let jsonTransaction = try JSONEncoder().encode(transaction)
+        
+        do{
+            let (data, _) = try await URLSession.shared.upload(for: urlRequest, from: jsonTransaction)
+            
+            /*if let resp = String(data: data, encoding: .utf8){
+                print(resp)
+            }*/
+        }catch{
+            print("Error sending")
+            return
+        }
+    }
+    
+    func updateVotesToDelete(transaction: Transaction) async throws{
+        print(transaction.votesToDelete.count >= trips.first(where: {$0._id == transaction.tripId})?.users.count ?? 0)
+        if transaction.votesToDelete.count >= trips.first(where: {$0._id == transaction.tripId})?.users.count ?? 0{
+            _ = try await deleteTransaction(transaction: transaction)
+        }else{
+            try await updateTransaction(transaction: transaction)
+        }
     }
     
     func createTrip(trip:Trip) async throws -> Bool{

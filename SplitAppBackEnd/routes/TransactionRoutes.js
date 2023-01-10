@@ -39,6 +39,7 @@ app.delete("/delete-transaction", async (req,res)=>{
 //-----------------PUT--------------------------
 //updates the chosen transaction
 app.put("/update-transaction", async (req,res)=>{
+    console.log("Someone tried updating the transactoion " + req.body)
     const transactionId = req.query.transaction;
     try{
         const transaction = await AppModels.Transaction.findById(transactionId);
@@ -47,6 +48,7 @@ app.put("/update-transaction", async (req,res)=>{
         transaction.cost= req.body["cost"]
         transaction.where= req.body["where"]
         transaction.description= req.body["description"]
+        transaction.votesToDelete= req.body["votesToDelete"]
         transaction.save();
         console.log(transaction)
         res.status(200).send("Transaction " + transactionId + " has updated")
