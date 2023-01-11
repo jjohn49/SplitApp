@@ -9,7 +9,7 @@ import SwiftUI
 
 struct TransactionDetail: View {
     //@EnvironmentObject var envVar: EnviormentVariables
-    let transaction: Transaction
+    @Binding var transaction: Transaction
     var body: some View {
         VStack{
             Text("Made by: \(transaction.userId)").font(.title3).bold()
@@ -24,8 +24,4 @@ struct TransactionDetail: View {
     }
 }
 
-struct TransactionDetail_Previews: PreviewProvider {
-    static var previews: some View {
-        TransactionDetail(transaction: Transaction(id: "1" , userId: "jjohns49", tripId: "123", cost: 100.58, date: "12-2-27", votesToDelete: []))
-    }
-}
+

@@ -10,11 +10,11 @@ import SwiftUI
 
 struct TransactionRow:View{
     @EnvironmentObject var envVar: EnviormentVariables
-    let transaction: Transaction
+    @Binding var transaction: Transaction
     
     var body: some View{
         NavigationLink(destination: {
-            TransactionDetail(transaction: transaction)
+            TransactionDetail(transaction: $transaction)
         }, label: {
             HStack {
                 VStack{

@@ -11,15 +11,23 @@ struct ListOfTransactions: View {
     @EnvironmentObject var envVar: EnviormentVariables
     @Binding var transactions: [Transaction]
     
+    
+    
     var body: some View {
         List{
-            ForEach(transactions.reversed()) { transaction in
-                TransactionRow(transaction: transaction).swipeActions(content: {
-                    Button(transaction.votesToDelete.contains(envVar.username) ? "Vote to keep": "Vote To Delete", action: {
-                        Task{
-                            try await updateVotesToDelete(transaction: transaction)
+            ForEach(transactions.indices) { index in
+                TransactionRow(transaction: $transactions[index]).swipeActions(content: {
+                    Button(didUserVoteToDelete(transaction: transactions[index]) ? "Vote to keep": "Vote To Delete", action: {
+                        if didUserVoteToDelete(transaction: transactions[index]) {
+                            transactions[index].votesToDelete.remove(at: transactions[index].votesToDelete.firstIndex(of: envVar.username)!)
+                        } else{
+                            transactions[index].votesToDelete.append(envVar.username)
                         }
-                    }).tint(transaction.votesToDelete.contains(envVar.username) ? .green: .orange)
+                        Task{
+                            var temp = transactions[index]
+                            try await updateVotesToDelete(transaction: temp)
+                        }
+                    }).tint(didUserVoteToDelete(transaction: transactions[index]) ? .green: .orange)
                 })
             }//.onDelete(perform: deleteTransactionRow)
         }
@@ -39,13 +47,12 @@ struct ListOfTransactions: View {
         //add notification support here
         
         var newTransaction: Transaction = transaction
-        if transaction.votesToDelete.contains(envVar.username){
-            newTransaction.votesToDelete.remove(at: newTransaction.votesToDelete.firstIndex(of: envVar.username)!)
-        }else{
-            newTransaction.votesToDelete.append(envVar.username)
-        }
-       
         try await envVar.updateVotesToDelete(transaction: newTransaction)
+        //transactions = try await envVar.getTransactionsFortrip(trip: envVar.currentTrip!)
+    }
+    
+    func didUserVoteToDelete(transaction: Transaction) -> Bool{
+        return transaction.votesToDelete.contains(envVar.username)
     }
     
     

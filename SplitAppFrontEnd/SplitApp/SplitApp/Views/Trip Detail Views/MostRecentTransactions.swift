@@ -16,7 +16,7 @@ struct MostRecentTransactions: View {
             }
             else if transactions.count < 4{
                 Text("All Transactions").font(.caption)
-                ForEach(transactions) { transaction in
+                ForEach($transactions) { transaction in
                     TransactionRow(transaction: transaction)
                 }
             }else{
@@ -30,9 +30,9 @@ struct MostRecentTransactions: View {
                     })
                 }
                 
-                TransactionRow(transaction: transactions.last!)
-                TransactionRow(transaction: transactions[transactions.count - 2])
-                TransactionRow(transaction: transactions[transactions.count - 3])
+                TransactionRow(transaction: $transactions.last!)
+                TransactionRow(transaction: $transactions[transactions.count - 2])
+                TransactionRow(transaction: $transactions[transactions.count - 3])
                 
             }
         }.padding()

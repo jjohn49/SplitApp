@@ -77,6 +77,8 @@ class EnviormentVariables: ObservableObject{
     @Published var trips: [Trip] = []
     @Published var oldTrips: [Trip] = []
     
+    @Published var currentTrip: Trip?
+    
     //Maybe add an array of the transactions
     
     
