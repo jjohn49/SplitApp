@@ -15,24 +15,19 @@ struct ListOfTransactions: View {
     
     var body: some View {
         List{
-            ForEach(transactions.indices) { index in
+            ForEach(transactions.indices, id:\.self) { index in
                 TransactionRow(transaction: $transactions[index]).swipeActions(content: {
-                    TransactionVoteSwipAction(transaction: $transactions[index])
+                    isOnlyOnePerson() ? AnyView(DeleteTransactionSwipeAction(transactions: $transactions, index: index)) : AnyView(TransactionVoteSwipAction(transaction: $transactions[index]))
                 })
-            }.onDelete(perform: nil)
+            }
         }
     }
     
     func isOnlyOnePerson() -> Bool{
-        return true
+        return envVar.currentTrip!.users.count == 1
     }
     
-    func deleteTransactionRow(at offsets: IndexSet){
-        let theTransaction = transactions.reversed()[offsets.first!]
-        Task{
-            let res = try await envVar.deleteTransaction(transaction:theTransaction)
-        }
-    }
+    
     
     
     

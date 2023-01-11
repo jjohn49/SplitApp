@@ -12,6 +12,7 @@
 		1E2CEE2F28FB83B1006218D7 /* HomePageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E2CEE2E28FB83B1006218D7 /* HomePageView.swift */; };
 		1E4365B1296DB2AD004C97CC /* TransactionDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E4365B0296DB2AD004C97CC /* TransactionDetail.swift */; };
 		1EAC3734296F540200C3D99B /* TransactionVoteSwipAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EAC3733296F540200C3D99B /* TransactionVoteSwipAction.swift */; };
+		1EAC3736296F5AB300C3D99B /* DeleteTransactionSwipeAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EAC3735296F5AB300C3D99B /* DeleteTransactionSwipeAction.swift */; };
 		1EBA8F232967A05000F7C579 /* TripsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EBA8F222967A05000F7C579 /* TripsView.swift */; };
 		1EBA8F252967A08C00F7C579 /* AllTripsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EBA8F242967A08C00F7C579 /* AllTripsView.swift */; };
 		1EBA8F272967A0AC00F7C579 /* TripsScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EBA8F262967A0AC00F7C579 /* TripsScrollView.swift */; };
@@ -67,6 +68,7 @@
 		1E2CEE2E28FB83B1006218D7 /* HomePageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePageView.swift; sourceTree = "<group>"; };
 		1E4365B0296DB2AD004C97CC /* TransactionDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionDetail.swift; sourceTree = "<group>"; };
 		1EAC3733296F540200C3D99B /* TransactionVoteSwipAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionVoteSwipAction.swift; sourceTree = "<group>"; };
+		1EAC3735296F5AB300C3D99B /* DeleteTransactionSwipeAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteTransactionSwipeAction.swift; sourceTree = "<group>"; };
 		1EBA8F222967A05000F7C579 /* TripsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripsView.swift; sourceTree = "<group>"; };
 		1EBA8F242967A08C00F7C579 /* AllTripsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllTripsView.swift; sourceTree = "<group>"; };
 		1EBA8F262967A0AC00F7C579 /* TripsScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripsScrollView.swift; sourceTree = "<group>"; };
@@ -176,6 +178,7 @@
 				1EBA8F522967AF5A00F7C579 /* MostRecentTransactions.swift */,
 				1E4365B0296DB2AD004C97CC /* TransactionDetail.swift */,
 				1EAC3733296F540200C3D99B /* TransactionVoteSwipAction.swift */,
+				1EAC3735296F5AB300C3D99B /* DeleteTransactionSwipeAction.swift */,
 			);
 			path = "Trip Detail Views";
 			sourceTree = "<group>";
@@ -408,6 +411,7 @@
 				1EE7C47F28F6571E00688388 /* SplitAppApp.swift in Sources */,
 				1EBA8F252967A08C00F7C579 /* AllTripsView.swift in Sources */,
 				1EBA8F2C2967A14000F7C579 /* InputTripName.swift in Sources */,
+				1EAC3736296F5AB300C3D99B /* DeleteTransactionSwipeAction.swift in Sources */,
 				1EBA8F272967A0AC00F7C579 /* TripsScrollView.swift in Sources */,
 				1EBA8F292967A0D700F7C579 /* AddTripView.swift in Sources */,
 				1EBA8F512967A66100F7C579 /* ListOfTransactions.swift in Sources */,
