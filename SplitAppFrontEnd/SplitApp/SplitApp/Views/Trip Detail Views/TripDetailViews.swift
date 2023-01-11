@@ -34,7 +34,6 @@ struct TripDetalView:View{
             
         }.navigationTitle(trip.name)
         .onAppear(perform: {
-            envVar.currentTrip = trip
             Task{
                 try await getVariablesOnAppear()
             }

@@ -17,43 +17,24 @@ struct ListOfTransactions: View {
         List{
             ForEach(transactions.indices) { index in
                 TransactionRow(transaction: $transactions[index]).swipeActions(content: {
-                    Button(didUserVoteToDelete(transaction: transactions[index]) ? "Vote to keep": "Vote To Delete", action: {
-                        if didUserVoteToDelete(transaction: transactions[index]) {
-                            transactions[index].votesToDelete.remove(at: transactions[index].votesToDelete.firstIndex(of: envVar.username)!)
-                        } else{
-                            transactions[index].votesToDelete.append(envVar.username)
-                        }
-                        Task{
-                            var temp = transactions[index]
-                            try await updateVotesToDelete(transaction: temp)
-                        }
-                    }).tint(didUserVoteToDelete(transaction: transactions[index]) ? .green: .orange)
+                    TransactionVoteSwipAction(transaction: $transactions[index])
                 })
-            }//.onDelete(perform: deleteTransactionRow)
+            }.onDelete(perform: nil)
         }
+    }
+    
+    func isOnlyOnePerson() -> Bool{
+        return true
     }
     
     func deleteTransactionRow(at offsets: IndexSet){
         let theTransaction = transactions.reversed()[offsets.first!]
         Task{
             let res = try await envVar.deleteTransaction(transaction:theTransaction)
-            /*if(res){
-                try await getVariablesForTripdetailView()
-            }*/
         }
     }
     
-    func updateVotesToDelete(transaction: Transaction) async throws{
-        //add notification support here
-        
-        var newTransaction: Transaction = transaction
-        try await envVar.updateVotesToDelete(transaction: newTransaction)
-        //transactions = try await envVar.getTransactionsFortrip(trip: envVar.currentTrip!)
-    }
     
-    func didUserVoteToDelete(transaction: Transaction) -> Bool{
-        return transaction.votesToDelete.contains(envVar.username)
-    }
     
     
 }
