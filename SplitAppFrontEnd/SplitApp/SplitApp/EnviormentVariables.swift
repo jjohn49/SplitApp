@@ -152,7 +152,7 @@ class EnviormentVariables: ObservableObject{
     }
     
     func sortTransactions(transactions: [Transaction]) -> [Transaction]{
-        return transactions.sorted(by: {strToDate(strDate: $0.date).compare(strToDate(strDate: $1.date)) == .orderedAscending})
+        return transactions.sorted(by: {strToDate(strDate: $0.date).compare(strToDate(strDate: $1.date)) == .orderedDescending})
     }
     
     func sortTrips(trips: [Trip]) -> [Trip]{

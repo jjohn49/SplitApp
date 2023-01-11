@@ -30,9 +30,9 @@ struct MostRecentTransactions: View {
                     })
                 }
                 
-                TransactionRow(transaction: $transactions.last!)
-                TransactionRow(transaction: $transactions[transactions.count - 2])
-                TransactionRow(transaction: $transactions[transactions.count - 3])
+                TransactionRow(transaction: $transactions[0])
+                TransactionRow(transaction: $transactions[1])
+                TransactionRow(transaction: $transactions[2])
                 
             }
         }.padding()
