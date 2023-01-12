@@ -10,13 +10,13 @@ import SwiftUI
 struct OverallCostView: View {
     let totalCost: Double
     let howMuchYouHaveSpent: Double
-    let transactions: [Transaction]
-    let chartData: [Transaction]
+    @Binding var transactions: [Transaction]
+    @Binding var chartData: [Transaction]
     let trip:Trip
     var body: some View {
         ZStack(alignment: .topLeading){
             MoneySpentView(totalCost: totalCost, howMuchYouHaveSpent: howMuchYouHaveSpent, trip: trip).padding()
-            ChartView(transactions: transactions, chartData: chartData).padding()
+            ChartView(transactions: $transactions, chartData: $chartData).padding()
         }
     }
 }

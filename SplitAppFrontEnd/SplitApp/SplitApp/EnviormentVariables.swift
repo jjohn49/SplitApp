@@ -120,6 +120,7 @@ class EnviormentVariables: ObservableObject{
                 
             }
             
+            print(chartData)
             return sortTransactions(transactions: chartData)
         }
         

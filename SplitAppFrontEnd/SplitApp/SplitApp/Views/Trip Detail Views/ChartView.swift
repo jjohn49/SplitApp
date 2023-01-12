@@ -11,8 +11,8 @@ import Charts
 //https://www.appcoda.com/swiftui-line-charts/
 struct ChartView:View{
     @EnvironmentObject var envVar: EnviormentVariables
-    let transactions: [Transaction]
-    let chartData: [Transaction]
+    @Binding var transactions: [Transaction]
+    @Binding var chartData: [Transaction]
     @State var cost: [Int] = [0]
     var body: some View{
         ZStack {
