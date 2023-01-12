@@ -9,42 +9,47 @@ import SwiftUI
 
 struct TripDetalView:View{
     @EnvironmentObject var envVar: EnviormentVariables
-    @State var popupBool: Bool = false
-    let trip: Trip
+    @State var addTransactionPopup: Bool = false
+    @State var endTripAlert: Bool = false
+    @State var trip: Trip
     @State var totalCost: Double = 0.00
     @State var transactions: [Transaction] = []
     @State var chartData: [Transaction] = []
     @State var howMuchYouHaveSpent: Double = 0.00
     var body: some View{
         VStack {
-            ScrollView{
-                OverallCostView(totalCost: totalCost, howMuchYouHaveSpent: howMuchYouHaveSpent, transactions: transactions, chartData: chartData, trip: trip).frame(width: 350, height: 300).background(.white).cornerRadius(10).padding()
-                //Text("Transactions").font(.title).bold()
-                
-                Text("Transactions").font(.title2).bold().underline().frame(alignment: .leading)
-                MostRecentTransactions(transactions: $transactions).padding().frame(width: 350, height: 200).background(.white).cornerRadius(10)
-                
-            }
+            
+            TripDetailBody(totalCost: $totalCost, howMuchYouHaveSpent: $howMuchYouHaveSpent, transactions: $transactions, chartData: $chartData, trip: $trip)
+            
             Button(action: {
-                popupBool = true
+                //popupBool = true
             }, label: {
                 Text("Add a Transaction").padding().frame(width: 350).background(.tint).foregroundColor(.white).bold()
             }).cornerRadius(10)
             Spacer()
-            
         }.navigationTitle(trip.name)
         .onAppear(perform: {
             envVar.currentTrip = trip
             Task{
                 try await getVariablesOnAppear()
             }
-        }).popover(isPresented: $popupBool, content: {
-            AddTransactionView(trip: trip, popupBool: $popupBool, transaction: $transactions).onDisappear(perform:{
+        }).popover(isPresented: $addTransactionPopup, content: {
+            AddTransactionView(trip: trip, popupBool: $addTransactionPopup, transaction: $transactions).onDisappear(perform:{
                 Task{
                     try await getVariablesForTripdetailView()
                 }
             })
-        }).background(.quaternary)
+        }).toolbar(content: {
+            Menu(content: {
+                Button("Add Transaction", action: {
+                    addTransactionPopup = true
+                })
+            }, label: {
+                Image(systemName: "plus")
+            })
+        })
+        
+        .background(.quaternary)
     }
     
     func getVariablesOnAppear() async throws{
@@ -64,6 +69,8 @@ struct TripDetalView:View{
         }
     }
 }
+
+
 
 
 

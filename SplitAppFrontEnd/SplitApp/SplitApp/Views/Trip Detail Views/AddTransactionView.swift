@@ -18,7 +18,6 @@ struct AddTransactionView:View{
     @State var description: String = ""
     
     let formatter = NumberFormatter()
-    
 
     var body: some View{
         VStack{
