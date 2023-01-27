@@ -15,6 +15,7 @@
 		1E49C45C29835DB6009D0BA3 /* Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E49C45B29835DB6009D0BA3 /* Transaction.swift */; };
 		1E49C45E29835DCF009D0BA3 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E49C45D29835DCF009D0BA3 /* User.swift */; };
 		1E49C46029835DD8009D0BA3 /* Trip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E49C45F29835DD8009D0BA3 /* Trip.swift */; };
+		1E49C46429835E53009D0BA3 /* TripSummary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E49C46329835E53009D0BA3 /* TripSummary.swift */; };
 		1EAC3734296F540200C3D99B /* TransactionVoteSwipAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EAC3733296F540200C3D99B /* TransactionVoteSwipAction.swift */; };
 		1EAC3736296F5AB300C3D99B /* DeleteTransactionSwipeAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EAC3735296F5AB300C3D99B /* DeleteTransactionSwipeAction.swift */; };
 		1EBA8F232967A05000F7C579 /* TripsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EBA8F222967A05000F7C579 /* TripsView.swift */; };
@@ -75,6 +76,7 @@
 		1E49C45B29835DB6009D0BA3 /* Transaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transaction.swift; sourceTree = "<group>"; };
 		1E49C45D29835DCF009D0BA3 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		1E49C45F29835DD8009D0BA3 /* Trip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Trip.swift; sourceTree = "<group>"; };
+		1E49C46329835E53009D0BA3 /* TripSummary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripSummary.swift; sourceTree = "<group>"; };
 		1EAC3733296F540200C3D99B /* TransactionVoteSwipAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionVoteSwipAction.swift; sourceTree = "<group>"; };
 		1EAC3735296F5AB300C3D99B /* DeleteTransactionSwipeAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteTransactionSwipeAction.swift; sourceTree = "<group>"; };
 		1EBA8F222967A05000F7C579 /* TripsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripsView.swift; sourceTree = "<group>"; };
@@ -206,6 +208,7 @@
 				1EAC3733296F540200C3D99B /* TransactionVoteSwipAction.swift */,
 				1EAC3735296F5AB300C3D99B /* DeleteTransactionSwipeAction.swift */,
 				1E3863DB2970BE3C00C14505 /* TripDetailBody.swift */,
+				1E49C46329835E53009D0BA3 /* TripSummary.swift */,
 			);
 			path = "Trip Detail Views";
 			sourceTree = "<group>";
@@ -429,6 +432,7 @@
 				1EE7C48128F6571E00688388 /* AppView.swift in Sources */,
 				1E49C45C29835DB6009D0BA3 /* Transaction.swift in Sources */,
 				1EBA8F402967A30A00F7C579 /* MoneySpentView.swift in Sources */,
+				1E49C46429835E53009D0BA3 /* TripSummary.swift in Sources */,
 				1EBA8F462967A37500F7C579 /* ChartView.swift in Sources */,
 				1EBA8F2E2967A17A00F7C579 /* InputUsers.swift in Sources */,
 				1EAC3734296F540200C3D99B /* TransactionVoteSwipAction.swift in Sources */,
