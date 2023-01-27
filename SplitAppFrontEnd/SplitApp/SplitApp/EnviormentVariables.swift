@@ -97,13 +97,15 @@ class EnviormentVariables: ObservableObject{
     func getCostDataForChart(transactions:[Transaction]) async throws -> [Transaction]{
         var chartData: [Transaction] = []
         
+        var reversedTransactions = transactions.reversed() as [Transaction]
+        
         var costDictionary: [String: Double] = ["Group": 0]
         
-        if(!transactions.isEmpty){
+        if(!reversedTransactions.isEmpty){
             
-            for x in 0..<transactions.count{
+            for x in 0..<reversedTransactions.count{
                 
-                var currentTransaction = transactions[x]
+                var currentTransaction = reversedTransactions[x]
                 
                 if !costDictionary.keys.contains(currentTransaction.userId){
                     costDictionary[currentTransaction.userId] = 0
@@ -121,7 +123,7 @@ class EnviormentVariables: ObservableObject{
             }
             
             print(chartData)
-            return sortTransactions(transactions: chartData)
+            return chartData
         }
         
         return []
