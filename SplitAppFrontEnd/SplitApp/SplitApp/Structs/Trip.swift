@@ -14,6 +14,7 @@ struct Trip: Identifiable, Codable{
     var users: [String]
     var startDate: String
     var endDate: String
+    var categories: [String] = ["Food","Clothes","Activities","Other"]
     
     enum CodingKeys: String, CodingKey{
         case _id = "_id"
@@ -21,5 +22,6 @@ struct Trip: Identifiable, Codable{
         case users = "users"
         case startDate = "startDate"
         case endDate = "endDate"
+        case categories = "transactionCategories"
     }
 }

@@ -63,7 +63,7 @@ class EnviormentVariables: ObservableObject{
                 
                 chartData.append(currentTransaction)
                 
-                chartData.append(Transaction(id: UUID().description, userId: "Group" , tripId: currentTransaction.tripId, cost: costDictionary["Group"]!, date: currentTransaction.date, votesToDelete: []))
+                chartData.append(Transaction(id: UUID().description, userId: "Group" , tripId: currentTransaction.tripId, cost: costDictionary["Group"]!, date: currentTransaction.date, votesToDelete: [], category: currentTransaction.category))
                 
             }
             

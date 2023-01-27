@@ -15,6 +15,7 @@ struct Transaction: Codable, Identifiable{
     let date: String
     var votesToDelete: [String]
     var description: String?
+    var category: String?
     
     // case *name in struct* = *name in the json*
     enum CodingKeys: String, CodingKey {
@@ -25,6 +26,7 @@ struct Transaction: Codable, Identifiable{
         case date = "date"
         case votesToDelete = "votesToDelete"
         case description = "description"
+        case category = "category"
     }
     
 }

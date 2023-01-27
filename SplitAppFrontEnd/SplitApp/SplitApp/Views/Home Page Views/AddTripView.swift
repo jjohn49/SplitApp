@@ -9,7 +9,7 @@ import SwiftUI
 
 struct AddTripView:View{
     @EnvironmentObject var envVar: EnviormentVariables
-    @State var trip: Trip = Trip(_id: "", name: "", users: [], startDate: "", endDate: "")
+    @State var trip: Trip = Trip(_id: "", name: "", users: [], startDate: "", endDate: "", categories: ["Clothes","Food","Merch","Others"])
     var tripName: String?
     var body: some View{
         VStack{

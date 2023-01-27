@@ -19,8 +19,7 @@ const TripSchema = new mongoose.Schema({
         required:false
     },
     transactionCategories:{
-        type:[String],
-        default: ["Food","Drinks","Merch","Activities"]
+        type:[String]
     }
     //maybe add something like is completed so we can seperate current trips from past trips
 });
@@ -55,7 +54,7 @@ const TransactionSchema = new mongoose.Schema({
         type:String,
         required:false
     },
-    categories:{type:String}
+    category:{type:String}
 });
 
 const Transaction = mongoose.model("Transaction", TransactionSchema);
