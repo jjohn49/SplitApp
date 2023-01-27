@@ -22,8 +22,10 @@ struct DeleteTransactionSwipeAction: View {
     }
     
     func deleteTransactionRow(transaction: Transaction) async throws{
-        Task{
-            let res = try await envVar.deleteTransaction(transaction: transaction)
+        _ = withAnimation{
+            Task{
+                _ = try await envVar.deleteTransaction(transaction: transaction)
+            }
         }
     }
 }

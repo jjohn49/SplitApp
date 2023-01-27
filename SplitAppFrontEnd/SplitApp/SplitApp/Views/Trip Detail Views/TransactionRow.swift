@@ -18,7 +18,7 @@ struct TransactionRow:View{
         }, label: {
             HStack {
                 VStack{
-                    Text("$\(transaction.cost, specifier: "%.2f")").foregroundColor(.black).font(.title2).bold()
+                    Text("$\(transaction.cost, specifier: "%.2f")").font(.title2).bold()
                     Text("\(transaction.userId)")
                 }
                 Spacer()
@@ -30,7 +30,7 @@ struct TransactionRow:View{
                     }
                 }
             }
-        })
+        }).foregroundColor(Color("wb"))
     }
     
     

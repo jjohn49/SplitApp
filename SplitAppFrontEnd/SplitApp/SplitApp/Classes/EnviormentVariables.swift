@@ -42,7 +42,7 @@ class EnviormentVariables: ObservableObject{
     func getCostDataForChart(transactions:[Transaction]) async throws -> [Transaction]{
         var chartData: [Transaction] = []
         
-        var reversedTransactions = transactions.reversed() as [Transaction]
+        let reversedTransactions = transactions.reversed() as [Transaction]
         
         var costDictionary: [String: Double] = ["Group": 0]
         

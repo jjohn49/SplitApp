@@ -14,13 +14,8 @@ struct MostRecentTransactions: View {
             if transactions.isEmpty{
                 Text("No Transactions")
             }
-            else if transactions.count < 4{
-                Text("All Transactions").font(.caption)
-                ForEach($transactions) { transaction in
-                    TransactionRow(transaction: transaction)
-                }
-            }else{
-                HStack {
+            else{
+                HStack(alignment: .top){
                     Text("Most Recent").font(.headline)
                     Spacer()
                     NavigationLink(destination: {
@@ -31,8 +26,14 @@ struct MostRecentTransactions: View {
                 }
                 
                 TransactionRow(transaction: $transactions[0])
-                TransactionRow(transaction: $transactions[1])
-                TransactionRow(transaction: $transactions[2])
+                if(transactions.count>2){
+                    TransactionRow(transaction: $transactions[1])
+                    if(transactions.count>3){
+                        TransactionRow(transaction: $transactions[2])
+                    }
+                }else{
+                    Spacer()
+                }
                 
             }
         }.padding()

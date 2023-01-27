@@ -21,12 +21,7 @@ struct TripDetalView:View{
             
             TripDetailBody(totalCost: $totalCost, howMuchYouHaveSpent: $howMuchYouHaveSpent, transactions: $transactions, chartData: $chartData, trip: $trip)
             
-            Button(action: {
-                //popupBool = true
-            }, label: {
-                Text("Add a Transaction").padding().frame(width: 350).background(.tint).foregroundColor(.white).bold()
-            }).cornerRadius(10)
-            Spacer()
+            
         }.navigationTitle(trip.name)
         .onAppear(perform: {
             envVar.currentTrip = trip
@@ -48,8 +43,6 @@ struct TripDetalView:View{
                 Image(systemName: "plus")
             })
         })
-        
-        .background(.quaternary)
     }
     
     func getVariablesOnAppear() async throws{

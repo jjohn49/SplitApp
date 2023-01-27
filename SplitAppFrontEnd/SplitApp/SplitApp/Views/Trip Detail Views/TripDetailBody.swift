@@ -15,10 +15,10 @@ struct TripDetailBody: View{
     @Binding var trip: Trip
     var body: some View{
         ScrollView{
-            OverallCostView(totalCost: totalCost, howMuchYouHaveSpent: howMuchYouHaveSpent, transactions: $transactions, chartData: $chartData, trip: trip).frame(width: 350, height: 300).background(.white).cornerRadius(10).padding()
+            OverallCostView(totalCost: totalCost, howMuchYouHaveSpent: howMuchYouHaveSpent, transactions: $transactions, chartData: $chartData, trip: trip).frame(width: 350, height: 300).background(Color("bg")).cornerRadius(10).padding()
             //Text("Transactions").font(.title).bold()
             Text("Transactions").font(.title2).bold().underline().frame(alignment: .leading)
-            MostRecentTransactions(transactions: $transactions).padding().frame(width: 350, height: 200).background(.white).cornerRadius(10)
+            MostRecentTransactions(transactions: $transactions).padding().frame(width: 350, height: 200).background(Color("bg")).cornerRadius(10)
             
         }
     }
