@@ -7,61 +7,6 @@
 
 import Foundation
 
-struct Users: Codable{
-    let _id:String
-    let password : String
-    let fName:String
-    let lName: String
-    let email: String
-    
-    enum CodingKeys: String, CodingKey{
-        case _id
-        case password
-        case fName
-        case lName
-        case email
-    }
-}
-
-struct Transaction: Codable, Identifiable{
-    let id: String
-    let userId: String
-    let tripId: String
-    var cost: Double
-    let date: String
-    var votesToDelete: [String]
-    var description: String?
-    
-    // case *name in struct* = *name in the json*
-    enum CodingKeys: String, CodingKey {
-        case id = "_id"
-        case userId = "userId"
-        case tripId = "tripId"
-        case cost = "cost"
-        case date = "date"
-        case votesToDelete = "votesToDelete"
-        case description = "description"
-    }
-    
-}
-
-struct Trip: Identifiable, Codable{
-    var id = UUID()
-    let _id : String
-    var name: String
-    var users: [String]
-    var startDate: String
-    var endDate: String
-    
-    enum CodingKeys: String, CodingKey{
-        case _id = "_id"
-        case name = "name"
-        case users = "users"
-        case startDate = "startDate"
-        case endDate = "endDate"
-    }
-}
-
 //Enviorment Object that contains all the methods I want to carry over and use in multiple views
 //Possibly rename this and or split it up into different classes for readability
 class EnviormentVariables: ObservableObject{
@@ -122,7 +67,7 @@ class EnviormentVariables: ObservableObject{
                 
             }
             
-            print(chartData)
+            //print(chartData)
             return chartData
         }
         
