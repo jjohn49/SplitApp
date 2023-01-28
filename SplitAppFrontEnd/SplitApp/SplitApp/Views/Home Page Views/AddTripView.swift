@@ -19,7 +19,7 @@ struct AddTripView:View{
                 }
             })
             
-            InputStartAndEdDates(startDate: $trip.startDate, endDate: $trip.endDate).onAppear(perform: {
+            InputStartDate(startDate: $trip.startDate).onAppear(perform: {
                 trip.startDate = envVar.dateToStr(date: Date.now)
                 trip.endDate = envVar.dateToStr(date: Date.now)
             })

@@ -17,7 +17,7 @@ struct ButtonStyleInQuickActionButton:View{
             VStack{
                 Text(emoji).font(.title2)
                 Text(message).font(.subheadline)
-            }.foregroundColor(.white)
+            }.foregroundColor(Color("wb"))
         }
     }
 }

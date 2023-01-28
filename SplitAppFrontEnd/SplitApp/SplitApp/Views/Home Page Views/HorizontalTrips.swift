@@ -21,7 +21,7 @@ struct HorizontalTrips:View{
                 }).cornerRadius(10).scrollDisabled(true)
             }else if(envVars.trips.count == 1){
                 NavigationLink(destination: TripDetalView(trip: envVars.trips[0]), label: {
-                    TripRow(trip: envVars.trips[0], width: 350, height: 275).foregroundColor(.black)
+                    TripRow(trip: envVars.trips[0], width: 350, height: 275)
                 }).cornerRadius(10)
             }
             else{
