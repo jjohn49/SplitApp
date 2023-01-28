@@ -9,7 +9,7 @@ import SwiftUI
 
 struct AddTripView:View{
     @EnvironmentObject var envVar: EnviormentVariables
-    @State var trip: Trip = Trip(_id: "", name: "", users: [], startDate: "", endDate: "", categories: ["Clothes","Food","Merch","Others"])
+    @State var trip: Trip = Trip(_id: "", name: "", users: [], startDate: "", endDate: "", categories: ["Clothes","Food","Merch","Others"], votesToEndTrip: [])
     var tripName: String?
     var body: some View{
         VStack{
@@ -38,7 +38,9 @@ struct AddTripView:View{
             }, label: {
                 Text("Create Trip").padding().frame(width: 350).foregroundColor(.white).background(.tint)
             }).cornerRadius(10)
-        }
+        }.onAppear(perform: {
+            trip.users.append(envVar.username)
+        })
     }
 }
 

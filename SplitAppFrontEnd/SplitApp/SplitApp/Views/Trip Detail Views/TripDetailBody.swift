@@ -20,6 +20,22 @@ struct TripDetailBody: View{
             Text("Transactions").font(.title2).bold().underline().frame(alignment: .leading)
             MostRecentTransactions(transactions: $transactions).padding().frame(width: 350, height: 200).background(Color("bg")).cornerRadius(10)
             
+            if trip.endDate != "" {
+                VoteToEndTripButton()
+            }else{
+                
+            }
+            
         }
+    }
+}
+
+struct VoteToEndTripButton: View{
+    var body: some View{
+        Button(action: {
+            //add function that votes to end the trip
+        }, label: {
+            Text("Vote to End the Trip").padding()
+        }).frame(width: 350).background(.orange).foregroundColor(Color("wb")).cornerRadius(10)
     }
 }

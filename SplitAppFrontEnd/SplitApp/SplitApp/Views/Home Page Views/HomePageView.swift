@@ -11,11 +11,13 @@ import SwiftUI
 struct HomePageView: View {
     @StateObject var envVars = EnviormentVariables()
     var body: some View {
-        TabView{
-            TripsView().tabItem{
+        /*TabView{
+            .tabItem{
                 Label("", systemImage: "airplane").font(.title2)
             }
-        }.environmentObject(envVars).onAppear(perform: envVars.getAllTripsForUser)
+        }.environmentObject(envVars).onAppear(perform: envVars.getAllTripsForUser) */
+        
+        TripsView().environmentObject(envVars).onAppear(perform: envVars.getAllTripsForUser)
     }
 }
 

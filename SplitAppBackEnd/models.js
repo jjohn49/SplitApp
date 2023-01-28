@@ -20,6 +20,9 @@ const TripSchema = new mongoose.Schema({
     },
     transactionCategories:{
         type:[String]
+    },
+    votesToEndTrip:{
+        type:[String]
     }
     //maybe add something like is completed so we can seperate current trips from past trips
 });

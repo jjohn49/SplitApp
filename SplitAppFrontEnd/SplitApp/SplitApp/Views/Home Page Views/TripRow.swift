@@ -16,6 +16,6 @@ struct TripRow: View{
         VStack{
             Text(trip.name).bold().font(.title).frame(alignment: .leading)
             Text("with: " + trip.users.joined(separator: ", "))
-        }.frame(width:width,height: height).background(envVar.strToDate(strDate: trip.endDate) > envVar.dateToStrToDate(date: Date.now) ? .green : .red)
+        }.frame(width:width,height: height).background(envVar.strToDate(strDate: trip.endDate) > envVar.dateToStrToDate(date: Date.now) ? Color.blue : Color("bg"))
     }
 }

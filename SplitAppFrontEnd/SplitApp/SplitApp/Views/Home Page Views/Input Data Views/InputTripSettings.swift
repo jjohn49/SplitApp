@@ -8,11 +8,15 @@
 import SwiftUI
 
 struct InputTripSettings: View {
-    @State var test: Bool = false
+    @State var isPrivate: Bool = false
+    @State var isNotificationsOn: Bool = false
     var body: some View {
-        List{
-            SettingRow(settingTitle: (test ? "Private" :  "Public") , settingToggle: $test)
-        }.cornerRadius(10)
+        Form{
+            Section("", content: {
+                SettingRow(settingTitle: (isPrivate ? "Private": "Public"), settingToggle: $isPrivate)
+            })
+        }.frame(height: 500).cornerRadius(10).padding()
+        
     }
 }
 

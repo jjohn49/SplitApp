@@ -125,6 +125,8 @@ class EnviormentVariables: ObservableObject{
             return
         }
     
+        
+        
         var urlRequest = URLRequest(url: url)
         urlRequest.httpMethod = "POST"
         urlRequest.addValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -146,6 +148,7 @@ class EnviormentVariables: ObservableObject{
             guard let data = data else{
                 return
             }
+            
             
             DispatchQueue.main.async {
                 do{

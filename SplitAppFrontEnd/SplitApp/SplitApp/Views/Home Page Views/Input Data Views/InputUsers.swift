@@ -18,15 +18,17 @@ struct InputUsers: View{
                 Text("Users:").font(.title2).bold().padding()
                 ScrollView(.horizontal){
                     LazyHStack{
-                        Text(envVars.username)
                         ForEach(users, id: \.self){ u in
                             HStack{
                                 Text(u)
-                                Button(action: {
-                                    users.remove(at: users.firstIndex(of: u)!)
-                                }, label: {
-                                    Image(systemName: "multiply.circle.fill").foregroundColor(.secondary)
-                                })
+                                if u != envVars.username{
+                                    Button(action: {
+                                        users.remove(at: users.firstIndex(of: u)!)
+                                    }, label: {
+                                        Image(systemName: "multiply.circle.fill").foregroundColor(.secondary)
+                                    })
+                                }
+                                
                             }.padding().background(.quaternary).cornerRadius(10)
                         }
                     }
