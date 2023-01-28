@@ -19,9 +19,7 @@ struct AddTripView:View{
                 }
             })
             Spacer()
-            InputUsers(users: $trip.users).onAppear(perform: {
-                trip.users.append(envVar.username)
-            })
+            InputUsers(users: $trip.users)
             Spacer()
             InputStartAndEdDates(startDate: $trip.startDate, endDate: $trip.endDate).onAppear(perform: {
                 trip.startDate = envVar.dateToStr(date: Date.now)

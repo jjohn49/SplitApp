@@ -16,6 +16,8 @@ struct TripDetalView:View{
     @State var transactions: [Transaction] = []
     @State var chartData: [Transaction] = []
     @State var howMuchYouHaveSpent: Double = 0.00
+    
+    
     var body: some View{
         VStack {
             
