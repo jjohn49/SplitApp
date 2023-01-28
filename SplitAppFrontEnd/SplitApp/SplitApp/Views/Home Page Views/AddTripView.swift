@@ -18,13 +18,18 @@ struct AddTripView:View{
                     trip.name = tripName!
                 }
             })
-            Spacer()
-            InputUsers(users: $trip.users)
-            Spacer()
+            
             InputStartAndEdDates(startDate: $trip.startDate, endDate: $trip.endDate).onAppear(perform: {
                 trip.startDate = envVar.dateToStr(date: Date.now)
                 trip.endDate = envVar.dateToStr(date: Date.now)
             })
+            
+            InputUsers(users: $trip.users)
+            
+            
+            
+            Spacer()
+            
             Button(action: {
                 Task{
                     let _ = try await envVar.createTrip(trip: trip)

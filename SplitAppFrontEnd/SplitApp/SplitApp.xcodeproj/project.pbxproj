@@ -41,6 +41,7 @@
 		1EBA8F512967A66100F7C579 /* ListOfTransactions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EBA8F502967A66100F7C579 /* ListOfTransactions.swift */; };
 		1EBA8F532967AF5A00F7C579 /* MostRecentTransactions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EBA8F522967AF5A00F7C579 /* MostRecentTransactions.swift */; };
 		1EBD423E2917054700F512D7 /* TripDetailViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EBD423D2917054700F512D7 /* TripDetailViews.swift */; };
+		1EDB00752984C03B0011CB75 /* InputTripSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EDB00742984C03B0011CB75 /* InputTripSettings.swift */; };
 		1EE7C47F28F6571E00688388 /* SplitAppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EE7C47E28F6571E00688388 /* SplitAppApp.swift */; };
 		1EE7C48128F6571E00688388 /* AppView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EE7C48028F6571E00688388 /* AppView.swift */; };
 		1EE7C48328F6571F00688388 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1EE7C48228F6571F00688388 /* Assets.xcassets */; };
@@ -102,6 +103,7 @@
 		1EBA8F502967A66100F7C579 /* ListOfTransactions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListOfTransactions.swift; sourceTree = "<group>"; };
 		1EBA8F522967AF5A00F7C579 /* MostRecentTransactions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MostRecentTransactions.swift; sourceTree = "<group>"; };
 		1EBD423D2917054700F512D7 /* TripDetailViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripDetailViews.swift; sourceTree = "<group>"; };
+		1EDB00742984C03B0011CB75 /* InputTripSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputTripSettings.swift; sourceTree = "<group>"; };
 		1EE7C47B28F6571E00688388 /* SplitApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SplitApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1EE7C47E28F6571E00688388 /* SplitAppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplitAppApp.swift; sourceTree = "<group>"; };
 		1EE7C48028F6571E00688388 /* AppView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppView.swift; sourceTree = "<group>"; };
@@ -178,6 +180,7 @@
 				1EBA8F2B2967A14000F7C579 /* InputTripName.swift */,
 				1EBA8F2D2967A17A00F7C579 /* InputUsers.swift */,
 				1EBA8F2F2967A19C00F7C579 /* InputStartAndEndDates.swift */,
+				1EDB00742984C03B0011CB75 /* InputTripSettings.swift */,
 			);
 			path = "Input Data Views";
 			sourceTree = "<group>";
@@ -441,6 +444,7 @@
 				1EBA8F3D2967A2BD00F7C579 /* CustomTextField.swift in Sources */,
 				1E1B030028FB164E00C61588 /* EnviormentVariables.swift in Sources */,
 				1EBA8F532967AF5A00F7C579 /* MostRecentTransactions.swift in Sources */,
+				1EDB00752984C03B0011CB75 /* InputTripSettings.swift in Sources */,
 				1E3863DC2970BE3C00C14505 /* TripDetailBody.swift in Sources */,
 				1EBA8F392967A26E00F7C579 /* SignInView.swift in Sources */,
 				1EE7C47F28F6571E00688388 /* SplitAppApp.swift in Sources */,
