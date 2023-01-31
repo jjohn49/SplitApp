@@ -15,7 +15,6 @@ struct TripRow: View{
     var body: some View{
         VStack{
             Text(trip.name).bold().font(.title).frame(alignment: .leading)
-            Text("with: " + trip.users.joined(separator: ", "))
-        }.frame(width:width,height: height).background(trip.votesToEndTrip.count < trip.users.count ? Color.blue : Color("bg")).foregroundColor(Color("wb"))
+        }.frame(width:width,height: height).background(LinearGradient(colors: [Color("purple"), Color("blue")], startPoint: .bottomLeading, endPoint: .topTrailing)).foregroundColor(Color("wb"))
     }
 }

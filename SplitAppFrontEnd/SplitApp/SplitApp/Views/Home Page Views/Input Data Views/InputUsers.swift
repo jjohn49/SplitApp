@@ -29,7 +29,7 @@ struct InputUsers: View{
                                     })
                                 }
                                 
-                            }.padding().background(.quaternary).cornerRadius(10)
+                            }.padding().background(Color("m")).cornerRadius(10)
                         }
                     }
                 }.frame(height: 50)
@@ -44,8 +44,8 @@ struct InputUsers: View{
                     
                 }, label: {
                     Text("Add user").padding()
-                }).foregroundColor(.white).background(.blue).cornerRadius(10)
-            }.padding().background(.quaternary).cornerRadius(10)
+                }).foregroundColor(Color("wb")).background(LinearGradient(colors: [Color("purple"), Color("blue")], startPoint: .bottomLeading, endPoint: .topTrailing)).cornerRadius(10)
+            }.padding().background(Color("m")).cornerRadius(10)
         }.frame(width: 350)
     }
 }

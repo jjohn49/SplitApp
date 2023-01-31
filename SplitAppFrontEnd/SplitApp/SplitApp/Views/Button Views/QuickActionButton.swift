@@ -16,7 +16,7 @@ struct QuickActionButton:View{
             isNewTripPopUp = true
         }, label: {
             ButtonStyleInQuickActionButton(emoji: emoji, message: message)
-        }).foregroundColor(.gray).popover(isPresented: $isNewTripPopUp, content: {
+        }).foregroundColor(Color("wb")).popover(isPresented: $isNewTripPopUp, content: {
             AddTripView(tripName: message)
         })
 

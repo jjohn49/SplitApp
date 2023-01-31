@@ -12,12 +12,14 @@ struct ButtonStyleInQuickActionButton:View{
     let message: String
     var body: some View{
         ZStack{
-            RoundedRectangle(cornerRadius: 10).frame(width: 100, height: 90).foregroundColor(.blue)
+            RoundedRectangle(cornerRadius: 10).frame(width: 100, height: 90).foregroundColor(Color("gray"))
+            RoundedRectangle(cornerRadius: 10).stroke(lineWidth: 5).frame(width: 100, height: 90).background(LinearGradient(colors: [Color("purple"), Color("blue")], startPoint: .bottomLeading, endPoint: .topTrailing)).foregroundColor(.clear).cornerRadius(10)
+            
             //RoundedRectangle(cornerRadius: 10).stroke(lineWidth: 3).frame(width: 100, height: 90)
             VStack{
                 Text(emoji).font(.title2)
                 Text(message).font(.subheadline)
-            }.foregroundColor(Color("wb"))
+            }
         }
     }
 }

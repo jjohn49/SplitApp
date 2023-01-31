@@ -17,10 +17,11 @@ struct TripsScrollView: View{
             Spacer()
             AllQuickActionButtons()
             Spacer()
+            
             Button(action: {
                 isNewTripPopUp = true
             }, label: {
-                Text("Make a new Trip").padding().frame(width: 350).background(.tint).foregroundColor(.white).bold()
+                Text("Make a new Trip").padding().frame(width: 350).background(Color("royal")).foregroundColor(Color("wb")).bold()
             }).cornerRadius(10)
             Spacer()
         }
