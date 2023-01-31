@@ -12,6 +12,7 @@
 		1E2CEE2F28FB83B1006218D7 /* HomePageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E2CEE2E28FB83B1006218D7 /* HomePageView.swift */; };
 		1E3863DC2970BE3C00C14505 /* TripDetailBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E3863DB2970BE3C00C14505 /* TripDetailBody.swift */; };
 		1E4365B1296DB2AD004C97CC /* TransactionDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E4365B0296DB2AD004C97CC /* TransactionDetail.swift */; };
+		1E4652AF29897BC50041FAB2 /* VoteToEndTripButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E4652AE29897BC50041FAB2 /* VoteToEndTripButton.swift */; };
 		1E49C45C29835DB6009D0BA3 /* Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E49C45B29835DB6009D0BA3 /* Transaction.swift */; };
 		1E49C45E29835DCF009D0BA3 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E49C45D29835DCF009D0BA3 /* User.swift */; };
 		1E49C46029835DD8009D0BA3 /* Trip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E49C45F29835DD8009D0BA3 /* Trip.swift */; };
@@ -74,6 +75,7 @@
 		1E2CEE2E28FB83B1006218D7 /* HomePageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePageView.swift; sourceTree = "<group>"; };
 		1E3863DB2970BE3C00C14505 /* TripDetailBody.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripDetailBody.swift; sourceTree = "<group>"; };
 		1E4365B0296DB2AD004C97CC /* TransactionDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionDetail.swift; sourceTree = "<group>"; };
+		1E4652AE29897BC50041FAB2 /* VoteToEndTripButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoteToEndTripButton.swift; sourceTree = "<group>"; };
 		1E49C45B29835DB6009D0BA3 /* Transaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transaction.swift; sourceTree = "<group>"; };
 		1E49C45D29835DCF009D0BA3 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		1E49C45F29835DD8009D0BA3 /* Trip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Trip.swift; sourceTree = "<group>"; };
@@ -212,6 +214,7 @@
 				1EAC3735296F5AB300C3D99B /* DeleteTransactionSwipeAction.swift */,
 				1E3863DB2970BE3C00C14505 /* TripDetailBody.swift */,
 				1E49C46329835E53009D0BA3 /* TripSummary.swift */,
+				1E4652AE29897BC50041FAB2 /* VoteToEndTripButton.swift */,
 			);
 			path = "Trip Detail Views";
 			sourceTree = "<group>";
@@ -429,6 +432,7 @@
 				1EBA8F422967A32C00F7C579 /* AddTransactionView.swift in Sources */,
 				1EBA8F4B2967A3F700F7C579 /* AllQuickActionButtons.swift in Sources */,
 				1EBA8F302967A19C00F7C579 /* InputStartAndEndDates.swift in Sources */,
+				1E4652AF29897BC50041FAB2 /* VoteToEndTripButton.swift in Sources */,
 				1E1B030228FB245A00C61588 /* SignInPages.swift in Sources */,
 				1E4365B1296DB2AD004C97CC /* TransactionDetail.swift in Sources */,
 				1E49C46029835DD8009D0BA3 /* Trip.swift in Sources */,
