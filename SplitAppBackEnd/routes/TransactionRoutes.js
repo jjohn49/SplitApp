@@ -7,7 +7,7 @@ app.use(express.json());
 //----------------POST---------------------------
 //Adds new transaction to database
 app.post("/new-transaction", async (req, res) =>{
-    console.log("New transaction tried to be posted")
+    //console.log("New transaction tried to be posted")
     //add code to check what all the body was posted
 
     //deletes the id because mongo will create one

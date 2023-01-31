@@ -28,7 +28,7 @@ app.post("/new-trip", async (req,res)=>{
 app.post("/transactions-for-trip", async (req,res)=>{
     const reqTripId = req.query.trip;
     const query = await AppModels.Transaction.find({tripId: reqTripId}).exec()
-    console.log(query)
+    //console.log(query)
     res.send(query)
 })
 
@@ -42,6 +42,40 @@ app.get("/get-trips", async (req,res)=>{
         res.send(trips);
     }catch (error) {
         res.status(500).send(error)
+    }
+})
+
+//deletes the trip and all transactions in the trip
+app.delete("/delete-trip", async (req, res)=>{
+    const tripID = req.query.trip;
+    try{
+        const trip = await AppModels.Trip.findById(tripID);
+        console.log(trip)
+        trip.delete();
+
+        //used to delete all transactions for the trip that are now useless
+        const transactions = await AppModels.Transaction.find({ tripId : tripID})
+        console.log("-----------------DELETING FOLLOWING TRANSACTIONS--------------------")
+        console.log(transactions)
+        console.log("-----------------DELETED PREVIOUS TRANSACTIONS--------------------")
+        transactions.delete();
+
+        res.status(200).send("Trip " + tripID + " deleted")
+    }catch(error){
+        res.status(400).send("Error: " + error)
+    }
+})
+
+app.put('/update-trip-vtd', async (req, res)=>{
+    const tripID = req.query.trip;
+    console.log("updating ")
+    try{
+        const trip = await AppModels.Trip.findById(tripID);
+        trip["votesToEndTrip"] = req.body["votesToEndTrip"]
+        trip.save();
+        res.status(200).send("Trip " + tripID + "'s votes to delete were successfully updated")
+    }catch(error){
+        res.status(400).send(error)
     }
 })
 

@@ -21,7 +21,7 @@ struct TripDetailBody: View{
             MostRecentTransactions(transactions: $transactions).padding().frame(width: 350, height: 200).background(Color("m")).cornerRadius(10)
             
             if trip.endDate != "" {
-                VoteToEndTripButton()
+                VoteToEndTripButton(trip: $trip)
             }else{
                 
             }
@@ -31,9 +31,16 @@ struct TripDetailBody: View{
 }
 
 struct VoteToEndTripButton: View{
+    @EnvironmentObject var envVar: EnviormentVariables
+    @Binding var trip: Trip
     var body: some View{
         Button(action: {
-            //add function that votes to end the trip
+            Task{
+                if !trip.votesToEndTrip.contains(envVar.username){
+                    trip.votesToEndTrip.append(envVar.username)
+                    _ = try await envVar.updateVotesToDeleteTrip(trip: trip)
+                }
+            }
         }, label: {
             Text("Vote to End the Trip").padding()
         }).frame(width: 350).background(.orange).foregroundColor(Color("wb")).cornerRadius(10)

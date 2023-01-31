@@ -20,7 +20,7 @@ struct ListOfTransactions: View {
                     isOnlyOnePerson() ? AnyView(DeleteTransactionSwipeAction(transactions: $transactions, index: index)) : AnyView(TransactionVoteSwipAction(transaction: $transactions[index]))
                 })
             }
-        }
+        }.navigationTitle("Transactions")
     }
     
     func isOnlyOnePerson() -> Bool{

@@ -256,7 +256,7 @@ class EnviormentVariables: ObservableObject{
     }
     
     func updateVotesToDelete(transaction: Transaction) async throws{
-        print(transaction.votesToDelete.count >= trips.first(where: {$0._id == transaction.tripId})?.users.count ?? 0)
+        //print(transaction.votesToDelete.count >= trips.first(where: {$0._id == transaction.tripId})?.users.count ?? 0)
         if transaction.votesToDelete.count >= trips.first(where: {$0._id == transaction.tripId})?.users.count ?? 0{
             _ = try await deleteTransaction(transaction: transaction)
         }else{
@@ -288,5 +288,39 @@ class EnviormentVariables: ObservableObject{
         
         return true
     }
+    
+    func updateVotesToDeleteTrip(trip: Trip) async throws -> Bool{
+        
+        if trip.votesToEndTrip.count == trip.users.count{
+            _ = try await deleteTrip(trip: trip)
+        }else{
+            print("updating \(trip.name)")
+            guard let url = URL(string: "http:localhost:3000/update-trip-vtd?trip=\(trip._id)") else{
+                return false
+            }
+            var urlRequest = URLRequest(url: url)
+            urlRequest.setValue("application/json", forHTTPHeaderField: "Content-Type")
+            urlRequest.httpMethod = "PUT"
+            
+            let (data, _) = try await URLSession.shared.data(for: urlRequest)
+        }
+        
+        return true
+    }
+    
+    func deleteTrip(trip: Trip) async throws -> Bool{
+        
+        guard let url = URL(string: "http:localhost:3000/delete-trip?trip=\(trip._id)") else{
+            return false
+        }
+        var urlRequest = URLRequest(url: url)
+        urlRequest.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        urlRequest.httpMethod = "DELETE"
+        
+        let (data, _) = try await URLSession.shared.data(for: urlRequest)
+        
+        return true
+    }
+    
     
 }
