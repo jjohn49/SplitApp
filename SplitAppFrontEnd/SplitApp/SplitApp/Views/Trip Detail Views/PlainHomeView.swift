@@ -16,10 +16,9 @@ struct PlainHomeView: View {
     
     var body: some View {
         TabView{
-            ActivityView()
-            //ShowTripsView(trips: trips).tabItem({
-                //Image(systemName: "figure.walk")
-            //})
+            ActivityView().tabItem({
+                Image(systemName: "figure.walk")
+            })
             
             
         }
@@ -28,30 +27,59 @@ struct PlainHomeView: View {
 
 struct ActivityView: View{
     
-    var tranactions = [
-    Transaction(id: "1", userId: "me", tripId: "1", cost: 100, date: "1-1-2000", votesToDelete: []),
-    Transaction(id: "2", userId: "me", tripId: "1", cost: 20, date: "1-1-2000", votesToDelete: []),
-    Transaction(id: "3", userId: "me", tripId: "1", cost: 48.75, date: "1-1-2000", votesToDelete: []),
-    Transaction(id: "4", userId: "me", tripId: "1", cost: 100, date: "1-1-2000", votesToDelete: []),
+    @State var tranactions = [
+    Transaction(id: "Food", userId: "me", tripId: "1", cost: 100, date: "1-1-2000", votesToDelete: []),
+    Transaction(id: "Beverages", userId: "me", tripId: "1", cost: 20, date: "1-1-2000", votesToDelete: []),
+    Transaction(id: "Drinks", userId: "me", tripId: "1", cost: 48.75, date: "1-1-2000", votesToDelete: []),
+    Transaction(id: "Gas", userId: "me", tripId: "1", cost: 100, date: "1-1-2000", votesToDelete: []),
     Transaction(id: "5", userId: "me", tripId: "1", cost: 100, date: "1-1-2000", votesToDelete: []),
     Transaction(id: "6", userId: "me", tripId: "1", cost: 100, date: "1-1-2000", votesToDelete: []),
     Transaction(id: "7", userId: "me", tripId: "1", cost: 100, date: "1-1-2000", votesToDelete: []),
     ]
+    
+    @State var trips = [
+    Trip(_id: "1", name: "Punta", users: ["Me"], startDate: "", endDate: "", votesToEndTrip: [])
+    ]
     var body: some View{
-        ScrollView{
-            HStack{
-                Text("Activity View").font(.largeTitle).bold()
-                Spacer()
-            }.padding()
-            
-            ForEach(tranactions){ transaction in
-                VStack{
-                    HStack{
-                        Text("$\(transaction.cost)")
-                    }
+        GeometryReader { geo in
+            ScrollView{
+                HStack{
+                    Text("Activity").font(.largeTitle).bold()
+                    Spacer()
+                }.padding()
+                
+                ForEach($tranactions){ $transaction in
+                    ActivityTransactionRow(transaction: $transaction, trips: $trips, width: geo.size.width * 0.9, height: geo.size.height * 0.15)
+                }
+                
+                Text("You're All Caught Up")
+            }.foregroundColor(Color("blue"))
+        }
+    }
+}
+
+struct ActivityTransactionRow: View{
+    @Binding var transaction: Transaction
+    @Binding var trips: [Trip]
+    let width: CGFloat
+    let height: CGFloat
+    var body: some View{
+        ZStack {
+            RoundedRectangle(cornerRadius: 10).foregroundColor(Color("gray"))
+            VStack{
+                HStack{
+                    VStack {
+                        Image(systemName: "person.crop.circle").font(.largeTitle).bold()
+                        Text(transaction.userId)
+                    }.padding()
+                    Spacer()
+                    VStack {
+                        Text("$ \(transaction.cost, specifier: "%.2f")").font(.largeTitle).bold()
+                        Text("\(transaction.id) for \(trips.first(where: { $0._id == transaction.tripId})?.name ?? "None")")
+                    }.padding()
                 }
             }
-        }
+        }.frame(width: width, height: height)
     }
 }
 
