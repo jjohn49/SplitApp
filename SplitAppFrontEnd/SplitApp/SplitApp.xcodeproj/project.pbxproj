@@ -51,6 +51,7 @@
 		1EE7C49028F6571F00688388 /* SplitAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EE7C48F28F6571F00688388 /* SplitAppTests.swift */; };
 		1EE7C49A28F6571F00688388 /* SplitAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EE7C49928F6571F00688388 /* SplitAppUITests.swift */; };
 		1EE7C49C28F6571F00688388 /* SplitAppUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EE7C49B28F6571F00688388 /* SplitAppUITestsLaunchTests.swift */; };
+		1EFE78AE29B2BBCE004E351D /* ActivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EFE78AD29B2BBCE004E351D /* ActivityView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -118,6 +119,7 @@
 		1EE7C49528F6571F00688388 /* SplitAppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SplitAppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1EE7C49928F6571F00688388 /* SplitAppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplitAppUITests.swift; sourceTree = "<group>"; };
 		1EE7C49B28F6571F00688388 /* SplitAppUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplitAppUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		1EFE78AD29B2BBCE004E351D /* ActivityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -166,6 +168,7 @@
 		1EBA8F212967A02100F7C579 /* Home Page Views */ = {
 			isa = PBXGroup;
 			children = (
+				1EFE78AD29B2BBCE004E351D /* ActivityView.swift */,
 				1EBA8F2A2967A11D00F7C579 /* Input Data Views */,
 				1E2CEE2E28FB83B1006218D7 /* HomePageView.swift */,
 				1EBA8F222967A05000F7C579 /* TripsView.swift */,
@@ -217,7 +220,6 @@
 				1E3863DB2970BE3C00C14505 /* TripDetailBody.swift */,
 				1E49C46329835E53009D0BA3 /* TripSummary.swift */,
 				1E4652AE29897BC50041FAB2 /* VoteToEndTripButton.swift */,
-				1E23F0972989F5B60014E55C /* PlainHomeView.swift */,
 			);
 			path = "Trip Detail Views";
 			sourceTree = "<group>";
@@ -267,6 +269,7 @@
 		1EE7C47D28F6571E00688388 /* SplitApp */ = {
 			isa = PBXGroup;
 			children = (
+				1EFE78AC29B2B146004E351D /* Experimental */,
 				1E49C45829835D97009D0BA3 /* Structs */,
 				1E49C45729835D8A009D0BA3 /* Classes */,
 				1EE7C47E28F6571E00688388 /* SplitAppApp.swift */,
@@ -300,6 +303,14 @@
 				1EE7C49B28F6571F00688388 /* SplitAppUITestsLaunchTests.swift */,
 			);
 			path = SplitAppUITests;
+			sourceTree = "<group>";
+		};
+		1EFE78AC29B2B146004E351D /* Experimental */ = {
+			isa = PBXGroup;
+			children = (
+				1E23F0972989F5B60014E55C /* PlainHomeView.swift */,
+			);
+			path = Experimental;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -445,6 +456,7 @@
 				1E49C46429835E53009D0BA3 /* TripSummary.swift in Sources */,
 				1EBA8F462967A37500F7C579 /* ChartView.swift in Sources */,
 				1EBA8F2E2967A17A00F7C579 /* InputUsers.swift in Sources */,
+				1EFE78AE29B2BBCE004E351D /* ActivityView.swift in Sources */,
 				1EAC3734296F540200C3D99B /* TransactionVoteSwipAction.swift in Sources */,
 				1EBA8F442967A35600F7C579 /* TransactionRow.swift in Sources */,
 				1EBA8F482967A3AC00F7C579 /* OverallCostView.swift in Sources */,

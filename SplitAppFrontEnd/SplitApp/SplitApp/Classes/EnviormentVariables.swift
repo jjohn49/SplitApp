@@ -24,7 +24,7 @@ class EnviormentVariables: ObservableObject{
     
     @Published var currentTrip: Trip?
     
-    @Published var allTransactions: [Transaction]
+    @Published var allTransactions: [Transaction] = []
     
     //Maybe add an array of the transactions
     
@@ -178,13 +178,25 @@ class EnviormentVariables: ObservableObject{
     
         var urlRequest = URLRequest(url: url)
         urlRequest.httpMethod = "POST"
-        //urlRequest.addValue("application/json", forHTTPHeaderField: "Content-Type")
-
+        urlRequest.addValue("application/json", forHTTPHeaderField: "Content-Type")
         
-        let (data, _) = try await URLSession.shared.data(for: urlRequest)
-        let decodedTransactions = try JSONDecoder().decode([Transaction].self, from: data)
+        let usernamePreJson = [
+            "userId" : username
+        ]
         
-        return sortTransactions(transactions: decodedTransactions)
+        let jsonUsername = try JSONEncoder().encode(usernamePreJson)
+        
+        do{
+            let (data, error) = try await URLSession.shared.upload(for: urlRequest, from: jsonUsername)
+            
+            let decodedTransactions = try JSONDecoder().decode([Transaction].self, from: data)
+            //print(sortTransactions(transactions: decodedTransactions))
+            return sortTransactions(transactions: decodedTransactions)
+        }catch {
+            print(error)
+            return []
+        }
+        
     }
     
     //works
