@@ -169,8 +169,22 @@ class EnviormentVariables: ObservableObject{
         task.resume()
     }
     
-    func getAllTransactionsForUser() async throws -> [Transaction]{
+    func getAllTransactionsForTripsWithUser() async throws -> [Transaction]{
+        guard let url = URL(string: "http:localhost:3000/transactions-for-trips-with-user") else{
+            return []
+        }
         
+        //converts body to json to send in req body
+    
+        var urlRequest = URLRequest(url: url)
+        urlRequest.httpMethod = "POST"
+        //urlRequest.addValue("application/json", forHTTPHeaderField: "Content-Type")
+
+        
+        let (data, _) = try await URLSession.shared.data(for: urlRequest)
+        let decodedTransactions = try JSONDecoder().decode([Transaction].self, from: data)
+        
+        return sortTransactions(transactions: decodedTransactions)
     }
     
     //works
