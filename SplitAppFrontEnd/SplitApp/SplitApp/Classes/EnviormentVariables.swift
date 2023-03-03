@@ -24,6 +24,8 @@ class EnviormentVariables: ObservableObject{
     
     @Published var currentTrip: Trip?
     
+    @Published var allTransactions: [Transaction]
+    
     //Maybe add an array of the transactions
     
     
@@ -165,6 +167,10 @@ class EnviormentVariables: ObservableObject{
         }
 
         task.resume()
+    }
+    
+    func getAllTransactionsForUser() async throws -> [Transaction]{
+        
     }
     
     //works

@@ -1,4 +1,5 @@
 const express = require('express');
+const { Transaction } = require('mongoose/node_modules/mongodb');
 const AppModels = require('./../models')
 const app = express();
 app.use(express.json());
@@ -59,6 +60,29 @@ app.put("/update-userinfo", async (req,res)=>{
         res.status(400).send("Error: " + error)
         console.log(error)
     }
+})
+
+//works
+app.post("/transactions-for-trips-with-user", async (req, res)=>{
+
+    try {
+        const userId = req.body["userId"];
+    
+    //Queries all trips with the userID
+    const tripQuery = await AppModels.Trip.find({users: userId}).exec()
+
+    //makes an array of just the trips Ids
+    tripIds = tripQuery.map( (trip)=>{return trip._id})
+
+    //finds all transactions in the trip
+    const transactions = await AppModels.Transaction.find({tripId : {$in : tripIds}}).exec()
+
+    res.send(transactions).status(200)
+    } catch (error) {
+        console.log(error)
+        res.send(error).status(400)
+    }
+    
 })
 
 //Better version of getting tris for user
