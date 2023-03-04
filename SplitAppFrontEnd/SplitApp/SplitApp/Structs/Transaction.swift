@@ -9,6 +9,7 @@ import Foundation
 
 struct Transaction: Codable, Identifiable{
     let id: String
+    let name: String
     let userId: String
     let tripId: String
     var cost: Double
@@ -20,6 +21,7 @@ struct Transaction: Codable, Identifiable{
     // case *name in struct* = *name in the json*
     enum CodingKeys: String, CodingKey {
         case id = "_id"
+        case name = "name"
         case userId = "userId"
         case tripId = "tripId"
         case cost = "cost"

@@ -17,18 +17,7 @@ struct ActivityView: View{
                 HStack{
                     Text("Activity").font(.largeTitle).bold()
                     Spacer()
-                    Menu(content: {
-                        
-                        NavigationLink("Profile", destination: {
-                            //somewhere
-                        })
-                        
-                        NavigationLink("Settings", destination: {
-                            //somewhere
-                        })
-                    }, label: {
-                        Image(systemName: "person.crop.circle").font(.largeTitle).bold()
-                    })
+                    Image(systemName: "person.crop.circle").font(.largeTitle).bold()
                 }.padding()
                 
                 ForEach($envVars.allTransactions){ $transaction in
@@ -36,7 +25,9 @@ struct ActivityView: View{
                 }
                 
                 Text("You're All Caught Up")
-            }.foregroundColor(Color("blue"))
+            }.foregroundColor(Color("blue")).refreshable {
+                envVars.refreshEnvVars()
+            }
         }
     }
 }

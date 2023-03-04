@@ -11,18 +11,26 @@ import SwiftUI
 struct HomePageView: View {
     @StateObject var envVars = EnviormentVariables()
     
+    @State var f = false
+    
     
     var body: some View {
         TabView{
             ActivityView().tabItem({
                 Image(systemName: "figure.walk")
             })
-        }.onAppear(perform: {
-            Task{
-                envVars.getAllTripsForUser()
-                envVars.allTransactions =  try await envVars.getAllTransactionsForTripsWithUser()
-            }
             
+            NavigationView{
+                TripsScrollView(isNewTripPopUp: $f)
+                
+            }
+            .tabItem({
+                Image(systemName: "figure.walk")
+            })
+            
+            //need more tabs here
+        }.onAppear(perform: {
+            envVars.refreshEnvVars()
         }).environmentObject(envVars)
     }
 }

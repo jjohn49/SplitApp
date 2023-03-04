@@ -28,6 +28,15 @@ class EnviormentVariables: ObservableObject{
     
     //Maybe add an array of the transactions
     
+    func refreshEnvVars(){
+        Task{
+            getAllTripsForUser()
+            self.allTransactions = try await self.getAllTransactionsForTripsWithUser()
+        }
+    }
+    
+    
+    
     
     //Method that gets how much you have spent in a list of transactions
     //Usually used in the TripDetailViews
@@ -65,7 +74,7 @@ class EnviormentVariables: ObservableObject{
                 
                 chartData.append(currentTransaction)
                 
-                chartData.append(Transaction(id: UUID().description, userId: "Group" , tripId: currentTransaction.tripId, cost: costDictionary["Group"]!, date: currentTransaction.date, votesToDelete: [], category: currentTransaction.category))
+                chartData.append(Transaction(id: UUID().description, name: currentTransaction.name , userId: "Group" , tripId: currentTransaction.tripId, cost: costDictionary["Group"]!, date: currentTransaction.date, votesToDelete: [], category: currentTransaction.category))
                 
             }
             

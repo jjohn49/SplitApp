@@ -31,6 +31,7 @@ const Trip = mongoose.model("Trip",TripSchema);
 
 const TransactionSchema = new mongoose.Schema({
     //somehow need to make a foreign key right here
+    name: {type:String},
     userId:{
         type: String,
         req:true

@@ -12,6 +12,7 @@ struct AddTransactionView:View{
     @Binding var popupBool: Bool
     @Binding var transaction: [Transaction]
     @EnvironmentObject var envVar: EnviormentVariables
+    @State var name: String = ""
     @State var cost: Double = 0.00
     @State var date: Date = Date.now
     @State var category: String = ""
@@ -21,6 +22,8 @@ struct AddTransactionView:View{
 
     var body: some View{
         VStack{
+            TextField("Name", text: $name).font(.largeTitle).bold().padding().frame(width: 350).background(.quaternary).cornerRadius(10).padding()
+            
             HStack {
                 Text("$").font(.largeTitle).bold().padding()
                 
@@ -46,15 +49,15 @@ struct AddTransactionView:View{
             }.padding()
             
             Text("Description").bold()
-            TextEditor(text: $description).frame(width: 325, height: 250).padding().scrollContentBackground(.hidden).background(.quaternary).cornerRadius(10)
+            TextEditor(text: $description).frame(width: 325, height: 200).padding().scrollContentBackground(.hidden).background(.quaternary).cornerRadius(10)
             
             Spacer().frame(height: 50)
             Button(action: {
                 Task{
                     if description.isEmpty{
-                        _ = try await envVar.createTransaction(transaction:Transaction(id: "",userId: envVar.username, tripId: trip._id, cost: cost, date: envVar.dateToStr(date: date), votesToDelete: [], category: category))
+                        _ = try await envVar.createTransaction(transaction:Transaction(id: "", name: name , userId: envVar.username, tripId: trip._id, cost: cost, date: envVar.dateToStr(date: date), votesToDelete: [], category: category))
                     }else{
-                        _ = try await envVar.createTransaction(transaction:Transaction(id: "",userId: envVar.username, tripId: trip._id, cost: cost, date: envVar.dateToStr(date: date), votesToDelete: [], description: description, category: category))
+                        _ = try await envVar.createTransaction(transaction:Transaction(id: "", name : name ,userId: envVar.username, tripId: trip._id, cost: cost, date: envVar.dateToStr(date: date), votesToDelete: [], description: description, category: category))
                     }
                     self.transaction = try await envVar.getTransactionsFortrip(trip: self.trip)
                 }
