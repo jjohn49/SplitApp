@@ -26,7 +26,9 @@ struct ActivityView: View{
                 
                 Text("You're All Caught Up")
             }.foregroundColor(Color("blue")).refreshable {
-                envVars.refreshEnvVars()
+                Task {
+                    try await envVars.refreshEnvVars()
+                }
             }
         }
     }
@@ -49,7 +51,7 @@ struct ActivityTransactionRow: View{
                     Spacer()
                     VStack {
                         Text("$ \(transaction.cost, specifier: "%.2f")").font(.largeTitle).bold()
-                        Text("\(transaction.id) for \(trips.first(where: { $0._id == transaction.tripId})?.name ?? "None")")
+                        Text("\(transaction.name) for \(trips.first(where: { $0._id == transaction.tripId})?.name ?? "None")")
                     }.padding()
                 }
             }

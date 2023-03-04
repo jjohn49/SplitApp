@@ -30,7 +30,9 @@ struct HomePageView: View {
             
             //need more tabs here
         }.onAppear(perform: {
-            envVars.refreshEnvVars()
+            Task {
+                try await envVars.refreshEnvVars()
+            }
         }).environmentObject(envVars)
     }
 }

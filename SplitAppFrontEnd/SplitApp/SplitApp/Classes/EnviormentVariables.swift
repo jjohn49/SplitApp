@@ -28,11 +28,9 @@ class EnviormentVariables: ObservableObject{
     
     //Maybe add an array of the transactions
     
-    func refreshEnvVars(){
-        Task{
-            getAllTripsForUser()
-            self.allTransactions = try await self.getAllTransactionsForTripsWithUser()
-        }
+    func refreshEnvVars() async throws{
+        getAllTripsForUser()
+        self.allTransactions = try await self.getAllTransactionsForTripsWithUser()
     }
     
     
@@ -196,7 +194,7 @@ class EnviormentVariables: ObservableObject{
         let jsonUsername = try JSONEncoder().encode(usernamePreJson)
         
         do{
-            let (data, error) = try await URLSession.shared.upload(for: urlRequest, from: jsonUsername)
+            let (data, _) = try await URLSession.shared.upload(for: urlRequest, from: jsonUsername)
             
             let decodedTransactions = try JSONDecoder().decode([Transaction].self, from: data)
             //print(sortTransactions(transactions: decodedTransactions))
