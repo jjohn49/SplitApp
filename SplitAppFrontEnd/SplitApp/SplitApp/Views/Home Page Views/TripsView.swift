@@ -16,7 +16,7 @@ struct TripsView: View {
         NavigationView {
             VStack {
                 if(view==views[1]){
-                    AllTripsView(isNewTripPopUp: $isNewTripPopUp,trips: envVars.trips)
+                    AllTripsView(isNewTripPopUp: $isNewTripPopUp)
                 }else{
                     TripsScrollView(isNewTripPopUp: $isNewTripPopUp).onAppear(perform: {
                         

@@ -15,25 +15,27 @@ struct HomePageView: View {
     
     
     var body: some View {
-        TabView{
-            ActivityView().tabItem({
-                Image(systemName: "figure.walk")
-            })
-            
-            NavigationView{
-                TripsScrollView(isNewTripPopUp: $f)
+        NavigationView {
+            TabView{
+                ActivityView().tabItem({
+                    Image(systemName: "figure.walk")
+                })
                 
-            }
-            .tabItem({
-                Image(systemName: "figure.walk")
-            })
-            
-            //need more tabs here
-        }.onAppear(perform: {
-            Task {
-                try await envVars.refreshEnvVars()
-            }
-        }).environmentObject(envVars)
+                NavigationView{
+                    AllTripsView(isNewTripPopUp: $f)
+                    
+                }
+                .tabItem({
+                    Image(systemName: "figure.walk")
+                })
+                
+                //need more tabs here
+            }.onAppear(perform: {
+                Task {
+                    try await envVars.refreshEnvVars()
+                }
+            }).environmentObject(envVars)
+        }
     }
 }
 

@@ -25,7 +25,7 @@ struct TransactionDetail: View {
     }
     
     func isOnlyOnePerson() -> Bool{
-        return envVar.currentTrip!.users.count == 1
+        return envVar.trips.first(where: {$0._id == transaction.tripId})!.users.count == 1
     }
 }
 

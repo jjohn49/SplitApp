@@ -21,7 +21,7 @@ struct ActivityView: View{
                 }.padding()
                 
                 ForEach($envVars.allTransactions){ $transaction in
-                    ActivityTransactionRow(transaction: $transaction, trips: $envVars.trips, width: geo.size.width * 0.9, height: geo.size.height * 0.15)
+                    ActivityTransactionRow(transaction: $transaction, width: geo.size.width * 0.9, height: geo.size.height * 0.15)
                 }
                 
                 Text("You're All Caught Up")
@@ -35,26 +35,28 @@ struct ActivityView: View{
 }
 
 struct ActivityTransactionRow: View{
+    @EnvironmentObject var envVars: EnviormentVariables
     @Binding var transaction: Transaction
-    @Binding var trips: [Trip]
     let width: CGFloat
     let height: CGFloat
     var body: some View{
-        ZStack {
-            RoundedRectangle(cornerRadius: 10).foregroundColor(Color("gray"))
-            VStack{
-                HStack{
-                    VStack {
-                        Image(systemName: "person.crop.circle").font(.largeTitle).bold()
-                        Text(transaction.userId)
-                    }.padding()
-                    Spacer()
-                    VStack {
-                        Text("$ \(transaction.cost, specifier: "%.2f")").font(.largeTitle).bold()
-                        Text("\(transaction.name) for \(trips.first(where: { $0._id == transaction.tripId})?.name ?? "None")")
-                    }.padding()
+        NavigationLink(destination: TransactionDetail(transaction: $transaction).environmentObject(envVars)){
+            ZStack {
+                RoundedRectangle(cornerRadius: 10).foregroundColor(Color("gray"))
+                VStack{
+                    HStack{
+                        VStack {
+                            Image(systemName: "person.crop.circle").font(.largeTitle).bold()
+                            Text(transaction.userId)
+                        }.padding()
+                        Spacer()
+                        VStack {
+                            Text("$ \(transaction.cost, specifier: "%.2f")").font(.largeTitle).bold()
+                            Text("\(transaction.name) for \(envVars.trips.first(where: { $0._id == transaction.tripId})?.name ?? "None")")
+                        }.padding()
+                    }
                 }
-            }
-        }.frame(width: width, height: height)
+            }.frame(width: width, height: height)
+        }
     }
 }

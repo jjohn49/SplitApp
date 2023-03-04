@@ -8,17 +8,17 @@
 import SwiftUI
 
 struct AllTripsView:View{
+    @EnvironmentObject var envVars: EnviormentVariables
     @Binding var isNewTripPopUp:Bool
-    var trips: [Trip]
     var twoColumnGrid = [GridItem(.flexible()), GridItem(.flexible())]
     var body: some View{
         ScrollView{
             LazyVGrid(columns: twoColumnGrid){
-                ForEach(0..<trips.count) { x in
+                ForEach(0..<envVars.trips.count) { x in
                     NavigationLink(destination: {
-                        TripDetalView(trip: trips[x])
+                        TripDetalView(trip: envVars.trips[x])
                     }, label: {
-                        TripRow(trip: trips[x],width: 175, height: 175).cornerRadius(10)
+                        TripRow(trip: envVars.trips[x],width: 175, height: 175).cornerRadius(10)
                     }).foregroundColor(.black)
                 }
                 
