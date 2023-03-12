@@ -21,7 +21,7 @@ struct TripDetalView:View{
     var body: some View{
         VStack {
             
-            TripDetailBody(totalCost: $totalCost, howMuchYouHaveSpent: $howMuchYouHaveSpent, transactions: $transactions, chartData: $chartData, trip: $trip)
+            TripDetailBody(totalCost: $totalCost, howMuchYouHaveSpent: $howMuchYouHaveSpent, transactions: $transactions, chartData: $chartData, trip: $trip, isAddTransaction: $addTransactionPopup)
             
             
         }.navigationTitle(trip.name)
@@ -35,14 +35,6 @@ struct TripDetalView:View{
                 Task{
                     try await getVariablesForTripdetailView()
                 }
-            })
-        }).toolbar(content: {
-            Menu(content: {
-                Button("Add Transaction", action: {
-                    addTransactionPopup = true
-                })
-            }, label: {
-                Image(systemName: "plus")
             })
         })
     }

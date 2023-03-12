@@ -61,7 +61,11 @@ struct AddTransactionView:View{
                     }
                     self.transaction = try await envVar.getTransactionsFortrip(trip: self.trip)
                 }
-                popupBool = false
+                
+                DispatchQueue.main.async {
+                    popupBool = false
+                }
+                
                 
             }, label: {
                 Text("Add Transaction").padding().frame(width: 350).background(.tint).foregroundColor(.white).bold()

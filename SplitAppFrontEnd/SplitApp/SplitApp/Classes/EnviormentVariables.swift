@@ -30,14 +30,9 @@ class EnviormentVariables: ObservableObject{
     //Maybe add an array of the transactions
     
     func refreshEnvVars() async throws{
-        getAllTripsForUser()
-        
-        var temp =  try await self.getAllTransactionsForTripsWithUser()
-        
-        await MainActor.run{
-            self.allTransactions = temp
-        }
-            
+        try await getAllTripsForUser()
+        try await getAllTransactionsForTripsWithUser()
+
     }
     
     
@@ -124,7 +119,7 @@ class EnviormentVariables: ObservableObject{
     }
     
     //this works just need to wait for user
-    func getAllTripsForUser(){
+    func getAllTripsForUser() async throws{
         let userId = self.username
         
         guard let url = URL(string: "http:localhost:3000/trips-for-user") else{
@@ -141,54 +136,33 @@ class EnviormentVariables: ObservableObject{
             return
         }
     
-        
-        
         var urlRequest = URLRequest(url: url)
         urlRequest.httpMethod = "POST"
         urlRequest.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        urlRequest.httpBody = jsonBody
         
-        let task = URLSession.shared.dataTask(with: urlRequest){
-            data, response, error in
-            
-            
-            if let error = error{
-                print("Request error: ", error)
-                return
-            }
         
-            guard let response = response as? HTTPURLResponse else {
-                return
+        do{
+            let (data, _) = try await URLSession.shared.upload(for: urlRequest, from: jsonBody)
+            let decodedTrips = try JSONDecoder().decode([Trip].self, from: data)
+            
+            //Makes sure the variable is update on main branch
+            //Thriows annoying warning if not
+            await MainActor.run{
+                self.trips = self.sortTrips(trips: decodedTrips)
             }
             
-            guard let data = data else{
-                return
-            }
             
-            
-            DispatchQueue.main.async {
-                do{
-                    let decodedTrips = try JSONDecoder().decode([Trip].self, from: data)
-                    //add method the differentiates old trips from new trip
-                    self.trips = self.sortTrips(trips: decodedTrips)
-                    
-                    //print(self.trips)
-                }catch let error{
-                    print(error)
-                }
-            }
-            
+            //print(self.trips)
+        }catch let error{
+            print(error)
         }
-
-        task.resume()
+        
     }
     
-    func getAllTransactionsForTripsWithUser() async throws -> [Transaction]{
+    func getAllTransactionsForTripsWithUser() async throws{
         guard let url = URL(string: "http:localhost:3000/transactions-for-trips-with-user") else{
-            return []
+            return
         }
-        
-        //converts body to json to send in req body
     
         var urlRequest = URLRequest(url: url)
         urlRequest.httpMethod = "POST"
@@ -205,10 +179,13 @@ class EnviormentVariables: ObservableObject{
             
             let decodedTransactions = try JSONDecoder().decode([Transaction].self, from: data)
             //print(sortTransactions(transactions: decodedTransactions))
-            return sortTransactions(transactions: decodedTransactions)
+            await MainActor.run{
+                self.allTransactions = sortTransactions(transactions: decodedTransactions)
+            }
+            
         }catch {
             print(error)
-            return []
+            return
         }
         
     }
@@ -249,7 +226,7 @@ class EnviormentVariables: ObservableObject{
         let jsonTransaction = try JSONEncoder().encode(transaction)
         
         do{
-            let (data, _) = try await URLSession.shared.upload(for: urlRequest, from: jsonTransaction)
+            let (_, _) = try await URLSession.shared.upload(for: urlRequest, from: jsonTransaction)
             
             /*if let resp = String(data: data, encoding: .utf8){
                 print(resp)
@@ -271,7 +248,7 @@ class EnviormentVariables: ObservableObject{
         urlRequest.setValue("application/json", forHTTPHeaderField: "Content-Type")
         urlRequest.httpMethod = "DELETE"
         
-        let (data, _) = try await URLSession.shared.data(for: urlRequest)
+        let (_, _) = try await URLSession.shared.data(for: urlRequest)
         //print(data)
         
         return true
@@ -290,7 +267,7 @@ class EnviormentVariables: ObservableObject{
         let jsonTransaction = try JSONEncoder().encode(transaction)
         
         do{
-            let (data, _) = try await URLSession.shared.upload(for: urlRequest, from: jsonTransaction)
+            let (_, _) = try await URLSession.shared.upload(for: urlRequest, from: jsonTransaction)
             
             /*if let resp = String(data: data, encoding: .utf8){
                 print(resp)
@@ -322,7 +299,7 @@ class EnviormentVariables: ObservableObject{
         let jsonTransaction = try JSONEncoder().encode(trip)
         
         do{
-            let (data, _) = try await URLSession.shared.upload(for: urlRequest, from: jsonTransaction)
+            let (_, _) = try await URLSession.shared.upload(for: urlRequest, from: jsonTransaction)
             
             /*if let resp = String(data: data, encoding: .utf8){
                 print(resp)
@@ -348,7 +325,7 @@ class EnviormentVariables: ObservableObject{
             urlRequest.setValue("application/json", forHTTPHeaderField: "Content-Type")
             urlRequest.httpMethod = "PUT"
             
-            let (data, _) = try await URLSession.shared.data(for: urlRequest)
+            let (_, _) = try await URLSession.shared.data(for: urlRequest)
         }
         
         return true
@@ -363,7 +340,7 @@ class EnviormentVariables: ObservableObject{
         urlRequest.setValue("application/json", forHTTPHeaderField: "Content-Type")
         urlRequest.httpMethod = "DELETE"
         
-        let (data, _) = try await URLSession.shared.data(for: urlRequest)
+        let (_, _) = try await URLSession.shared.data(for: urlRequest)
         
         return true
     }

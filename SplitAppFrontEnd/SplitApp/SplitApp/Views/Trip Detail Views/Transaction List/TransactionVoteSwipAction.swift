@@ -26,7 +26,7 @@ struct TransactionVoteSwipAction: View {
     func updateVotesToDelete(transaction: Transaction) async throws{
         //add notification support here
         
-        var newTransaction: Transaction = transaction
+        let newTransaction: Transaction = transaction
         try await envVar.updateVotesToDelete(transaction: newTransaction)
     }
 

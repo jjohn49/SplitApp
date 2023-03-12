@@ -14,7 +14,7 @@ struct AllTripsView:View{
     var body: some View{
         ScrollView{
             LazyVGrid(columns: twoColumnGrid){
-                ForEach(0..<envVars.trips.count) { x in
+                ForEach(0..<envVars.trips.count, id: \.self) { x in
                     NavigationLink(destination: {
                         TripDetalView(trip: envVars.trips[x])
                     }, label: {

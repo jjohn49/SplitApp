@@ -26,14 +26,12 @@ struct AddTripView:View{
             
             InputUsers(users: $trip.users)
             
-            
-            
             Spacer()
             
             Button(action: {
                 Task{
                     let _ = try await envVar.createTrip(trip: trip)
-                    let _ = envVar.getAllTripsForUser()
+                    let _ = try await envVar.getAllTripsForUser()
                 }
             }, label: {
                 Text("Create Trip").padding().frame(width: 350).foregroundColor(.white).background(.tint)
