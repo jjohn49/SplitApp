@@ -19,24 +19,26 @@ struct TripDetalView:View{
     
     
     var body: some View{
-        VStack {
-            
-            TripDetailBody(totalCost: $totalCost, howMuchYouHaveSpent: $howMuchYouHaveSpent, transactions: $transactions, chartData: $chartData, trip: $trip, isAddTransaction: $addTransactionPopup)
-            
-            
-        }.navigationTitle(trip.name)
-        .onAppear(perform: {
-            envVar.currentTrip = trip
-            Task{
-                try await getVariablesOnAppear()
-            }
-        }).popover(isPresented: $addTransactionPopup, content: {
-            AddTransactionView(trip: trip, popupBool: $addTransactionPopup, transaction: $transactions).onDisappear(perform:{
+        GeometryReader { geo in
+            VStack {
+                
+                TripDetailBody(totalCost: $totalCost, howMuchYouHaveSpent: $howMuchYouHaveSpent, transactions: $transactions, chartData: $chartData, trip: $trip, isAddTransaction: $addTransactionPopup, geo: geo)
+                
+                
+            }.navigationTitle(trip.name)
+            .onAppear(perform: {
+                envVar.currentTrip = trip
                 Task{
-                    try await getVariablesForTripdetailView()
+                    try await getVariablesOnAppear()
                 }
-            })
+            }).popover(isPresented: $addTransactionPopup, content: {
+                AddTransactionView(trip: trip, popupBool: $addTransactionPopup, transaction: $transactions).onDisappear(perform:{
+                    Task{
+                        try await getVariablesForTripdetailView()
+                    }
+                })
         })
+        }
     }
     
     func getVariablesOnAppear() async throws{

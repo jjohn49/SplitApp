@@ -10,6 +10,7 @@ import SwiftUI
 struct VoteToEndTripButton: View{
     @EnvironmentObject var envVar: EnviormentVariables
     @Binding var trip: Trip
+    let geo: GeometryProxy
     var body: some View{
         Button(action: {
             Task{
@@ -26,7 +27,7 @@ struct VoteToEndTripButton: View{
             }
         }, label: {
             Text("Vote to End the Trip").padding()
-        }).frame(width: 350).background(.orange).foregroundColor(Color("wb")).cornerRadius(10)
+        }).frame(width: geo.size.width - 30).background(.orange).foregroundColor(Color("wb")).cornerRadius(10)
     }
 }
 

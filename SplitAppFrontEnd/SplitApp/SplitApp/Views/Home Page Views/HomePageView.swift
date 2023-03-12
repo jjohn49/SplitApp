@@ -17,20 +17,23 @@ struct HomePageView: View {
     var body: some View {
         NavigationView {
             TabView{
-                ActivityView().tabItem({
-                    Image(systemName: "figure.walk")
-                })
-                
-                NavigationView{
-                    TripsView()
+                Group {
+                    ActivityView().tabItem({
+                        Image(systemName: "figure.walk")
+                    })
+                    
+                    
+                    NavigationView{
+                        TripsView()
+                        
+                    }
+                    .tabItem({
+                        Image(systemName: "figure.walk")
+                    })
                     
                 }
-                .tabItem({
-                    Image(systemName: "figure.walk")
-                })
-                
                 //need more tabs here
-            }.onAppear(perform: {
+            }.toolbarBackground(Color("blue"), for: .tabBar).onAppear(perform: {
                 Task {
                     try await envVars.refreshEnvVars()
                 }
