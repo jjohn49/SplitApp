@@ -26,7 +26,7 @@ struct ActivityView: View{
                 
                 Text("You're All Caught Up")
             }.foregroundColor(Color("blue")).refreshable {
-                Task {
+                Task { 
                     try await envVars.refreshEnvVars()
                 }
             }

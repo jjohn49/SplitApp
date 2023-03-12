@@ -22,7 +22,7 @@ struct HomePageView: View {
                 })
                 
                 NavigationView{
-                    AllTripsView(isNewTripPopUp: $f)
+                    TripsView()
                     
                 }
                 .tabItem({

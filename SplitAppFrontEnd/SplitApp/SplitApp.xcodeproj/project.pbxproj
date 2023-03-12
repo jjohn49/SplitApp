@@ -147,6 +147,46 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1E422BBC29BE5359009C6804 /* Trip Views */ = {
+			isa = PBXGroup;
+			children = (
+				1EBA8F352967A21F00F7C579 /* TripRow.swift */,
+				1EBA8F222967A05000F7C579 /* TripsView.swift */,
+				1EBA8F242967A08C00F7C579 /* AllTripsView.swift */,
+				1EBA8F282967A0D700F7C579 /* AddTripView.swift */,
+			);
+			path = "Trip Views";
+			sourceTree = "<group>";
+		};
+		1E422BBD29BE5383009C6804 /* Activity Views */ = {
+			isa = PBXGroup;
+			children = (
+				1EFE78AD29B2BBCE004E351D /* ActivityView.swift */,
+			);
+			path = "Activity Views";
+			sourceTree = "<group>";
+		};
+		1E422BBE29BE53C8009C6804 /* Trip Cost Views */ = {
+			isa = PBXGroup;
+			children = (
+				1EBA8F472967A3AC00F7C579 /* OverallCostView.swift */,
+				1EBA8F3F2967A30A00F7C579 /* MoneySpentView.swift */,
+				1EBA8F452967A37500F7C579 /* ChartView.swift */,
+			);
+			path = "Trip Cost Views";
+			sourceTree = "<group>";
+		};
+		1E422BBF29BE53E2009C6804 /* Transaction List */ = {
+			isa = PBXGroup;
+			children = (
+				1EBA8F432967A35600F7C579 /* TransactionRow.swift */,
+				1EBA8F502967A66100F7C579 /* ListOfTransactions.swift */,
+				1EAC3733296F540200C3D99B /* TransactionVoteSwipAction.swift */,
+				1EAC3735296F5AB300C3D99B /* DeleteTransactionSwipeAction.swift */,
+			);
+			path = "Transaction List";
+			sourceTree = "<group>";
+		};
 		1E49C45729835D8A009D0BA3 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
@@ -168,15 +208,10 @@
 		1EBA8F212967A02100F7C579 /* Home Page Views */ = {
 			isa = PBXGroup;
 			children = (
-				1EFE78AD29B2BBCE004E351D /* ActivityView.swift */,
-				1EBA8F2A2967A11D00F7C579 /* Input Data Views */,
 				1E2CEE2E28FB83B1006218D7 /* HomePageView.swift */,
-				1EBA8F222967A05000F7C579 /* TripsView.swift */,
-				1EBA8F242967A08C00F7C579 /* AllTripsView.swift */,
-				1EBA8F262967A0AC00F7C579 /* TripsScrollView.swift */,
-				1EBA8F282967A0D700F7C579 /* AddTripView.swift */,
-				1EBA8F332967A1D500F7C579 /* HorizontalTrips.swift */,
-				1EBA8F352967A21F00F7C579 /* TripRow.swift */,
+				1E422BBD29BE5383009C6804 /* Activity Views */,
+				1EBA8F2A2967A11D00F7C579 /* Input Data Views */,
+				1E422BBC29BE5359009C6804 /* Trip Views */,
 			);
 			path = "Home Page Views";
 			sourceTree = "<group>";
@@ -207,16 +242,11 @@
 			isa = PBXGroup;
 			children = (
 				1EBD423D2917054700F512D7 /* TripDetailViews.swift */,
-				1EBA8F3F2967A30A00F7C579 /* MoneySpentView.swift */,
+				1E422BBE29BE53C8009C6804 /* Trip Cost Views */,
 				1EBA8F412967A32C00F7C579 /* AddTransactionView.swift */,
-				1EBA8F432967A35600F7C579 /* TransactionRow.swift */,
-				1EBA8F452967A37500F7C579 /* ChartView.swift */,
-				1EBA8F472967A3AC00F7C579 /* OverallCostView.swift */,
-				1EBA8F502967A66100F7C579 /* ListOfTransactions.swift */,
+				1E422BBF29BE53E2009C6804 /* Transaction List */,
 				1EBA8F522967AF5A00F7C579 /* MostRecentTransactions.swift */,
 				1E4365B0296DB2AD004C97CC /* TransactionDetail.swift */,
-				1EAC3733296F540200C3D99B /* TransactionVoteSwipAction.swift */,
-				1EAC3735296F5AB300C3D99B /* DeleteTransactionSwipeAction.swift */,
 				1E3863DB2970BE3C00C14505 /* TripDetailBody.swift */,
 				1E49C46329835E53009D0BA3 /* TripSummary.swift */,
 				1E4652AE29897BC50041FAB2 /* VoteToEndTripButton.swift */,
@@ -308,7 +338,9 @@
 		1EFE78AC29B2B146004E351D /* Experimental */ = {
 			isa = PBXGroup;
 			children = (
+				1EBA8F262967A0AC00F7C579 /* TripsScrollView.swift */,
 				1E23F0972989F5B60014E55C /* PlainHomeView.swift */,
+				1EBA8F332967A1D500F7C579 /* HorizontalTrips.swift */,
 			);
 			path = Experimental;
 			sourceTree = "<group>";

@@ -9,6 +9,7 @@ import Foundation
 
 //Enviorment Object that contains all the methods I want to carry over and use in multiple views
 //Possibly rename this and or split it up into different classes for readability
+@MainActor
 class EnviormentVariables: ObservableObject{
     @Published var username: String = "jjohns49"
     //Use this for password verification
@@ -30,7 +31,13 @@ class EnviormentVariables: ObservableObject{
     
     func refreshEnvVars() async throws{
         getAllTripsForUser()
-        self.allTransactions = try await self.getAllTransactionsForTripsWithUser()
+        
+        var temp =  try await self.getAllTransactionsForTripsWithUser()
+        
+        await MainActor.run{
+            self.allTransactions = temp
+        }
+            
     }
     
     
