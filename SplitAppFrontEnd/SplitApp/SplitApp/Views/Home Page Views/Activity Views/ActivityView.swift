@@ -14,20 +14,15 @@ struct ActivityView: View{
     var body: some View{
         GeometryReader { geo in
             ScrollView{
-                ZStack {
-                    Rectangle().background(Color("blue"))
-                    HStack{
-                        Text("Activity").font(.largeTitle).bold()
-                        Spacer()
-                        Image(systemName: "person.crop.circle").font(.largeTitle).bold()
-                    }.padding().foregroundColor(.white)
-                }
+                
+                ActivityHeader(geo: geo).padding()
                 
                 ForEach($envVars.allTransactions){ $transaction in
                     ActivityTransactionRow(transaction: $transaction, width: geo.size.width * 0.9, height: geo.size.height * 0.15)
                 }
                 
                 Text("You're All Caught Up")
+                
             }.foregroundColor(Color("blue")).refreshable {
                 Task {
                     
@@ -35,6 +30,20 @@ struct ActivityView: View{
                 }
             }
         }
+        
+    }
+}
+
+struct ActivityHeader:View{
+    let geo: GeometryProxy
+    var body: some View{
+        HStack{
+            Text("Activity").font(.largeTitle).bold().overlay(content: {
+                RoundedRectangle(cornerRadius: 15).stroke(lineWidth: 4)
+            })
+            Spacer()
+            Image(systemName: "person.crop.circle").font(.largeTitle).bold()
+        }.frame(height: 100).foregroundColor(Color("blue"))
     }
 }
 
