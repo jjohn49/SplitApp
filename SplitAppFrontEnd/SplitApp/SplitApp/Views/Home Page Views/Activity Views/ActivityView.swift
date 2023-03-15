@@ -23,7 +23,7 @@ struct ActivityView: View{
                 
                 Text("You're All Caught Up")
                 
-            }.foregroundColor(Color("blue")).refreshable {
+            }.refreshable {
                 Task {
                     
                     try await envVars.refreshEnvVars()
@@ -38,12 +38,13 @@ struct ActivityHeader:View{
     let geo: GeometryProxy
     var body: some View{
         HStack{
-            Text("Activity").font(.largeTitle).bold().overlay(content: {
-                RoundedRectangle(cornerRadius: 15).stroke(lineWidth: 4)
-            })
+            ZStack{
+                RoundedRectangle(cornerRadius: 15).foregroundColor(Color("blue"))
+                Text("Activity").font(.largeTitle).bold().padding()
+            }
             Spacer()
-            Image(systemName: "person.crop.circle").font(.largeTitle).bold()
-        }.frame(height: 100).foregroundColor(Color("blue"))
+            Image(systemName: "person.crop.circle").font(.largeTitle).bold().frame(width: 100,height: 100)
+        }.frame(height: 100)
     }
 }
 
