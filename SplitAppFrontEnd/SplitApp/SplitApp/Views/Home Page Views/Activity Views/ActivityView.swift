@@ -14,11 +14,14 @@ struct ActivityView: View{
     var body: some View{
         GeometryReader { geo in
             ScrollView{
-                HStack{
-                    Text("Activity").font(.largeTitle).bold()
-                    Spacer()
-                    Image(systemName: "person.crop.circle").font(.largeTitle).bold()
-                }.padding()
+                ZStack {
+                    Rectangle().background(Color("blue"))
+                    HStack{
+                        Text("Activity").font(.largeTitle).bold()
+                        Spacer()
+                        Image(systemName: "person.crop.circle").font(.largeTitle).bold()
+                    }.padding().foregroundColor(.white)
+                }
                 
                 ForEach($envVars.allTransactions){ $transaction in
                     ActivityTransactionRow(transaction: $transaction, width: geo.size.width * 0.9, height: geo.size.height * 0.15)
