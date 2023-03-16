@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const { ObjectID } = require('mongoose/node_modules/mongodb');
 
 //Schema for the trips
 const TripSchema = new mongoose.Schema({
@@ -84,6 +85,12 @@ const UserSchema = new mongoose.Schema({
 })
 
 const User = mongoose.model("User", UserSchema);
+
+const ActivitySchema = new mongoose.Schema({
+    type: String,
+    idOfActivity: mongoose.Schema.Types.Mixed,
+    Date: Date
+});
 
 module.exports = {
     Trip,
