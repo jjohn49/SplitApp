@@ -21,7 +21,7 @@ struct InputUsers: View{
                         ForEach(users, id: \.self){ u in
                             HStack{
                                 Text(u)
-                                if u != envVars.username{
+                                if u != envVars.currentUser._id{
                                     Button(action: {
                                         users.remove(at: users.firstIndex(of: u)!)
                                     }, label: {

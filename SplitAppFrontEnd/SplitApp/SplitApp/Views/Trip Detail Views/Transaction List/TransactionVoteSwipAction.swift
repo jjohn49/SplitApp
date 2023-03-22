@@ -13,9 +13,9 @@ struct TransactionVoteSwipAction: View {
     var body: some View {
         Button(didUserVoteToDelete(transaction: transaction) ? "Vote to keep": "Vote To Delete", action: {
             if didUserVoteToDelete(transaction: transaction) {
-                transaction.votesToDelete.remove(at: transaction.votesToDelete.firstIndex(of: envVar.username)!)
+                transaction.votesToDelete.remove(at: transaction.votesToDelete.firstIndex(of: envVar.currentUser._id)!)
             } else{
-                transaction.votesToDelete.append(envVar.username)
+                transaction.votesToDelete.append(envVar.currentUser._id)
             }
             Task{
                 try await updateVotesToDelete(transaction: transaction)
@@ -31,7 +31,7 @@ struct TransactionVoteSwipAction: View {
     }
 
     func didUserVoteToDelete(transaction: Transaction) -> Bool{
-        return transaction.votesToDelete.contains(envVar.username)
+        return transaction.votesToDelete.contains(envVar.currentUser._id)
     }
 }
 

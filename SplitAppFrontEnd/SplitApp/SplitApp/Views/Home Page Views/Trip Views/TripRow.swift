@@ -15,6 +15,6 @@ struct TripRow: View{
     var body: some View{
         VStack{
             Text(trip.name).bold().font(.title).frame(alignment: .leading)
-        }.frame(width:width,height: height).background(LinearGradient(colors: [Color("purple"), Color("blue")], startPoint: .bottomLeading, endPoint: .topTrailing)).foregroundColor(Color("wb"))
+        }.frame(width:width,height: height).background(Color("blue")).foregroundColor(Color("wb"))
     }
 }

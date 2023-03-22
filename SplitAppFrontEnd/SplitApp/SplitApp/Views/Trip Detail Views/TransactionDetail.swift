@@ -13,15 +13,15 @@ struct TransactionDetail: View {
     var body: some View {
         VStack{
             Text("Made by: \(transaction.userId)").font(.title3).bold()
-            Text("Date of Transaction: \(transaction.date)").font(.title3).bold()
-            Text("Cost: $\(transaction.cost)").font(.title3).bold()
-            if transaction.description != nil{
+            Text(envVar.strToDateToStr(strDate: transaction.date)).font(.title3).bold()
+            Text(transaction.cost, format: .currency(code: "USD")).font(.title3).bold()
+            if transaction.description != "" && transaction.description != nil{
                 Text("Description: ")
                 Text(transaction.description!)
             }
             
             isOnlyOnePerson() ? AnyView(DeleteTreansactionButton(transaction: $transaction)) : AnyView(TransactionVoteSwipAction(transaction: $transaction))
-        }.navigationTitle("Transaction: \(transaction.id)")
+        }.navigationTitle("\(transaction.name)")
     }
     
     func isOnlyOnePerson() -> Bool{
@@ -39,7 +39,7 @@ struct DeleteTreansactionButton: View{
             Task{
                try await deleteTransactionRow(transaction: transaction)
             }
-        }).tint(.red)
+        })
     }
     
     func deleteTransactionRow(transaction: Transaction) async throws{

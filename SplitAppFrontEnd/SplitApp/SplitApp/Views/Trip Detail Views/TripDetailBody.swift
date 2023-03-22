@@ -17,10 +17,10 @@ struct TripDetailBody: View{
     let geo: GeometryProxy
     var body: some View{
         ScrollView{
-            OverallCostView(totalCost: totalCost, howMuchYouHaveSpent: howMuchYouHaveSpent, transactions: $transactions, chartData: $chartData, trip: trip).frame(width: geo.size.width - 30, height: geo.size.height - 400, alignment: .center).background(Color("m")).cornerRadius(10).padding()
+            OverallCostView(totalCost: totalCost, howMuchYouHaveSpent: howMuchYouHaveSpent, transactions: $transactions, chartData: $chartData, trip: trip).frame(width: geo.size.width - 30, height: geo.size.height - 400, alignment: .center).background(Color("AccentFaded")).cornerRadius(10).padding()
             //Text("Transactions").font(.title).bold()
             Text("Transactions").font(.title2).bold().underline().frame(alignment: .leading)
-            MostRecentTransactions(transactions: $transactions).padding().frame(width: geo.size.width - 30, height: geo.size.height - 450).background(Color("m")).cornerRadius(10)
+            MostRecentTransactions(transactions: $transactions).padding().frame(width: geo.size.width - 30, height: geo.size.height - 450).background(Color("AccentFaded")).cornerRadius(10)
             
             Button(action: {
                 DispatchQueue.main.async {

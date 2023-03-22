@@ -11,12 +11,16 @@ import Foundation
 //Possibly rename this and or split it up into different classes for readability
 @MainActor
 class EnviormentVariables: ObservableObject{
+    
+    @Published var currentUser: Users = Users(_id: "jjohns49", password: "password", fName: "Jack", lName: "Johnston", email: "test@test.com")
+    
+    /*
     @Published var username: String = "jjohns49"
     //Use this for password verification
     //@Published var jsToken = null
     @Published var fName: String = ""
     @Published var lName: String = ""
-    @Published var email: String = ""
+    @Published var email: String = ""*/
     //this is for when I am working on account authorization
     //Think about maybe using JSON Web Token instead
     @Published var isSignedIn: Bool = false
@@ -43,7 +47,7 @@ class EnviormentVariables: ObservableObject{
     func getHowMuchYouveSpent(transactions:[Transaction]) ->Double{
         var cost: Double = 0.00
         transactions.forEach({x in
-            if x.userId == self.username{
+            if x.userId == self.currentUser._id{
                 cost += x.cost
             }
         })
@@ -120,7 +124,7 @@ class EnviormentVariables: ObservableObject{
     
     //this works just need to wait for user
     func getAllTripsForUser() async throws{
-        let userId = self.username
+        let userId = self.currentUser._id
         
         guard let url = URL(string: "http:localhost:3000/trips-for-user") else{
             return
@@ -169,7 +173,7 @@ class EnviormentVariables: ObservableObject{
         urlRequest.addValue("application/json", forHTTPHeaderField: "Content-Type")
         
         let usernamePreJson = [
-            "userId" : username
+            "userId" : currentUser._id
         ]
         
         let jsonUsername = try JSONEncoder().encode(usernamePreJson)

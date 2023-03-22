@@ -37,7 +37,7 @@ struct AddTripView:View{
                 Text("Create Trip").padding().frame(width: 350).foregroundColor(.white).background(.tint)
             }).cornerRadius(10)
         }.onAppear(perform: {
-            trip.users.append(envVar.username)
+            trip.users.append(envVar.currentUser._id)
         })
     }
 }

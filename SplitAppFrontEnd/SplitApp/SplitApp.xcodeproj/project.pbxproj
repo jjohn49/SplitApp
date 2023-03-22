@@ -52,6 +52,8 @@
 		1EE7C49A28F6571F00688388 /* SplitAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EE7C49928F6571F00688388 /* SplitAppUITests.swift */; };
 		1EE7C49C28F6571F00688388 /* SplitAppUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EE7C49B28F6571F00688388 /* SplitAppUITestsLaunchTests.swift */; };
 		1EFE78AE29B2BBCE004E351D /* ActivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EFE78AD29B2BBCE004E351D /* ActivityView.swift */; };
+		1EFF0CA729C6525D007AEF32 /* InputNewTransactionTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EFF0CA629C6525D007AEF32 /* InputNewTransactionTitle.swift */; };
+		1EFF0CAA29C652FB007AEF32 /* NewTransactionCostTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EFF0CA929C652FB007AEF32 /* NewTransactionCostTextView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -120,6 +122,8 @@
 		1EE7C49928F6571F00688388 /* SplitAppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplitAppUITests.swift; sourceTree = "<group>"; };
 		1EE7C49B28F6571F00688388 /* SplitAppUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplitAppUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		1EFE78AD29B2BBCE004E351D /* ActivityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityView.swift; sourceTree = "<group>"; };
+		1EFF0CA629C6525D007AEF32 /* InputNewTransactionTitle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputNewTransactionTitle.swift; sourceTree = "<group>"; };
+		1EFF0CA929C652FB007AEF32 /* NewTransactionCostTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTransactionCostTextView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -243,7 +247,7 @@
 			children = (
 				1EBD423D2917054700F512D7 /* TripDetailViews.swift */,
 				1E422BBE29BE53C8009C6804 /* Trip Cost Views */,
-				1EBA8F412967A32C00F7C579 /* AddTransactionView.swift */,
+				1EFF0CA829C652D1007AEF32 /* AddTransaction */,
 				1E422BBF29BE53E2009C6804 /* Transaction List */,
 				1EBA8F522967AF5A00F7C579 /* MostRecentTransactions.swift */,
 				1E4365B0296DB2AD004C97CC /* TransactionDetail.swift */,
@@ -343,6 +347,16 @@
 				1EBA8F332967A1D500F7C579 /* HorizontalTrips.swift */,
 			);
 			path = Experimental;
+			sourceTree = "<group>";
+		};
+		1EFF0CA829C652D1007AEF32 /* AddTransaction */ = {
+			isa = PBXGroup;
+			children = (
+				1EBA8F412967A32C00F7C579 /* AddTransactionView.swift */,
+				1EFF0CA629C6525D007AEF32 /* InputNewTransactionTitle.swift */,
+				1EFF0CA929C652FB007AEF32 /* NewTransactionCostTextView.swift */,
+			);
+			path = AddTransaction;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -481,6 +495,7 @@
 				1E4652AF29897BC50041FAB2 /* VoteToEndTripButton.swift in Sources */,
 				1E1B030228FB245A00C61588 /* SignInPages.swift in Sources */,
 				1E4365B1296DB2AD004C97CC /* TransactionDetail.swift in Sources */,
+				1EFF0CA729C6525D007AEF32 /* InputNewTransactionTitle.swift in Sources */,
 				1E49C46029835DD8009D0BA3 /* Trip.swift in Sources */,
 				1EE7C48128F6571E00688388 /* AppView.swift in Sources */,
 				1E49C45C29835DB6009D0BA3 /* Transaction.swift in Sources */,
@@ -492,6 +507,7 @@
 				1EAC3734296F540200C3D99B /* TransactionVoteSwipAction.swift in Sources */,
 				1EBA8F442967A35600F7C579 /* TransactionRow.swift in Sources */,
 				1EBA8F482967A3AC00F7C579 /* OverallCostView.swift in Sources */,
+				1EFF0CAA29C652FB007AEF32 /* NewTransactionCostTextView.swift in Sources */,
 				1EBA8F3D2967A2BD00F7C579 /* CustomTextField.swift in Sources */,
 				1E1B030028FB164E00C61588 /* EnviormentVariables.swift in Sources */,
 				1EBA8F532967AF5A00F7C579 /* MostRecentTransactions.swift in Sources */,

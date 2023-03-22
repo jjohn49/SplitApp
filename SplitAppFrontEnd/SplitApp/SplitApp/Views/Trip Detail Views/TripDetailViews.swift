@@ -31,12 +31,12 @@ struct TripDetalView:View{
                 Task{
                     try await getVariablesOnAppear()
                 }
-            }).popover(isPresented: $addTransactionPopup, content: {
+            }).sheet(isPresented: $addTransactionPopup, content: {
                 AddTransactionView(trip: trip, popupBool: $addTransactionPopup, transaction: $transactions).onDisappear(perform:{
                     Task{
                         try await getVariablesForTripdetailView()
                     }
-                })
+                }).presentationDetents([.medium,.large])
         })
         }
     }

@@ -14,8 +14,8 @@ struct VoteToEndTripButton: View{
     var body: some View{
         Button(action: {
             Task{
-                if !trip.votesToEndTrip.contains(envVar.username){
-                    trip.votesToEndTrip.append(envVar.username)
+                if !trip.votesToEndTrip.contains(envVar.currentUser._id){
+                    trip.votesToEndTrip.append(envVar.currentUser._id)
                     _ = try await envVar.updateVotesToDeleteTrip(trip: trip)
                 }
                 
